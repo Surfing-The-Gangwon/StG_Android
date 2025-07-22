@@ -21,6 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "SurfingTheKangwon"
 include(":app")
-include(":data")
-include(":presentation")
-include(":domain")
+include(":presentation:main")
+include(":presentation:together")
+include(":data:together")
+include(":domain:together")
