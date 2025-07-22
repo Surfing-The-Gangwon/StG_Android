@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.capstone.surfingthegangwon.presentation.together"
+    namespace = "com.capstone.surfingthegangwon.core.resource"
     compileSdk = 35
 
     defaultConfig {
@@ -30,13 +30,10 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
-    implementation(project(":core:resource"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
