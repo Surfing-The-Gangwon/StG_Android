@@ -10,7 +10,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.capstone.surfingthekangwon"
+        applicationId = "com.capstone.surfingthegangwon"
         minSdk = 28
         targetSdk = 35
         versionCode = 1
@@ -38,6 +38,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":presentation:main"))
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.core.ktx)

@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SurfingTheKangwon"
+rootProject.name = "SurfingTheGangwon"
 include(":app")
 include(":presentation:main")
 include(":presentation:together")
