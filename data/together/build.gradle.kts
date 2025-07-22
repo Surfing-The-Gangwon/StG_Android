@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.capstone.surfingthekangwon.data.together"
+    namespace = "com.capstone.surfingthegangwon.data.together"
     compileSdk = 35
 
     defaultConfig {

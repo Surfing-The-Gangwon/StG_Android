@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.capstone.surfingthekangwon"
+    namespace = "com.capstone.surfingthegangwon"
     compileSdk = 35
 
     defaultConfig {
