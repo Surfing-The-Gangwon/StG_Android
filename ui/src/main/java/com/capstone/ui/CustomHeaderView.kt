@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.capstone.ui.databinding.HeaderBinding
+import com.google.android.material.tabs.TabLayout
 
 class CustomHeaderView @JvmOverloads constructor(
     context: Context,
@@ -13,6 +14,11 @@ class CustomHeaderView @JvmOverloads constructor(
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     private val binding = HeaderBinding.inflate(LayoutInflater.from(context), this, true)
+    private var tabSelectedListener: OnTabSelectedListener? = null
+
+    interface OnTabSelectedListener {
+        fun onTabSelected(position: Int)
+    }
 
     fun setScreenTitle(title: String) {
         binding.tvScreenTitle.text = title
@@ -24,5 +30,20 @@ class CustomHeaderView @JvmOverloads constructor(
         tabItems.forEach { beachName ->
             tabLayout.addTab(tabLayout.newTab().setText(beachName))
         }
+    }
+
+    fun setOnTabSelectedListener(listener: OnTabSelectedListener) {
+        tabSelectedListener = listener
+
+        binding.beachTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                tab.let {
+                    tabSelectedListener?.onTabSelected(it.position)
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
     }
 }
