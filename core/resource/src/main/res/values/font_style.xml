@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 작은 로고 -->
+    <style name="LogoTitleSmall">
+        <item name="android:fontFamily">@font/exo_light</item>
+        <item name="android:textSize">15.12sp</item>
+    </style>
+
+    <!-- 타이틀 -->
+    <style name="Title">
+        <item name="android:fontFamily">@font/pretendard_semibold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <!-- 본문 타이틀 -->
+    <style name="TextTitle">
+        <item name="android:fontFamily">@font/pretendard_bold</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <!-- 본문 -->
+    <style name="TextBody">
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+</resources>
