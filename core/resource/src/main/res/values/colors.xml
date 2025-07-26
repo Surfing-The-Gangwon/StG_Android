@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gray_200">#E4E4E7</color>
+    <color name="blue_700">#004493</color>
+    <color name="navi_selected">#004493</color>
+    <color name="navi_unselected">#71717A</color>
+</resources>

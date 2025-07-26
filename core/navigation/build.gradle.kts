@@ -1,22 +1,17 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
-    alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "com.capstone.surfingthegangwon"
+    namespace = "com.capstone.surfingthegangwon.core.navigation"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.capstone.surfingthegangwon"
         minSdk = 28
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -38,15 +33,12 @@ android {
 }
 
 dependencies {
-    implementation(project(":presentation:together"))
-    implementation(project(":presentation:main"))
-    implementation(libs.hilt)
-    kapt(libs.hilt.compiler)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
