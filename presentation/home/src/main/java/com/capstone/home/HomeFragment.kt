@@ -1,20 +1,23 @@
-package com.capstone.surfingthegangwon.presentation.together
+package com.capstone.home
 
+import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.capstone.surfingthegangwon.presentation.together.databinding.FragmentTogetherBinding
+import com.capstone.home.databinding.FragmentHomeBinding
 
-class TogetherFragment : Fragment() {
-    private lateinit var binding: FragmentTogetherBinding
+class HomeFragment : Fragment() {
+
+    private lateinit var binding: FragmentHomeBinding
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentTogetherBinding.inflate(inflater, container, false)
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
