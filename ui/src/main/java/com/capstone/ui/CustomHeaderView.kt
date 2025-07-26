@@ -18,7 +18,7 @@ class CustomHeaderView @JvmOverloads constructor(
         binding.tvScreenTitle.text = title
     }
 
-    fun setBeachTabItem(tabItems: List<String> = listOf("양양", "고성", "속초", "강릉", "삼척")) {
+    fun setBeachTabItem(tabItems: List<String> = listOf("양양", "고성", "속초", "강릉")) {
         val tabLayout = binding.beachTabLayout
 
         tabItems.forEach { beachName ->

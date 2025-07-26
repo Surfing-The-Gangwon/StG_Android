@@ -25,9 +25,7 @@ class TogetherFragment : Fragment() {
     }
 
     private fun setHeaderView() {
-        val beachMenu = listOf("강릉", "양양", "고성", "속초")
-
-        binding.headerView.setScreenTitle("파도정보")
-        binding.headerView.setBeachTabItem(beachMenu)
+        binding.headerView.setBeachTabItem()
+        binding.headerView.setScreenTitle("같이타기")
     }
 }
