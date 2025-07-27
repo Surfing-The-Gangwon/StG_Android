@@ -1,5 +1,6 @@
 package com.capstone.surfingthegangwon.presentation.together
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +9,12 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.capstone.surfingthegangwon.presentation.together.databinding.ItemWeekDayBinding
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Locale
+import com.capstone.surfingthegangwon.core.resource.R as CoreRes
 
 
 class WeekAdapter(private val onDateClick: (LocalDate) -> Unit) :
@@ -22,58 +25,52 @@ class WeekAdapter(private val onDateClick: (LocalDate) -> Unit) :
         override fun areContentsTheSame(oldItem: LocalDate, newItem: LocalDate) = oldItem == newItem
     }
 
-    inner class DateViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvDay = view.findViewById<TextView>(R.id.day)
-        val tvDate = view.findViewById<TextView>(R.id.date)
+    inner class DateViewHolder(
+        private val binding: ItemWeekDayBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
-        init {
-            view.setOnClickListener {
+        fun bind(date: LocalDate) = with(binding) {
+            tvDay.text = date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN)
+            tvDate.text = date.dayOfMonth.toString()
+
+            val context = root.context
+            val red = ContextCompat.getColor(context, CoreRes.color.sunday)
+            val blue = ContextCompat.getColor(context, CoreRes.color.saturday)
+            val defaultColor = Color.BLACK
+
+            when (date.dayOfWeek) {
+                DayOfWeek.SUNDAY -> {
+                    tvDay.setTextColor(red)
+                    tvDate.setTextColor(red)
+                }
+
+                DayOfWeek.SATURDAY -> {
+                    tvDay.setTextColor(blue)
+                    tvDate.setTextColor(blue)
+                }
+
+                else -> {
+                    tvDay.setTextColor(defaultColor)
+                    tvDate.setTextColor(defaultColor)
+                }
+            }
+
+            root.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    val clickedDate = getItem(position)
-                    onDateClick(clickedDate)
+                    onDateClick(getItem(position))
                 }
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DateViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_week_day, parent, false)
-        return DateViewHolder(view)
+        val binding = ItemWeekDayBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return DateViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: DateViewHolder, position: Int) {
-        val date = getItem(position)
-        holder.tvDay.text = date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN)
-        holder.tvDate.text = date.dayOfMonth.toString()
-
-        val context = holder.itemView.context
-        val red = ContextCompat.getColor(
-            context,
-            com.capstone.surfingthegangwon.core.resource.R.color.sunday
-        )
-        val blue = ContextCompat.getColor(
-            context,
-            com.capstone.surfingthegangwon.core.resource.R.color.saturday
-        )
-        val defaultColor = ContextCompat.getColor(context, android.R.color.black)
-
-        when (date.dayOfWeek) {
-            DayOfWeek.SUNDAY -> {
-                holder.tvDay.setTextColor(red)
-                holder.tvDate.setTextColor(red)
-            }
-
-            DayOfWeek.SATURDAY -> {
-                holder.tvDay.setTextColor(blue)
-                holder.tvDate.setTextColor(blue)
-            }
-
-            else -> {
-                holder.tvDay.setTextColor(defaultColor)
-                holder.tvDate.setTextColor(defaultColor)
-            }
-        }
+        holder.bind(getItem(position))
     }
 }
+

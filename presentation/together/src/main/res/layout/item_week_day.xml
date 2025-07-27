@@ -11,7 +11,7 @@
     android:padding="4dp">
 
     <TextView
-        android:id="@+id/day"
+        android:id="@+id/tvDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/pretendard_regular"
@@ -20,7 +20,7 @@
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/pretendard_regular"

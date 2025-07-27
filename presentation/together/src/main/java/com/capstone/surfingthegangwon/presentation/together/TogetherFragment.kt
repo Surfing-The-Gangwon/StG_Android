@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import java.time.DayOfWeek
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.surfingthegangwon.core.ui.CustomHeaderView
 import com.capstone.surfingthegangwon.presentation.together.databinding.FragmentTogetherBinding
@@ -19,9 +20,9 @@ import java.time.LocalDate
 class TogetherFragment : Fragment() {
     private lateinit var binding: FragmentTogetherBinding
 
-    private lateinit var calenderWeek: RecyclerView
     private lateinit var weekTitle: TextView
     private lateinit var weekAdapter: WeekAdapter
+    private lateinit var areaAdapter: AreaAdapter
 
     private var baseDate: LocalDate = LocalDate.now()
 
@@ -61,14 +62,28 @@ class TogetherFragment : Fragment() {
      * 리사이클러뷰를 세팅하는 메소드
      */
     private fun setRecyclerViews() {
+        setAreaRcv()
         setCalenderRcv()
+    }
+
+    /**
+     * 지역 리스트 리사이클러뷰를 세팅하는 메소드
+     */
+    private fun setAreaRcv() {
+        val areaList = binding.recyclerArea
+
+        val dummy_areas = listOf("죽도해변A", "죽도해변B", "죽도해변C", "죽도해변D")
+
+        areaAdapter = AreaAdapter(dummy_areas)
+        areaList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        areaList.adapter = areaAdapter
     }
 
     /**
      * 주간 캘린더를 세팅하는 메소드
      */
     private fun setCalenderRcv() {
-        calenderWeek = binding.recyclerWeek
+        val calenderWeek = binding.recyclerWeek
         weekTitle = binding.weekTitle
 
         weekAdapter = WeekAdapter { clickedDate ->
