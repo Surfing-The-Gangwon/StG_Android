@@ -36,6 +36,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":presentation:home"))
+    implementation(project(":presentation:together"))
     implementation(project(":core:navigation"))
     implementation(project(":core:resource"))
     implementation(libs.androidx.core.ktx)
@@ -44,6 +46,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

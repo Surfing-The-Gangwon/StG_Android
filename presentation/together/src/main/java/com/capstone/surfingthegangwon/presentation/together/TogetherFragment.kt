@@ -2,12 +2,12 @@ package com.capstone.surfingthegangwon.presentation.together
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.capstone.surfingthegangwon.core.ui.CustomHeaderView
 import com.capstone.surfingthegangwon.presentation.together.databinding.FragmentTogetherBinding
-import com.capstone.ui.CustomHeaderView
 
 class TogetherFragment : Fragment() {
     private lateinit var binding: FragmentTogetherBinding

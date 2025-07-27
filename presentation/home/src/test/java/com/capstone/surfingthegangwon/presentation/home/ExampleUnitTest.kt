@@ -1,4 +1,4 @@
-package com.capstone.surfingthegangwon.presentation.main
+package com.capstone.surfingthegangwon.presentation.home
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

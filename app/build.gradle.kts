@@ -38,7 +38,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":presentation:together"))
     implementation(project(":presentation:main"))
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)

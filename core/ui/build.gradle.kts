@@ -1,11 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.navigation.safe.args)
 }
 
 android {
-    namespace = "com.capstone.surfingthegangwon.presentation.together"
+    namespace = "com.capstone.surfingthegangwon.core.ui"
     compileSdk = 35
 
     defaultConfig {
@@ -37,11 +36,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:ui"))
-    implementation(project(":core:navigation"))
     implementation(project(":core:resource"))
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
