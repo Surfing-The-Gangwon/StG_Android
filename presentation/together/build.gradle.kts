@@ -40,6 +40,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
     implementation(project(":core:resource"))
+    implementation(project(":domain:together"))
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.core.ktx)

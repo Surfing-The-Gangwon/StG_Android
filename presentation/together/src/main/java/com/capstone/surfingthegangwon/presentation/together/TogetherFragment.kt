@@ -9,8 +9,9 @@ import java.time.DayOfWeek
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.capstone.surfingthegangwon.core.ui.CustomHeaderView
+import com.capstone.surfingthegangwon.domain.together.model.Grade
+import com.capstone.surfingthegangwon.domain.together.model.SessionListItem
 import com.capstone.surfingthegangwon.presentation.together.databinding.FragmentTogetherBinding
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -23,6 +24,7 @@ class TogetherFragment : Fragment() {
     private lateinit var weekTitle: TextView
     private lateinit var weekAdapter: WeekAdapter
     private lateinit var areaAdapter: AreaAdapter
+    private lateinit var sessionAdapter: SessionAdapter
 
     private var baseDate: LocalDate = LocalDate.now()
 
@@ -64,16 +66,62 @@ class TogetherFragment : Fragment() {
     private fun setRecyclerViews() {
         setAreaRcv()
         setCalenderRcv()
+        setSessionsRcv()
+    }
+
+    /**
+     * 세션 리스트 리사이클러뷰를 세팅하는 메소드
+     */
+    private fun setSessionsRcv() {
+        sessionAdapter = SessionAdapter()
+        binding.recyclerSession.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = sessionAdapter
+        }
+        loadDummySessions()
+    }
+
+    private fun loadDummySessions() {
+        val dummySessions = listOf(
+            SessionListItem.Header(
+                beachName = "죽도해변 A",
+                temperature = "기온 15C 수온 21.3C",
+                wave = "0.69M - 4.49S",
+                wind = "W 8.6 m/h"
+            ),
+            SessionListItem.Content(
+                title = "약한 파도로 함께 입문해봐요!",
+                sessionTime = "세션 시간",
+                time = "14:00",
+                participants = "3/5",
+                grade = Grade.from("초급")
+            ),
+            SessionListItem.Content(
+                title = "조금 더 도전해볼까?",
+                sessionTime = "세션 시간",
+                time = "16:00",
+                participants = "4/6",
+                grade = Grade.from("중급")
+            ),
+            SessionListItem.Content(
+                title = "조금 더 도전해볼까?",
+                sessionTime = "세션 시간",
+                time = "16:00",
+                participants = "4/6",
+                grade = Grade.from("고급")
+            )
+        )
+
+        sessionAdapter.submitList(dummySessions)
     }
 
     /**
      * 지역 리스트 리사이클러뷰를 세팅하는 메소드
      */
     private fun setAreaRcv() {
-        val areaList = binding.recyclerArea
-
         val dummy_areas = listOf("죽도해변A", "죽도해변B", "죽도해변C", "죽도해변D")
 
+        val areaList = binding.recyclerArea
         areaAdapter = AreaAdapter(dummy_areas)
         areaList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         areaList.adapter = areaAdapter
