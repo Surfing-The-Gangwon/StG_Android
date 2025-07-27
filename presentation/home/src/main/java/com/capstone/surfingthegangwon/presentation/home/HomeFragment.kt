@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
     private fun setHeaderView() {
         val beachMenu = listOf("양양", "고성", "속초", "강릉")
 
-        binding.headerView.setScreenTitle("파도정보")
+        binding.headerView.setScreenTitle("파도 정보")
         binding.headerView.setBeachTabItem(beachMenu)
     }
 }
