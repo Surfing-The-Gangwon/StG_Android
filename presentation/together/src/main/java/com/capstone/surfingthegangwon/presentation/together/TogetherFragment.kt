@@ -17,6 +17,9 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Locale
+import com.capstone.surfingthegangwon.core.resource.R as CoRes
 
 class TogetherFragment : Fragment() {
     private lateinit var binding: FragmentTogetherBinding
@@ -27,6 +30,7 @@ class TogetherFragment : Fragment() {
     private lateinit var sessionAdapter: SessionAdapter
 
     private var baseDate: LocalDate = LocalDate.now()
+    private val dateFormatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일", Locale.KOREA)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,7 +76,8 @@ class TogetherFragment : Fragment() {
 
     /** 지역 리스트 RecyclerView 설정 */
     private fun setupAreaRecyclerView() {
-        val dummyAreas = listOf("죽도해변A", "죽도해변B", "죽도해변C", "죽도해변D", "죽도해변A", "죽도해변B", "죽도해변C", "죽도해변D")
+        val dummyAreas =
+            listOf("죽도해변A", "죽도해변B", "죽도해변C", "죽도해변D", "죽도해변A", "죽도해변B", "죽도해변C", "죽도해변D")
 
         areaAdapter = AreaAdapter(dummyAreas)
         binding.recyclerArea.apply {
@@ -85,8 +90,7 @@ class TogetherFragment : Fragment() {
     private fun setupWeekRecyclerView() {
         weekTitle = binding.weekTitle
         weekAdapter = WeekAdapter { clickedDate ->
-            weekTitle.text =
-                "${clickedDate.year}년 ${clickedDate.monthValue}월 ${clickedDate.dayOfMonth}일"
+            weekTitle.text = clickedDate.format(dateFormatter)
         }
 
         binding.recyclerWeek.apply {
@@ -172,7 +176,7 @@ class TogetherFragment : Fragment() {
         val prevSelectedDayOfWeek = weekAdapter.getSelectedDate()?.dayOfWeek
 
         // 캘린더 텍스트 업데이트
-        weekTitle.text = "${baseDate.year}년 ${baseDate.monthValue}월 ${baseDate.dayOfMonth}일"
+        weekTitle.text = baseDate.format(dateFormatter)
 
         // 주간 리스트 갱신 및 선택된 요일 유지
         weekAdapter.submitList(weekDates) {
@@ -195,15 +199,15 @@ class TogetherFragment : Fragment() {
     private fun setupHeader() {
         binding.headerView.setBeachTabItem()
         binding.headerView.adjustIndicatorWidth()
-        binding.headerView.setScreenTitle("같이 타기")
+        binding.headerView.setScreenTitle(getString(R.string.sessions))
         binding.headerView.setOnTabSelectedListener(object :
             CustomHeaderView.OnTabSelectedListener {
             override fun onTabSelected(position: Int) {
                 val place = when (position) {
-                    0 -> "양양"
-                    1 -> "고성"
-                    2 -> "속초"
-                    3 -> "강릉"
+                    0 -> getString(CoRes.string.yangyang)
+                    1 -> getString(CoRes.string.goseong)
+                    2 -> getString(CoRes.string.sokcho)
+                    3 -> getString(CoRes.string.gangneung)
                     else -> "미지정"
                 }
                 Log.d("TogetherFragment", "선택된 탭: $position, 장소: $place")
