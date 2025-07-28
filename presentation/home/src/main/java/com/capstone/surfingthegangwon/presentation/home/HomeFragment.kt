@@ -32,5 +32,6 @@ class HomeFragment : Fragment() {
 
         binding.headerView.setScreenTitle("파도 정보")
         binding.headerView.setBeachTabItem(beachMenu)
+        binding.headerView.adjustIndicatorWidth()
     }
 }

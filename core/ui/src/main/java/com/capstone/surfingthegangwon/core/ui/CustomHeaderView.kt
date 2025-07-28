@@ -3,6 +3,7 @@ package com.capstone.surfingthegangwon.core.ui
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.capstone.surfingthegangwon.core.ui.databinding.HeaderBinding
 import com.google.android.material.tabs.TabLayout
@@ -45,5 +46,34 @@ class CustomHeaderView @JvmOverloads constructor(
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
+    }
+
+    /**
+     * 인디케이터의 넓이를 조정함
+     */
+    fun adjustIndicatorWidth(ratio: Float = 0.7f) {
+        val tabLayout = binding.beachTabLayout
+        val tabStrip = tabLayout.getChildAt(0) as? ViewGroup ?: return
+
+        tabLayout.post {
+            for (i in 0 until tabStrip.childCount) {
+                val tabView = tabStrip.getChildAt(i)
+
+                // 원래 너비 가져오기
+                val originalWidth = tabView.width
+                val newWidth = (originalWidth * ratio).toInt()
+
+                // 가운데 정렬하려면 margin 조절
+                val margin = (originalWidth - newWidth) / 2
+
+                val params = tabView.layoutParams as MarginLayoutParams
+                params.width = newWidth
+                params.marginStart = margin
+                params.marginEnd = margin
+                tabView.layoutParams = params
+
+                tabView.invalidate()
+            }
+        }
     }
 }

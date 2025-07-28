@@ -194,6 +194,7 @@ class TogetherFragment : Fragment() {
      */
     private fun setupHeader() {
         binding.headerView.setBeachTabItem()
+        binding.headerView.adjustIndicatorWidth()
         binding.headerView.setScreenTitle("같이 타기")
         binding.headerView.setOnTabSelectedListener(object :
             CustomHeaderView.OnTabSelectedListener {
