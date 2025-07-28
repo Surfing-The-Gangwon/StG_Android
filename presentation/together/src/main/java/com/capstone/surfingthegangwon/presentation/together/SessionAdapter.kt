@@ -15,47 +15,42 @@ import com.capstone.surfingthegangwon.core.resource.R as CoreRes
 
 class SessionAdapter : ListAdapter<SessionListItem, RecyclerView.ViewHolder>(DiffCallback) {
 
-    object DiffCallback : DiffUtil.ItemCallback<SessionListItem>() {
-        override fun areItemsTheSame(oldItem: SessionListItem, newItem: SessionListItem): Boolean {
-            return oldItem == newItem
-        }
-
-        override fun areContentsTheSame(
-            oldItem: SessionListItem,
-            newItem: SessionListItem
-        ): Boolean {
-            return oldItem == newItem
-        }
-    }
-
-
     companion object {
         private const val TYPE_HEADER = 0
         private const val TYPE_CONTENT = 1
-    }
 
-    override fun getItemViewType(position: Int): Int {
-        return when (getItem(position)) {
-            is SessionListItem.Header -> TYPE_HEADER
-            is SessionListItem.Content -> TYPE_CONTENT
+        private val DiffCallback = object : DiffUtil.ItemCallback<SessionListItem>() {
+            override fun areItemsTheSame(
+                oldItem: SessionListItem,
+                newItem: SessionListItem
+            ): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(
+                oldItem: SessionListItem,
+                newItem: SessionListItem
+            ): Boolean {
+                return oldItem == newItem
+            }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            TYPE_HEADER -> {
-                val binding = ItemSectionHeaderBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
-                HeaderViewHolder(binding)
-            }
+    override fun getItemViewType(position: Int): Int = when (getItem(position)) {
+        is SessionListItem.Header -> TYPE_HEADER
+        is SessionListItem.Content -> TYPE_CONTENT
+    }
 
-            TYPE_CONTENT -> {
-                val binding = ItemSessionBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
-                ContentViewHolder(binding)
-            }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
+            TYPE_HEADER -> HeaderViewHolder(
+                ItemSectionHeaderBinding.inflate(inflater, parent, false)
+            )
+
+            TYPE_CONTENT -> ContentViewHolder(
+                ItemSessionBinding.inflate(inflater, parent, false)
+            )
 
             else -> throw IllegalArgumentException("Invalid view type")
         }
@@ -68,6 +63,7 @@ class SessionAdapter : ListAdapter<SessionListItem, RecyclerView.ViewHolder>(Dif
         }
     }
 
+    /** ViewHolder: 세션 헤더 (날씨/해변 정보 등) */
     inner class HeaderViewHolder(private val binding: ItemSectionHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -79,32 +75,30 @@ class SessionAdapter : ListAdapter<SessionListItem, RecyclerView.ViewHolder>(Dif
         }
     }
 
+    /** ViewHolder: 세션 컨텐츠 (타이틀, 시간, 참가자 등) */
     inner class ContentViewHolder(private val binding: ItemSessionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: SessionListItem.Content) = with(binding) {
+            // 텍스트 세팅
             title.text = item.title
             sessionTime.text = item.sessionTime
             time.text = item.time
             numbers.text = item.participants
             gradeText.text = item.grade.label
 
-            val gradeColorRes = when (item.grade) {
-                Grade.Beginner -> CoreRes.color.grade_beginner
-                Grade.Intermediate -> CoreRes.color.grade_intermediate
-                Grade.Advanced -> CoreRes.color.grade_advanced
+            // 등급에 따라 색상 및 배경 리소스 결정
+            val (bgResId, colorResId) = when (item.grade) {
+                Grade.Beginner -> R.drawable.grade_beginner_background to CoreRes.color.grade_beginner
+                Grade.Intermediate -> R.drawable.grade_intermediate_background to CoreRes.color.grade_intermediate
+                Grade.Advanced -> R.drawable.grade_advanced_background to CoreRes.color.grade_advanced
             }
 
-            val bgRes = when(item.grade) {
-                Grade.Beginner -> R.drawable.grade_beginner_background
-                Grade.Intermediate -> R.drawable.grade_intermediate_background
-                Grade.Advanced -> R.drawable.grade_advanced_background
-            }
+            // 뷰에 스타일 적용 (명시적으로 binding 사용)
+            binding.grade.setBackgroundResource(bgResId)
 
-            grade.setBackgroundResource(bgRes)
-            val color = ContextCompat.getColor(root.context, gradeColorRes)
+            val color = ContextCompat.getColor(root.context, colorResId)
             gradeIcon.imageTintList = ColorStateList.valueOf(color)
         }
     }
 }
-

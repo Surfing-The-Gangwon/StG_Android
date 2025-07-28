@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import java.time.DayOfWeek
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +15,7 @@ import com.capstone.surfingthegangwon.presentation.together.databinding.Fragment
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import java.time.DayOfWeek
 import java.time.LocalDate
 
 class TogetherFragment : Fragment() {
@@ -72,7 +72,7 @@ class TogetherFragment : Fragment() {
 
     /** 지역 리스트 RecyclerView 설정 */
     private fun setupAreaRecyclerView() {
-        val dummyAreas = listOf("죽도해변A", "죽도해변B", "죽도해변C", "죽도해변D")
+        val dummyAreas = listOf("죽도해변A", "죽도해변B", "죽도해변C", "죽도해변D", "죽도해변A", "죽도해변B", "죽도해변C", "죽도해변D")
 
         areaAdapter = AreaAdapter(dummyAreas)
         binding.recyclerArea.apply {
@@ -116,6 +116,27 @@ class TogetherFragment : Fragment() {
                 temperature = "기온 15C 수온 21.3C",
                 wave = "0.69M - 4.49S",
                 wind = "W 8.6 m/h"
+            ),
+            SessionListItem.Content(
+                title = "약한 파도로 함께 입문해봐요!",
+                sessionTime = "세션 시간",
+                time = "14:00",
+                participants = "3/5",
+                grade = Grade.from("초급")
+            ),
+            SessionListItem.Content(
+                title = "조금 더 도전해볼까?",
+                sessionTime = "세션 시간",
+                time = "16:00",
+                participants = "4/6",
+                grade = Grade.from("중급")
+            ),
+            SessionListItem.Content(
+                title = "고수들과 함께 실력 업!",
+                sessionTime = "세션 시간",
+                time = "16:00",
+                participants = "4/6",
+                grade = Grade.from("고급")
             ),
             SessionListItem.Content(
                 title = "약한 파도로 함께 입문해봐요!",
