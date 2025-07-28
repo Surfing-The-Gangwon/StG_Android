@@ -152,7 +152,16 @@ class TogetherFragment : Fragment() {
     private fun updateWeek() {
         val weekDates = getWeekDates(baseDate)
         weekTitle.text = "${baseDate.year}년 ${baseDate.monthValue}월 ${baseDate.dayOfMonth}일"
-        weekAdapter.submitList(weekDates)
+        val prevSelectedDayOfWeek = weekAdapter.getSelectedDate()?.dayOfWeek
+
+        weekAdapter.submitList(weekDates) {
+            val dateToSelect = weekDates.find { it.dayOfWeek == prevSelectedDayOfWeek }
+                ?: weekDates.find { it.dayOfWeek == DayOfWeek.SUNDAY }
+
+            dateToSelect?.let {
+                weekAdapter.selectDate(it)
+            }
+        }
     }
 
     /**
