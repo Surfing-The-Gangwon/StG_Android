@@ -12,15 +12,19 @@ import com.capstone.surfingthegangwon.core.resource.R as CoreRes
 class AreaAdapter(private val items: List<String>) :
     RecyclerView.Adapter<AreaAdapter.ViewHolder>() {
 
+    // 현재 선택된 항목 위치
     private var selectedPosition = 0
 
     inner class ViewHolder(val binding: ItemAreaBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
+            // 클릭 시 선택 상태 갱신
             binding.area.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val previousPosition = selectedPosition
                     selectedPosition = position
+
+                    // 이전 항목과 새 항목만 갱신
                     notifyItemChanged(previousPosition)
                     notifyItemChanged(selectedPosition)
                 }
@@ -34,22 +38,30 @@ class AreaAdapter(private val items: List<String>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val context = holder.itemView.context
+        val isSelected = position == selectedPosition
+
+        // 텍스트 설정
         holder.binding.area.text = items[position]
 
-        val context = holder.itemView.context
-        val selectedTypeface = ResourcesCompat.getFont(context, CoreRes.font.roboto_bold)
-        val defaultTypeface = ResourcesCompat.getFont(context, CoreRes.font.roboto_regular)
-        val blue = ContextCompat.getColor(
-            context,
-            CoreRes.color.blue_700
-        )
-
-        if (position == selectedPosition) {
-            holder.binding.area.setTextColor(blue)
-            holder.binding.area.typeface = selectedTypeface
+        // 폰트 설정
+        val typeface = if (isSelected) {
+            ResourcesCompat.getFont(context, CoreRes.font.roboto_bold)
         } else {
-            holder.binding.area.setTextColor(Color.BLACK)
-            holder.binding.area.typeface = defaultTypeface
+            ResourcesCompat.getFont(context, CoreRes.font.roboto_regular)
+        }
+
+        // 색상 설정
+        val textColor = if (isSelected) {
+            ContextCompat.getColor(context, CoreRes.color.blue_700)
+        } else {
+            Color.BLACK
+        }
+
+        // 스타일 적용
+        holder.binding.area.apply {
+            setTextColor(textColor)
+            this.typeface = typeface
         }
     }
 

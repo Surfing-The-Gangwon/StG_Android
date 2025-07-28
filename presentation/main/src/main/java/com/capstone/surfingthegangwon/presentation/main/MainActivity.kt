@@ -15,6 +15,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
+    // 네비게이션을 숨길 프래그먼트 ID 집합 (없으면 null 혹은 빈 집합으로 처리)
+    private val hideNavDestinations: Set<Int>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -35,10 +38,26 @@ class MainActivity : AppCompatActivity() {
 
         setUpNaviagtion(nav, navController)
         applySystemBarInsetsPadding(navigationView)
+        hideBottomNavigation(navController)
     }
 
     /**
-     * 네비게이션 작동 함수
+     * 바텀 네비게이션을 숨겨야 하는 목적지에 따라
+     * 네비게이션 뷰의 가시성을 조절하는 함수.
+     * hideNavDestinations가 null이거나 비어있으면 항상 보임.
+     */
+    private fun hideBottomNavigation(navController: NavController) {
+        if (hideNavDestinations.isNullOrEmpty()) return
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.bottomNavigationView.visibility =
+                if (destination.id in hideNavDestinations) View.GONE else View.VISIBLE
+        }
+    }
+
+    /**
+     * 바텀 네비게이션 아이템 선택 시 네비게이션 그래프의 시작 목적지로 팝하고
+     * 해당 메뉴 아이템 목적지로 이동시키는 함수
      */
     private fun setUpNaviagtion(
         nav: BottomNavigationView,
@@ -52,8 +71,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * 시스템 표시줄 삽입을 기준으로 지정된 보기에 하단 패딩을 적용하는 함수
-     * (예: 내비게이션 바), 시스템 UI에 의해 콘텐츠가 가려지지 않도록 합니다.
+     * 지정된 뷰에 시스템 표시줄(상단 상태바, 하단 내비게이션바) 인셋을 기준으로
+     * 하단 패딩을 추가하여 시스템 UI에 의해 가려지지 않도록 처리하는 함수
      */
     private fun applySystemBarInsetsPadding(uiView: View) {
         ViewCompat.setOnApplyWindowInsetsListener(uiView) { view, insets ->
