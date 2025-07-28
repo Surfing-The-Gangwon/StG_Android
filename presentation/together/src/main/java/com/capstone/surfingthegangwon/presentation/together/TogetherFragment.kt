@@ -39,16 +39,19 @@ class TogetherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setHeaderView()
-        setClickListners()
-        setRecyclerViews()
+        initUI()
+    }
+
+    /** 초기 UI 세팅: 헤더, 클릭 리스너, 리사이클러뷰, 주간 캘린더 데이터 */
+    private fun initUI() {
+        setupHeader()
+        setupClickListeners()
+        setupRecyclerViews()
         updateWeek()
     }
 
-    /**
-     * 클릭리스너를 세팅하는 메소드
-     */
-    private fun setClickListners() {
+    /** 주차 이동 버튼 클릭 리스너 설정 */
+    private fun setupClickListeners() {
         binding.btnPrevWeek.setOnClickListener {
             baseDate = baseDate.minusWeeks(1)
             updateWeek()
@@ -60,19 +63,43 @@ class TogetherFragment : Fragment() {
         }
     }
 
-    /**
-     * 리사이클러뷰를 세팅하는 메소드
-     */
-    private fun setRecyclerViews() {
-        setAreaRcv()
-        setCalenderRcv()
-        setSessionsRcv()
+    /** 모든 리사이클러뷰 초기화 */
+    private fun setupRecyclerViews() {
+        setupAreaRecyclerView()
+        setupWeekRecyclerView()
+        setupSessionRecyclerView()
     }
 
-    /**
-     * 세션 리스트 리사이클러뷰를 세팅하는 메소드
-     */
-    private fun setSessionsRcv() {
+    /** 지역 리스트 RecyclerView 설정 */
+    private fun setupAreaRecyclerView() {
+        val dummyAreas = listOf("죽도해변A", "죽도해변B", "죽도해변C", "죽도해변D")
+
+        areaAdapter = AreaAdapter(dummyAreas)
+        binding.recyclerArea.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = areaAdapter
+        }
+    }
+
+    /** 주간 캘린더 RecyclerView 설정 */
+    private fun setupWeekRecyclerView() {
+        weekTitle = binding.weekTitle
+        weekAdapter = WeekAdapter { clickedDate ->
+            weekTitle.text =
+                "${clickedDate.year}년 ${clickedDate.monthValue}월 ${clickedDate.dayOfMonth}일"
+        }
+
+        binding.recyclerWeek.apply {
+            layoutManager = FlexboxLayoutManager(requireContext()).apply {
+                flexDirection = FlexDirection.ROW
+                justifyContent = JustifyContent.CENTER
+            }
+            adapter = weekAdapter
+        }
+    }
+
+    /** 세션 리스트 RecyclerView 설정 및 더미 데이터 삽입 */
+    private fun setupSessionRecyclerView() {
         sessionAdapter = SessionAdapter()
         binding.recyclerSession.apply {
             layoutManager = LinearLayoutManager(context)
@@ -81,6 +108,7 @@ class TogetherFragment : Fragment() {
         loadDummySessions()
     }
 
+    /** 세션 더미 데이터 로딩 */
     private fun loadDummySessions() {
         val dummySessions = listOf(
             SessionListItem.Header(
@@ -104,7 +132,7 @@ class TogetherFragment : Fragment() {
                 grade = Grade.from("중급")
             ),
             SessionListItem.Content(
-                title = "조금 더 도전해볼까?",
+                title = "고수들과 함께 실력 업!",
                 sessionTime = "세션 시간",
                 time = "16:00",
                 participants = "4/6",
@@ -115,87 +143,51 @@ class TogetherFragment : Fragment() {
         sessionAdapter.submitList(dummySessions)
     }
 
-    /**
-     * 지역 리스트 리사이클러뷰를 세팅하는 메소드
-     */
-    private fun setAreaRcv() {
-        val dummy_areas = listOf("죽도해변A", "죽도해변B", "죽도해변C", "죽도해변D")
-
-        val areaList = binding.recyclerArea
-        areaAdapter = AreaAdapter(dummy_areas)
-        areaList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        areaList.adapter = areaAdapter
-    }
-
-    /**
-     * 주간 캘린더를 세팅하는 메소드
-     */
-    private fun setCalenderRcv() {
-        val calenderWeek = binding.recyclerWeek
-        weekTitle = binding.weekTitle
-
-        weekAdapter = WeekAdapter { clickedDate ->
-            weekTitle.text =
-                "${clickedDate.year}년 ${clickedDate.monthValue}월 ${clickedDate.dayOfMonth}일"
-        }
-        val layoutManager = FlexboxLayoutManager(requireContext()).apply {
-            flexDirection = FlexDirection.ROW
-            justifyContent = JustifyContent.CENTER
-        }
-        calenderWeek.layoutManager = layoutManager
-        calenderWeek.adapter = weekAdapter
-    }
-
-    /**
-     * 기준 날짜의 주(일요일부터 토요일까지) 날짜를 화면에 표시하고, 리스트(리사이클러뷰 등)를 업데이트하는 메소드
-     */
+    /** 기준 날짜의 주간 날짜 리스트를 만들고 캘린더에 표시 */
     private fun updateWeek() {
         val weekDates = getWeekDates(baseDate)
-        weekTitle.text = "${baseDate.year}년 ${baseDate.monthValue}월 ${baseDate.dayOfMonth}일"
+
+        // 선택된 날짜의 요일을 저장해 다음 주에도 유지
         val prevSelectedDayOfWeek = weekAdapter.getSelectedDate()?.dayOfWeek
 
+        // 캘린더 텍스트 업데이트
+        weekTitle.text = "${baseDate.year}년 ${baseDate.monthValue}월 ${baseDate.dayOfMonth}일"
+
+        // 주간 리스트 갱신 및 선택된 요일 유지
         weekAdapter.submitList(weekDates) {
             val dateToSelect = weekDates.find { it.dayOfWeek == prevSelectedDayOfWeek }
-                ?: weekDates.find { it.dayOfWeek == DayOfWeek.SUNDAY }
+                ?: weekDates.firstOrNull { it.dayOfWeek == DayOfWeek.SUNDAY }
 
-            dateToSelect?.let {
-                weekAdapter.selectDate(it)
-            }
+            dateToSelect?.let { weekAdapter.selectDate(it) }
         }
     }
 
-    /**
-     * 특정 날짜가 속한 주의 일요일부터 시작해서 토요일까지 날짜 리스트를 돌려주는 메소드
-     */
+    /** 해당 날짜가 포함된 주(일~토) 리스트 생성 */
     private fun getWeekDates(date: LocalDate): List<LocalDate> {
         val sunday = date.with(DayOfWeek.SUNDAY)
-        return (0..6).map { sunday.plusDays(it.toLong()) }
+        return List(7) { offset -> sunday.plusDays(offset.toLong()) }
     }
 
     /**
      * 헤더 뷰를 세팅하는 메소드
      */
-    private fun setHeaderView() {
+    private fun setupHeader() {
         binding.headerView.setBeachTabItem()
         binding.headerView.setScreenTitle("같이 타기")
         binding.headerView.setOnTabSelectedListener(object :
             CustomHeaderView.OnTabSelectedListener {
             override fun onTabSelected(position: Int) {
-                // 탭이 선택 되었을 때의 동작 정의 (예시코드)
-                var place = ""
-                if (position == 0) {
-                    place = "양양"
-                } else if (position == 1) {
-                    place = "고성"
-                } else if (position == 2) {
-                    place = "속초"
-                } else if (position == 3) {
-                    place = "강릉"
+                val place = when (position) {
+                    0 -> "양양"
+                    1 -> "고성"
+                    2 -> "속초"
+                    3 -> "강릉"
+                    else -> "미지정"
                 }
-
                 Log.d("TogetherFragment", "선택된 탭: $position, 장소: $place")
             }
         })
-
     }
+
+
 }
