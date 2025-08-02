@@ -16,8 +16,10 @@
             <option value="$PROJECT_DIR$/core/resource" />
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/data" />
+            <option value="$PROJECT_DIR$/data/home" />
             <option value="$PROJECT_DIR$/data/together" />
             <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/domain/home" />
             <option value="$PROJECT_DIR$/domain/together" />
             <option value="$PROJECT_DIR$/presentation" />
             <option value="$PROJECT_DIR$/presentation/home" />

@@ -39,6 +39,15 @@ android {
 
 dependencies {
     implementation(project(":presentation:main"))
+    implementation(project(":presentation:home"))
+    implementation(project(":presentation:together"))
+    implementation(project(":domain:home"))
+    implementation(project(":domain:together"))
+    implementation(project(":data:home"))
+    implementation(project(":data:together"))
+    implementation(project(":core:navigation"))
+    implementation(project(":core:resource"))
+    implementation(project(":core:ui"))
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.core.ktx)
