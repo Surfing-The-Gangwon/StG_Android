@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="gray_200">#E4E4E7</color>
+    <color name="gray_500">#71717A</color>
+    <color name="blue_50">#F0FCFF</color>
+    <color name="blue_500">#7EE7FC</color>
     <color name="blue_700">#004493</color>
+    <color name="green_50">#E8FAF0</color>
+    <color name="green_300">#74DFA2</color>
+    <color name="orange_50">#FEFCE8</color>
+    <color name="orange_500">#F9C97C</color>
     <color name="navi_selected">#004493</color>
     <color name="navi_unselected">#71717A</color>
+    <color name="activity_gray">#FAFAFA</color>
+    <color name="sunday">#FF3B30</color>
+    <color name="saturday">#006FEE</color>
+    <color name="grade_beginner">@color/green_300</color>
+    <color name="grade_intermediate">@color/orange_500</color>
+    <color name="grade_advanced">@color/blue_500</color>
+    <color name="shadow">#88E4E4E4</color>
 </resources>
