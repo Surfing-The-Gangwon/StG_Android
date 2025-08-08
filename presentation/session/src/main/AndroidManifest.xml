@@ -3,7 +3,7 @@
 
     <application>
         <activity
-            android:name=".TopAppBar"
+            android:name=".SessionReadingActivity"
             android:exported="false" />
     </application>
 

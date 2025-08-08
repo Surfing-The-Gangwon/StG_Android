@@ -4,7 +4,7 @@
     android:viewportWidth="6"
     android:viewportHeight="11">
     <path
-        android:strokeColor="@color/gray_500"
+        android:strokeColor="@color/zinc_500"
         android:strokeWidth="0.62"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.capstone.surfingthegangwon.core.ui"
+    namespace = "com.capstone.surfingthegangwon.presentation.session"
     compileSdk = 35
 
     defaultConfig {
@@ -37,6 +37,8 @@ android {
 
 dependencies {
     implementation(project(":core:resource"))
+    implementation(project(":core:ui"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

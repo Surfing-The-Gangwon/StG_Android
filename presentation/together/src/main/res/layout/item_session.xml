@@ -34,7 +34,7 @@
             android:layout_marginTop="15dp"
             android:fontFamily="@font/pretendard_regular"
             android:text="@string/session_time"
-            android:textColor="@color/gray_500"
+            android:textColor="@color/zinc_500"
             app:layout_constraintStart_toStartOf="@id/title"
             app:layout_constraintTop_toBottomOf="@id/title" />
 
@@ -55,7 +55,7 @@
             android:layout_marginStart="70dp"
             android:fontFamily="@font/pretendard_regular"
             android:text="@string/number_of_participants"
-            android:textColor="@color/gray_500"
+            android:textColor="@color/zinc_500"
             app:layout_constraintStart_toEndOf="@id/session_time"
             app:layout_constraintTop_toTopOf="@id/session_time" />
 

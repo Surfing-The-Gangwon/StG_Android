@@ -1,0 +1,7 @@
+<resources>
+    <string name="session_time">집합시간</string>
+    <string name="number_of_participants">참여인원</string>
+    <string name="place_and_description">장소 및 설명</string>
+    <string name="session_reservation_instruction">예약하기 전, 해당 날짜가 맞는지 확인하세요!</string>
+    <string name="join">참여하기</string>
+</resources>

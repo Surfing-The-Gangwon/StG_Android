@@ -75,7 +75,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:fontFamily="@font/pretendard_medium"
                 android:text="2025년 7월 20일"
-                android:textColor="@color/gray_500"
+                android:textColor="@color/zinc_500"
                 android:textSize="10sp" />
 
             <ImageView
