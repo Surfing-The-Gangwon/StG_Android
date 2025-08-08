@@ -3,6 +3,9 @@
 
     <application>
         <activity
+            android:name=".GradeView"
+            android:exported="false" />
+        <activity
             android:name=".TopAppBar"
             android:exported="false" />
     </application>

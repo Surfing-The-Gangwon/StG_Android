@@ -1,17 +1,13 @@
 package com.capstone.surfingthegangwon.presentation.together
 
-import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.capstone.surfingthegangwon.domain.together.model.Grade
 import com.capstone.surfingthegangwon.domain.together.model.SessionListItem
 import com.capstone.surfingthegangwon.presentation.together.databinding.ItemSectionHeaderBinding
 import com.capstone.surfingthegangwon.presentation.together.databinding.ItemSessionBinding
-import com.capstone.surfingthegangwon.core.resource.R as CoreRes
 
 class SessionAdapter : ListAdapter<SessionListItem, RecyclerView.ViewHolder>(DiffCallback) {
 
@@ -85,20 +81,7 @@ class SessionAdapter : ListAdapter<SessionListItem, RecyclerView.ViewHolder>(Dif
             sessionTime.text = item.sessionTime
             time.text = item.time
             numbers.text = item.participants
-            gradeText.text = item.grade.label
-
-            // 등급에 따라 색상 및 배경 리소스 결정
-            val (bgResId, colorResId) = when (item.grade) {
-                Grade.Beginner -> R.drawable.grade_beginner_background to CoreRes.color.grade_beginner
-                Grade.Intermediate -> R.drawable.grade_intermediate_background to CoreRes.color.grade_intermediate
-                Grade.Advanced -> R.drawable.grade_advanced_background to CoreRes.color.grade_advanced
-            }
-
-            // 뷰에 스타일 적용 (명시적으로 binding 사용)
-            binding.grade.setBackgroundResource(bgResId)
-
-            val color = ContextCompat.getColor(root.context, colorResId)
-            gradeIcon.imageTintList = ColorStateList.valueOf(color)
+            grade.setGrade(item.grade)
         }
     }
 }
