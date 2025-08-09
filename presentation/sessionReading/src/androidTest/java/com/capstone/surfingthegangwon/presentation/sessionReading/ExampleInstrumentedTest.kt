@@ -1,4 +1,4 @@
-package com.capstone.surfingthegangwon.presentation.session
+package com.capstone.surfingthegangwon.presentation.sessionReading
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
