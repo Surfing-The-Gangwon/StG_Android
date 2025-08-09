@@ -1,8 +1,8 @@
-package com.capstone.surfingthegangwon.presentation.session
+package com.capstone.surfingthegangwon.presentation.sessionReading
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.capstone.surfingthegangwon.presentation.session.databinding.ActivitySessionReadingBinding
+import com.capstone.surfingthegangwon.presentation.sessionReading.databinding.ActivitySessionReadingBinding
 
 class SessionReadingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySessionReadingBinding
