@@ -8,6 +8,15 @@
         <item name="android:layout_marginBottom">7dp</item>
     </style>
 
+    <style name="drawable_tv" parent="Widget.AppCompat.TextView">
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginEnd">15dp</item>
+        <item name="android:fontFamily">@font/pretendard_light</item>
+        <item name="android:textColor">@drawable/black_to_blue_text_selector</item>
+        <item name="android:background">@drawable/gray_to_blue_button_selector</item>
+    </style>
+
     <style name="edit_hint" parent="Widget.AppCompat.EditText">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textColorHint">@color/zinc_400</item>
