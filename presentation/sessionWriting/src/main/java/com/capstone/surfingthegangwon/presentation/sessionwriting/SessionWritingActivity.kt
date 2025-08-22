@@ -1,6 +1,9 @@
 package com.capstone.surfingthegangwon.presentation.sessionwriting
 
+import android.app.TimePickerDialog
+import android.icu.util.Calendar
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.surfingthegangwon.presentation.sessionwriting.databinding.ActivitySessionWritingBinding
@@ -20,6 +23,8 @@ class SessionWritingActivity : AppCompatActivity() {
         binding.topAppBar.setOnBackClick {
             onBackPressedDispatcher.onBackPressed()
         }
+
+        initUi()
     }
 
     private fun initUi() {
@@ -64,7 +69,32 @@ class SessionWritingActivity : AppCompatActivity() {
 
     }
 
-    private fun setupTime() {
+    /**
+     * 타임피커를 보여주고 텍스트뷰 시간을 변경하는 함수
+     */
+    private fun showTimePicker(timeTextView: TextView) {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
 
+        val listener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+            // 오전/오후 결정
+            val amPm = if (hourOfDay < 12) "오전" else "오후"
+
+            // 0시는 12시로, 13~23시는 12를 빼서 1~11시로 표시
+            val hour12 = when {
+                hourOfDay == 0 -> 12  // 자정
+                hourOfDay > 12 -> hourOfDay - 12
+                else -> hourOfDay
+            }
+
+            // 최종 문자열
+            val timeString = "%s %02d시 %02d분".format(amPm, hour12, minute)
+            timeTextView.text = timeString
+
+            binding.timeTv.isSelected = true
+        }
+
+        TimePickerDialog(this, listener, hour, minute, true).show()
     }
 }
