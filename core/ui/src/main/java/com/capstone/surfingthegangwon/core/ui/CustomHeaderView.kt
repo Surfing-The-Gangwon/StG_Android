@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import com.capstone.surfingthegangwon.core.ui.ColorGradient.Companion.setTextColorAsLinearGradient
 import com.capstone.surfingthegangwon.core.ui.databinding.HeaderBinding
 import com.google.android.material.tabs.TabLayout
-import com.capstone.surfingthegangwon.core.ui.ColorGradient.Companion.setTextColorAsLinearGradient
 
 class CustomHeaderView @JvmOverloads constructor(
     context: Context,

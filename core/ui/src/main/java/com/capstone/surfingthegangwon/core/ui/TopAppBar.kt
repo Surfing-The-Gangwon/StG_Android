@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.core.view.isGone
 import com.capstone.surfingthegangwon.core.ui.databinding.ViewTopAppBarBinding
 
 class TopAppBar @JvmOverloads constructor(
@@ -24,6 +25,10 @@ class TopAppBar @JvmOverloads constructor(
 
     fun setOnBackClick(listener: () -> Unit) {
         binding.backArrow.setOnClickListener { listener() }
+    }
+
+    fun hideBackClick() {
+        binding.backArrow.isGone = true
     }
 
     fun getBinding(): ViewTopAppBarBinding = binding // 필요 시 바인딩 직접 접근

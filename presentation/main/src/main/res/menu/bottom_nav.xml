@@ -17,7 +17,7 @@
         android:title="@string/notification"
         android:icon="@drawable/icon_notification"/>
     <item
-        android:id="@+id/my"
+        android:id="@+id/mypage_nav_graph"
         android:title="@string/my"
         android:icon="@drawable/icon_my"/>
 </menu>

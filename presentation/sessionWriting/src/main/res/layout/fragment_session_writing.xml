@@ -259,6 +259,7 @@
                     android:layout_marginBottom="5dp"
                     android:hint="@string/please_fill_out_the_title_within_15_characters"
                     android:inputType="text"
+                    android:maxLength="15"
                     android:maxLines="1" />
 
                 <androidx.appcompat.widget.AppCompatEditText
@@ -299,28 +300,31 @@
                     <EditText
                         android:id="@+id/prefixNumber"
                         style="@style/phone_editTv"
-                        android:layout_width="wrap_content"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/session_background"
-                        android:inputType="numberDecimal"
+                        android:inputType="phone"
+                        android:maxLength="3"
                         android:text="010" />
 
                     <EditText
                         android:id="@+id/exchangeNumber"
                         style="@style/phone_editTv"
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/session_background"
-                        android:inputType="numberDecimal"
+                        android:inputType="phone"
+                        android:maxLength="4"
                         android:text="0000" />
 
                     <EditText
                         android:id="@+id/subscriberNumber"
                         style="@style/phone_editTv"
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/session_background"
-                        android:inputType="numberDecimal"
+                        android:inputType="phone"
+                        android:maxLength="4"
                         android:text="0000" />
                 </LinearLayout>
 

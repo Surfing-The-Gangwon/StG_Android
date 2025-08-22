@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.capstone.surfingthegangwon.presentation.main"
+    namespace = "com.capstone.surfingthegangwon.presentation.mypage"
     compileSdk = 35
 
     defaultConfig {
@@ -36,21 +36,14 @@ android {
 }
 
 dependencies {
-    implementation(project(":presentation:home"))
-    implementation(project(":presentation:together"))
     implementation(project(":core:navigation"))
     implementation(project(":core:resource"))
-    implementation(project(":presentation:sessionReading"))
-    implementation(project(":presentation:sessionWriting"))
-    implementation(project(":presentation:myPage"))
+    implementation(project(":core:ui"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.navigation.fragment)
-    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.circle.image.view)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

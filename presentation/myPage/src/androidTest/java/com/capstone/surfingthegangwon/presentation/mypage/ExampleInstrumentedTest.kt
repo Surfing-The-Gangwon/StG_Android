@@ -1,4 +1,4 @@
-package com.capstone.surfingthegangwon.presentation.sessionwriting
+package com.capstone.surfingthegangwon.presentation.mypage
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -18,7 +18,7 @@ class ExampleInstrumentedTest {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals(
-            "com.capstone.surfingthegangwon.presentation.sessionwriting.test",
+            "com.capstone.surfingthegangwon.presentation.mypage.test",
             appContext.packageName
         )
     }
