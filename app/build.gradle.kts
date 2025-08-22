@@ -38,7 +38,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":presentation:main"))
+    implementation(project(":presentation:login"))
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.core.ktx)
