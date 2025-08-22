@@ -3,25 +3,34 @@ package com.capstone.surfingthegangwon.presentation.sessionwriting
 import android.app.TimePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.capstone.surfingthegangwon.presentation.sessionwriting.databinding.ActivitySessionWritingBinding
+import com.capstone.surfingthegangwon.presentation.sessionwriting.databinding.FragmentSessionWritingBinding
 
-class SessionWritingActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySessionWritingBinding
+class SessionWritingFragment : Fragment() {
+    private lateinit var binding: FragmentSessionWritingBinding
 
     private lateinit var regionAdapter: RegionAdapter
     private lateinit var beachAdapter: BeachAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySessionWritingBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentSessionWritingBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.topAppBar.setTitle(getString(R.string.create_new_session))
         binding.topAppBar.setOnBackClick {
-            onBackPressedDispatcher.onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         initUi()
@@ -95,6 +104,6 @@ class SessionWritingActivity : AppCompatActivity() {
             binding.timeTv.isSelected = true
         }
 
-        TimePickerDialog(this, listener, hour, minute, true).show()
+        TimePickerDialog(requireContext(), listener, hour, minute, true).show()
     }
 }

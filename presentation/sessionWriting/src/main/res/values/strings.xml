@@ -13,4 +13,6 @@
     <string name="registration">등록하기</string>
     <string name="date_hint">00년 00월 00일</string>
     <string name="time_hint">오후 00시</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

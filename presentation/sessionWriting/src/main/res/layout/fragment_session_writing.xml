@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/activity_gray"
     android:orientation="vertical"
-    tools:context=".SessionWritingActivity">
+    tools:context=".SessionWritingFragment">
 
     <com.capstone.surfingthegangwon.core.ui.TopAppBar
         android:id="@+id/topAppBar"
