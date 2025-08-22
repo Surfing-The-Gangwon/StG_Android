@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.surfingthegangwon.core.ui.CustomHeaderView
 import com.capstone.surfingthegangwon.domain.together.model.Grade
@@ -64,6 +65,11 @@ class TogetherFragment : Fragment() {
         binding.btnNextWeek.setOnClickListener {
             baseDate = baseDate.plusWeeks(1)
             updateWeek()
+        }
+
+        binding.fab.setOnClickListener {
+            val action = TogetherFragmentDirections.actionTogetherToWriting()
+            findNavController().navigate(action)
         }
     }
 

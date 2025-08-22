@@ -2,21 +2,25 @@ package com.capstone.surfingthegangwon.presentation.main
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isGone
 import androidx.core.view.updatePadding
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.capstone.surfingthegangwon.presentation.main.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.capstone.surfingthegangwon.core.navigation.R as navi
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    // 네비게이션을 숨길 프래그먼트 ID 집합 (없으면 null 혹은 빈 집합으로 처리)
-    private val hideNavDestinations: Set<Int>? = null
+    private fun NavDestination.isIn(@IdRes graphId: Int): Boolean =
+        generateSequence(this) { it.parent }.any { it.id == graphId }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +51,10 @@ class MainActivity : AppCompatActivity() {
      * hideNavDestinations가 null이거나 비어있으면 항상 보임.
      */
     private fun hideBottomNavigation(navController: NavController) {
-        if (hideNavDestinations.isNullOrEmpty()) return
-
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.bottomNavigationView.visibility =
-                if (destination.id in hideNavDestinations) View.GONE else View.VISIBLE
+            val inWrite = destination.isIn(navi.id.together_nav_graph)
+            val isTogether = destination.id == com.capstone.surfingthegangwon.core.navigation.R.id.together    // 작성 첫 화면만 예외로 보이기
+            binding.bottomNavigationView.isGone = inWrite && !isTogether
         }
     }
 
@@ -63,11 +66,9 @@ class MainActivity : AppCompatActivity() {
         nav: BottomNavigationView,
         navController: NavController
     ) {
-        nav.setOnItemSelectedListener {
-            navController.popBackStack(navController.graph.startDestinationId, false)
-            navController.navigate(it.itemId)
-            true
-        }
+        val navv = (supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment).navController
+        binding.bottomNavigationView.setupWithNavController(navv)
+
     }
 
     /**

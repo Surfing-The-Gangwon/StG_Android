@@ -40,6 +40,9 @@ dependencies {
     implementation(project(":presentation:together"))
     implementation(project(":core:navigation"))
     implementation(project(":core:resource"))
+    implementation(project(":presentation:sessionReading"))
+    implementation(project(":presentation:sessionWriting"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
