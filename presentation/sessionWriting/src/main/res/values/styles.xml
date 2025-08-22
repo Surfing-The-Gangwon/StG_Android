@@ -27,7 +27,7 @@
     <style name="group_button" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@drawable/gray_to_blue_text_selector</item>
         <item name="android:background">@drawable/gray_to_blue_button_selector</item>
-        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:fontFamily">@font/pretendard_light</item>
         <item name="android:textSize">15sp</item>
     </style>
 
