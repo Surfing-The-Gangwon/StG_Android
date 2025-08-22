@@ -23,4 +23,6 @@
     <color name="grade_intermediate">@color/orange_500</color>
     <color name="grade_advanced">@color/cyan_500</color>
     <color name="shadow">#88E4E4E4</color>
+    <color name="logo_start_color">#0156BE</color>
+    <color name="logo_end_color">#061F3E</color>
 </resources>
