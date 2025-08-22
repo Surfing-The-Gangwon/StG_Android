@@ -15,7 +15,6 @@
         <item name="android:fontFamily">@font/pretendard_light</item>
         <item name="android:textColor">@drawable/black_to_blue_text_selector</item>
         <item name="android:background">@drawable/gray_to_blue_button_selector</item>
-        <item name="android:drawableTint">@color/drawable_tint_selector</item>
     </style>
 
     <style name="edit_hint" parent="Widget.AppCompat.EditText">

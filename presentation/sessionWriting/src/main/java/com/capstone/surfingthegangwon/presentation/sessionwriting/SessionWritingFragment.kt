@@ -1,5 +1,6 @@
 package com.capstone.surfingthegangwon.presentation.sessionwriting
 
+import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
@@ -44,6 +45,7 @@ class SessionWritingFragment : Fragment() {
     /** 버튼 클릭 리스너 설정 */
     private fun setupClickListeners() {
         binding.timeTv.setOnClickListener { view -> showTimePicker(view) }
+        binding.calanderTv.setOnClickListener { view -> showDatePicker(view) }
     }
 
     /** 모든 리사이클러 뷰 초기화 */
@@ -80,8 +82,25 @@ class SessionWritingFragment : Fragment() {
         }
     }
 
-    private fun setupCalendar() {
+    /**
+     * 데이트피커를 보여주고 텍스트뷰 날짜를 변경하는 함수
+     */
+    private fun showDatePicker(view: View) {
+        val dateTextView = view as TextView
 
+        // 오늘 날짜 가져오기
+        val cal = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        val month = cal.get(Calendar.MONTH) // 0부터 시작 (0 = 1월)
+        val day = cal.get(Calendar.DAY_OF_MONTH)
+
+        val listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
+            // m은 0부터 시작 → +1 해줘야 함
+            dateTextView.text = "%d년 %d월 %d일".format(y, m + 1, d)
+            dateTextView.isSelected = true
+        }
+
+        DatePickerDialog(requireContext(), listener, year, month, day).show()
     }
 
     /**
@@ -112,7 +131,6 @@ class SessionWritingFragment : Fragment() {
                 "%s %d시 %d분".format(amPm, hour12, minute)
             }
             timeTextView.text = timeString
-
             timeTextView.isSelected = true
         }
 
