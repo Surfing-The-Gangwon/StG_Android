@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mypage_nav_graph"
+    app:startDestination="@id/myPage">
+
+    <fragment
+        android:id="@+id/myPage"
+        android:name="com.capstone.surfingthegangwon.presentation.mypage.MyPageFragment" />
+
+</navigation>
