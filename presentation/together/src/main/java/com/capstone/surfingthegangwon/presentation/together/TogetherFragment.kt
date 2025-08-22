@@ -55,7 +55,7 @@ class TogetherFragment : Fragment() {
         updateWeek()
     }
 
-    /** 주차 이동 버튼 클릭 리스너 설정 */
+    /** 버튼 클릭 리스너 설정 */
     private fun setupClickListeners() {
         binding.btnPrevWeek.setOnClickListener {
             baseDate = baseDate.minusWeeks(1)

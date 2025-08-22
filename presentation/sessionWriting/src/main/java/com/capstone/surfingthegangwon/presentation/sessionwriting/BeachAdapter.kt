@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.capstone.surfingthegangwon.presentation.sessionwriting.databinding.ItemButtonBinding
+import com.capstone.surfingthegangwon.presentation.sessionwriting.databinding.ItemRcvTvBinding
 
 class BeachAdapter(
     private val items: List<String>,
@@ -19,11 +19,11 @@ class BeachAdapter(
         private const val PAYLOAD_CHECKED = "payload_checked"
     }
 
-    inner class ViewHolder(val binding: ItemButtonBinding) :
+    inner class ViewHolder(val binding: ItemRcvTvBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(position: Int) {
-            val tv = binding.button
+            val tv = binding.textView
             tv.text = items[position]
             tv.isSelected = (position == selectedPosition)
             tv.refreshDrawableState()
@@ -36,7 +36,7 @@ class BeachAdapter(
          * - 텍스트 등은 건드리지 않고 selected 상태만 최소 변경
          */
         fun bindSelected(position: Int) {
-            val tv = binding.button
+            val tv = binding.textView
             val shouldSelect = (position == selectedPosition)
 
             // 불필요한 리프레시 방지: 상태가 바뀔 때만 적용
@@ -69,7 +69,7 @@ class BeachAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemButtonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemRcvTvBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 

@@ -38,6 +38,12 @@ class SessionWritingFragment : Fragment() {
 
     private fun initUi() {
         setupRecyclerViews()
+        setupClickListeners()
+    }
+
+    /** 버튼 클릭 리스너 설정 */
+    private fun setupClickListeners() {
+        binding.timeTv.setOnClickListener { view -> showTimePicker(view) }
     }
 
     /** 모든 리사이클러 뷰 초기화 */
@@ -68,7 +74,7 @@ class SessionWritingFragment : Fragment() {
             listOf("죽도해변A", "죽도해변B", "죽도해변C", "죽도해변D", "죽도해변A", "죽도해변B", "죽도해변C", "죽도해변D")
 
         beachAdapter = BeachAdapter(dummyBeaches)
-        binding.regionsRcv.apply {
+        binding.beachesRcv.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = beachAdapter
         }
@@ -81,7 +87,9 @@ class SessionWritingFragment : Fragment() {
     /**
      * 타임피커를 보여주고 텍스트뷰 시간을 변경하는 함수
      */
-    private fun showTimePicker(timeTextView: TextView) {
+    private fun showTimePicker(view: View) {
+        val timeTextView = view as TextView
+
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
@@ -98,10 +106,14 @@ class SessionWritingFragment : Fragment() {
             }
 
             // 최종 문자열
-            val timeString = "%s %02d시 %02d분".format(amPm, hour12, minute)
+            val timeString = if (minute == 0) {
+                "%s %d시".format(amPm, hour12)
+            } else {
+                "%s %d시 %d분".format(amPm, hour12, minute)
+            }
             timeTextView.text = timeString
 
-            binding.timeTv.isSelected = true
+            timeTextView.isSelected = true
         }
 
         TimePickerDialog(requireContext(), listener, hour, minute, true).show()
