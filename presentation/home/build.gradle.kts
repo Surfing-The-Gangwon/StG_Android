@@ -43,6 +43,8 @@ dependencies {
     implementation(libs.recyclerview)
     implementation(libs.glide)
     kapt(libs.glide.compiler)
+    implementation(libs.kakao.sdk.all)
+    implementation(libs.kakao.map)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

@@ -42,6 +42,8 @@ class HomeFragment : Fragment() {
                 viewModel.setBeachData(beachMenu[position])
             }
         })
+
+        viewModel.setBeachData(beachMenu[0]) // 초기 데이터 설정
     }
 
     private fun initRecyclerView() {
