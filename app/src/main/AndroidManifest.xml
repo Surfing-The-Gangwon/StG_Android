@@ -31,9 +31,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="${SERVICE_BASE_URL}"
-                    android:host="oauth"
-                    android:path="/kakao/callback" />
+                    android:host="${OAUTH_HOST}"
+                    android:path="${OAUTH_PATH}"
+                    android:scheme="${OAUTH_SCHEME}" />
             </intent-filter>
         </activity>
     </application>

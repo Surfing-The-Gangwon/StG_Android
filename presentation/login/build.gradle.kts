@@ -3,6 +3,7 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt)
     kotlin("kapt")
 }
 
@@ -19,6 +20,9 @@ android {
         consumerProguardFiles("consumer-rules.pro")
 
         buildConfigField("String", "SERVICE_BASE_URL", "\"${getApiKey("SERVICE_BASE_URL")}\"")
+        buildConfigField("String", "OAUTH_SCHEME", "\"${getApiKey("OAUTH_SCHEME")}\"")
+        buildConfigField("String", "OAUTH_HOST", "\"${getApiKey("OAUTH_HOST")}\"")
+        buildConfigField("String", "OAUTH_PATH", "\"${getApiKey("OAUTH_PATH")}\"")
     }
 
     buildTypes {
@@ -47,10 +51,11 @@ dependencies {
     implementation(project(":core:resource"))
     implementation(project(":core:ui"))
     implementation(project(":presentation:main"))
-    implementation(project(":domain:login"))
+    implementation(project(":data:login"))
 
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.hilt)
+    implementation(libs.androidx.browser)
     kapt(libs.hilt.compiler)
 
     implementation(libs.androidx.core.ktx)

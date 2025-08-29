@@ -4,8 +4,8 @@ import com.capstone.surfingthegangwon.data.login.dto.TokenRes
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-interface ServerAuthRetrofitService {
+interface AuthRetrofitService {
 
     @POST("/kakao/callback")
-    suspend fun exchangeByGet(@Query("code") code: String): TokenRes
+    suspend fun exchangeCode(@Query("code") code: String): TokenRes
 }

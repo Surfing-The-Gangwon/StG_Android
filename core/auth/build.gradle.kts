@@ -1,11 +1,15 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     kotlin("kapt")
 }
 
+fun getApiKey(key: String): String = gradleLocalProperties(rootDir, providers).getProperty(key)
+
 android {
-    namespace = "com.capstone.surfingthegangwon.data.login"
+    namespace = "com.capstone.surfingthegangwon.core.auth"
     compileSdk = 35
 
     defaultConfig {
@@ -13,6 +17,10 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField("String", "KAKAO_CLIENT_ID", "\"${getApiKey("KAKAO_CLIENT_ID")}\"")
+        buildConfigField("String", "SERVICE_BASE_URL", "\"${getApiKey("SERVICE_BASE_URL")}\"")
+        buildConfigField("String", "OAUTH_APP_DIRECT", "\"${getApiKey("OAUTH_APP_DIRECT")}\"")
     }
 
     buildTypes {
@@ -34,13 +42,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:retrofit"))
-    implementation(project(":domain:login"))
-    implementation(project(":core:auth"))
 
-    implementation(libs.retrofit)
-    implementation(libs.gson)
-    implementation(libs.retrofit.converter)
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
 

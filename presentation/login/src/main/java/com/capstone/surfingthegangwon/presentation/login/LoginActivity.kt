@@ -4,15 +4,22 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.capstone.surfingthegangwon.core.ui.ColorGradient.Companion.setTextColorAsLinearGradient
 import com.capstone.surfingthegangwon.presentation.login.databinding.ActivityLoginBinding
 import com.capstone.surfingthegangwon.presentation.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import com.capstone.surfingthegangwon.core.resource.R as CoRes
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
@@ -24,33 +31,48 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        intent?.data?.let(::handleRedirectUri)
+        // 기존 토큰 유효하면 바로 이동
+        loginViewModel.initAutoNavigateIfValid()
+
+        Log.d("OAUTH", "onCreate data=${intent?.data}")
+        // 딥링크 수신
+        loginViewModel.onDeepLink(intent?.data)
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                loginViewModel.events.collect { e ->
+                    when (e) {
+                        is LoginEvent.OpenKakao -> CustomTabsIntent.Builder()
+                            .build().launchUrl(this@LoginActivity, Uri.parse(e.url))
+
+                        is LoginEvent.NavigateMain -> {
+                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                            finish()
+                        }
+
+                        is LoginEvent.ToastMsg -> Toast.makeText(
+                            this@LoginActivity,
+                            e.msg,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            }
+        }
+
         setTvLogoAsGradient()
         setClickKakaoLoginBtn()
     }
 
-//    override fun onNewIntent(intent: Intent?) {
-//        super.onNewIntent(intent)
-//        intent?.data?.let(::handleRedirectUri)
-//    }
-
-    private fun handleRedirectUri(uri: Uri) {
-        if (uri.scheme == "${baseUrl}" && uri.host == "oauth" && uri.path == "/kakao/callback") {
-            val error = uri.getQueryParameter("error")
-            if (error != null) {
-                // 에러 처리
-                return
-            }
-            val code = uri.getQueryParameter("code")
-            if (!code.isNullOrBlank()) {
-                loginViewModel.handleKakaoRedirectCode(code)
-            }
-        }
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        Log.d("OAUTH", "onNewIntent data=${intent?.data}")
+        loginViewModel.onDeepLink(intent.data)
     }
 
     private fun setClickKakaoLoginBtn() {
         binding.kakaoLoginBtn.setOnClickListener {
-            switchActivityToMain()
+            loginViewModel.onClickKakaoLogin()
         }
     }
 
