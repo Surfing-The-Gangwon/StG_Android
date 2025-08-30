@@ -17,6 +17,7 @@
         <activity
             android:name="com.capstone.surfingthegangwon.presentation.login.LoginActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             tools:replace="android:exported">
 
             <intent-filter>
@@ -27,6 +28,7 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
