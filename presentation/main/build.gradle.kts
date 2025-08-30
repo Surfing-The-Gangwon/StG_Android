@@ -42,6 +42,7 @@ dependencies {
     implementation(project(":core:resource"))
     implementation(project(":presentation:sessionReading"))
     implementation(project(":presentation:sessionWriting"))
+    implementation(project(":presentation:sessionStatus"))
     implementation(project(":presentation:myPage"))
 
     implementation(libs.androidx.core.ktx)

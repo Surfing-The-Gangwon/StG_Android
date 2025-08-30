@@ -8,8 +8,8 @@ import android.widget.FrameLayout
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import com.capstone.surfingthegangwon.core.ui.databinding.ViewGradeBinding
 import com.capstone.surfingthegangwon.core.model.Grade
+import com.capstone.surfingthegangwon.core.ui.databinding.ViewGradeBinding
 import com.capstone.surfingthegangwon.core.resource.R as CoRes
 
 class GradeView @JvmOverloads constructor(
@@ -19,12 +19,12 @@ class GradeView @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr) {
     private val binding = ViewGradeBinding.inflate(LayoutInflater.from(context), this, true)
 
-    private lateinit var grade: com.capstone.surfingthegangwon.core.model.Grade
+    private lateinit var grade: Grade
 
     /**
      * 외부에서 문자열로 등급을 지정
      */
-    fun setGrade(grade: com.capstone.surfingthegangwon.core.model.Grade) {
+    fun setGrade(grade: Grade) {
         this.grade = grade
         applyGradeStyle()
     }
@@ -34,9 +34,9 @@ class GradeView @JvmOverloads constructor(
      */
     private fun applyGradeStyle() {
         val (bgResId, colorResId) = when (grade) {
-            com.capstone.surfingthegangwon.core.model.Grade.Beginner -> CoRes.drawable.grade_beginner_background to CoRes.color.grade_beginner
-            com.capstone.surfingthegangwon.core.model.Grade.Intermediate -> CoRes.drawable.grade_intermediate_background to CoRes.color.grade_intermediate
-            com.capstone.surfingthegangwon.core.model.Grade.Advanced -> CoRes.drawable.grade_advanced_background to CoRes.color.grade_advanced
+            Grade.Beginner -> CoRes.drawable.grade_beginner_background to CoRes.color.grade_beginner
+            Grade.Intermediate -> CoRes.drawable.grade_intermediate_background to CoRes.color.grade_intermediate
+            Grade.Advanced -> CoRes.drawable.grade_advanced_background to CoRes.color.grade_advanced
         }
 
         setBackground(bgResId)

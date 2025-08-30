@@ -31,6 +31,35 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setTvLogoAsGradient()
+        setClickKakaoLoginBtn()
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        Log.d("OAUTH", "onNewIntent data=${intent?.data}")
+//        loginViewModel.onDeepLink(intent.data)
+    }
+
+    private fun setClickKakaoLoginBtn() {
+        binding.kakaoLoginBtn.setOnClickListener {
+//            loginViewModel.onClickKakaoLogin()
+            switchActivityToMain()
+        }
+    }
+
+    /**
+     * 메인 액티비티로 이동
+     */
+    private fun switchActivityToMain() {
+        val intent = Intent(
+            this,
+            MainActivity::class.java
+        )
+        startActivity(intent)
+    }
+
+    private fun onCreateKakaoLogic() {
         // 기존 토큰 유효하면 바로 이동
         loginViewModel.initAutoNavigateIfValid()
 
@@ -46,7 +75,7 @@ class LoginActivity : AppCompatActivity() {
                             .build().launchUrl(this@LoginActivity, Uri.parse(e.url))
 
                         is LoginEvent.NavigateMain -> {
-                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                            switchActivityToMain()
                             finish()
                         }
 
@@ -59,32 +88,6 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
-
-        setTvLogoAsGradient()
-        setClickKakaoLoginBtn()
-    }
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        Log.d("OAUTH", "onNewIntent data=${intent?.data}")
-        loginViewModel.onDeepLink(intent.data)
-    }
-
-    private fun setClickKakaoLoginBtn() {
-        binding.kakaoLoginBtn.setOnClickListener {
-            loginViewModel.onClickKakaoLogin()
-        }
-    }
-
-    /**
-     * 메인 액티비티로 이동
-     */
-    private fun switchActivityToMain() {
-        val intent = Intent(
-            this,
-            MainActivity::class.java
-        )
-        startActivity(intent)
     }
 
     /**
