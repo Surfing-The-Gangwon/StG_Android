@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/activity_gray"
-    tools:context=".SessionReadingActivity">
+    tools:context=".SessionReadingFragment">
 
     <com.capstone.surfingthegangwon.core.ui.TopAppBar
         android:id="@+id/topAppBar"

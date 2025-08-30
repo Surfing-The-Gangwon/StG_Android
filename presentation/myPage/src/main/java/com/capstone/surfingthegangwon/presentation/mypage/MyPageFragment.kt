@@ -1,6 +1,5 @@
 package com.capstone.surfingthegangwon.presentation.mypage
 
-import android.nfc.Tag
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
