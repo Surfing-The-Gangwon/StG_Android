@@ -9,8 +9,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.capstone.surfingthegangwon.core.model.Grade
 import com.capstone.surfingthegangwon.core.ui.CustomHeaderView
-import com.capstone.surfingthegangwon.domain.together.model.Grade
 import com.capstone.surfingthegangwon.domain.together.model.SessionListItem
 import com.capstone.surfingthegangwon.presentation.together.databinding.FragmentTogetherBinding
 import com.google.android.flexbox.FlexDirection

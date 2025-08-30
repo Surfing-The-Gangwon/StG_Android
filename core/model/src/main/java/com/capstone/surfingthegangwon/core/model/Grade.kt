@@ -1,4 +1,4 @@
-package com.capstone.surfingthegangwon.domain.together.model
+package com.capstone.surfingthegangwon.core.model
 
 sealed class Grade(val label: String) {
     data object Beginner : Grade("초급")
