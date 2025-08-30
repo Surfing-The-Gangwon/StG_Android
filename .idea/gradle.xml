@@ -30,6 +30,7 @@
             <option value="$PROJECT_DIR$/presentation/main" />
             <option value="$PROJECT_DIR$/presentation/myPage" />
             <option value="$PROJECT_DIR$/presentation/sessionReading" />
+            <option value="$PROJECT_DIR$/presentation/sessionStatus" />
             <option value="$PROJECT_DIR$/presentation/sessionWriting" />
             <option value="$PROJECT_DIR$/presentation/together" />
           </set>
