@@ -181,4 +181,106 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <!-- 우측 날씨 정보 플로팅 버튼들 -->
+    <LinearLayout
+        android:id="@+id/weather_info_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/tab_menu"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical">
+
+        <!-- 수온 정보 -->
+        <LinearLayout
+            android:id="@+id/btn_water_temp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_weather_button"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/ic_temp_water" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15°C"
+                android:textColor="@color/material_dynamic_neutral30"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <!-- 기온 정보 -->
+        <LinearLayout
+            android:id="@+id/btn_air_temp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_weather_button"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:elevation="4dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_temp_air"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="21.3°C"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- 자외선 정보 -->
+        <LinearLayout
+            android:id="@+id/btn_wave_height"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_weather_button"
+            android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:elevation="4dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_uv"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="강함"
+                android:textSize="10sp"
+                android:textColor="@color/material_dynamic_neutral30"
+                android:layout_marginBottom="2dp" />
+        </LinearLayout>
+
+    </LinearLayout>
 </RelativeLayout>
