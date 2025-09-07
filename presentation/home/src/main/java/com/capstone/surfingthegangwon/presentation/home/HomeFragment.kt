@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.capstone.surfingthegangwon.BeachInfo
 import com.capstone.surfingthegangwon.core.ui.CustomHeaderView
 import com.capstone.surfingthegangwon.presentation.home.databinding.FragmentHomeBinding
 
@@ -14,7 +17,10 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
-    private val beachAdapter = BeachInfoAdapter()
+
+    private val beachAdapter by lazy {
+        BeachInfoAdapter { beach -> navigateToMap(beach) }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,4 +64,10 @@ class HomeFragment : Fragment() {
             beachAdapter.submitList(list)
         }
     }
+
+    private fun navigateToMap(beach: BeachInfo) {
+        val args = bundleOf("beachName" to beach.beachName)
+        findNavController().navigate(com.capstone.surfingthegangwon.core.navigation.R.id.action_home_to_map, args)
+    }
+
 }

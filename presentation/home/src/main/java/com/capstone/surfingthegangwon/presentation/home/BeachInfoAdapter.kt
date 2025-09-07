@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.capstone.surfingthegangwon.BeachInfo
 import com.capstone.surfingthegangwon.presentation.home.databinding.ItemBeachInfoBinding
 
-class BeachInfoAdapter: ListAdapter<BeachInfo, BeachInfoAdapter.BeachInfoViewHolder>(
+class BeachInfoAdapter(
+    private val onItemClick: (BeachInfo) -> Unit
+): ListAdapter<BeachInfo, BeachInfoAdapter.BeachInfoViewHolder>(
     object : DiffUtil.ItemCallback<BeachInfo>() {
         override fun areItemsTheSame(oldItem: BeachInfo, newItem: BeachInfo): Boolean {
             return oldItem.beachName == newItem.beachName
@@ -27,6 +29,10 @@ class BeachInfoAdapter: ListAdapter<BeachInfo, BeachInfoAdapter.BeachInfoViewHol
             binding.tvTempInfo.text = "기온 ${item.airTemp}℃ 수온 ${item.waterTemp}℃"
             binding.tvWaveInfo.text = "${item.waveHeight}M - ${item.wavePeriod}S"
             binding.tvWindInfo.text = "${item.windDirection} ${item.windSpeed} m/h"
+
+            binding.root.setOnClickListener {
+                onItemClick(item)
+            }
         }
     }
 
