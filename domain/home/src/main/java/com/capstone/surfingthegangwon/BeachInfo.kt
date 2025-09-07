@@ -7,5 +7,7 @@ data class BeachInfo (
     val waveHeight: Float, // 파고
     val wavePeriod: Float, // 파주기
     val windDirection: String, // 풍향
-    val windSpeed: Float // 풍속
+    val windSpeed: Float, // 풍속
+    val latitude: Double = 38.13105, // 위도
+    val longitude: Double = 128.624284 // 경도
 )
