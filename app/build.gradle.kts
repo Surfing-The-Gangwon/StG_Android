@@ -1,13 +1,13 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
-fun getApiKey(key: String): String = gradleLocalProperties(rootDir, providers).getProperty(key)
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
     alias(libs.plugins.hilt)
 }
+
+fun getApiKey(key: String): String = gradleLocalProperties(rootDir, providers).getProperty(key)
 
 android {
     namespace = "com.capstone.surfingthegangwon"
@@ -22,9 +22,16 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+//        buildConfigField("String", "KAKAO_REST_API_KEY", "\"${getApiKey("KAKAO_REST_API_KEY")}\"")
+//        buildConfigField("String", "KAKAO_NATIVE_APP_KEY", "\"${getApiKey("KAKAO_NATIVE_APP_KEY")}\"")
+
         buildConfigField("String", "KAKAO_REST_API_KEY", "\"${getApiKey("KAKAO_REST_API_KEY")}\"")
         buildConfigField("String", "KAKAO_API_KEY", "\"${getApiKey("KAKAO_API_KEY")}\"")
+
+        manifestPlaceholders["SERVICE_BASE_URL"] = getApiKey("SERVICE_BASE_URL")
+        manifestPlaceholders["KAKAO_NATIVE_APP_KEY"] = getApiKey("KAKAO_NATIVE_APP_KEY")
     }
+
     buildFeatures {
         buildConfig = true
     }
@@ -57,6 +64,7 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:resource"))
     implementation(project(":core:ui"))
+    implementation(project(":presentation:login"))
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
     implementation(libs.kakao.sdk.all)
