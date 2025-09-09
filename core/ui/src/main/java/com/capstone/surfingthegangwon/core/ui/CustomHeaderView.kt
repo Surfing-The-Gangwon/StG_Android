@@ -54,6 +54,11 @@ class CustomHeaderView @JvmOverloads constructor(
         })
     }
 
+    fun selectTab(index: Int) {
+        val tabLayout = binding.beachTabLayout
+        tabLayout.getTabAt(index)?.select()
+    }
+
     /**
      * 인디케이터의 넓이를 조정함
      */

@@ -7,7 +7,7 @@ import com.capstone.surfingthegangwon.core.util.formatIsoToKoreanDate
 import com.capstone.surfingthegangwon.core.util.toHourMinute
 import com.capstone.surfingthegangwon.data.together.dto.GatheringRes
 import com.capstone.surfingthegangwon.data.together.dto.GatheringResItem
-import com.capstone.surfingthegangwon.domain.together.model.SessionItem
+import com.capstone.surfingthegangwon.core.model.SessionItem
 
 fun GatheringResItem.toSessionItem(): SessionItem =
     SessionItem(

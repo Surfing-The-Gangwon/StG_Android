@@ -1,8 +1,5 @@
-package com.capstone.surfingthegangwon.domain.together.model
+package com.capstone.surfingthegangwon.core.model
 
-import com.capstone.surfingthegangwon.core.model.Grade
-import com.capstone.surfingthegangwon.core.model.PostAction
-import com.capstone.surfingthegangwon.core.model.SessionState
 import java.io.Serializable
 
 data class SessionItem(

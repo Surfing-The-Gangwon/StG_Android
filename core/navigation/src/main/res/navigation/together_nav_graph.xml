@@ -25,7 +25,7 @@
 
         <argument
             android:name="session"
-            app:argType="com.capstone.surfingthegangwon.domain.together.model.SessionItem" />
+            app:argType="com.capstone.surfingthegangwon.core.model.SessionItem" />
     </fragment>
 
 </navigation>

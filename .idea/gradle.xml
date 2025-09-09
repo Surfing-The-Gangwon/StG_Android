@@ -24,6 +24,7 @@
             <option value="$PROJECT_DIR$/data/login" />
             <option value="$PROJECT_DIR$/data/sessionStatus" />
             <option value="$PROJECT_DIR$/data/together" />
+            <option value="$PROJECT_DIR$/data/user" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/domain/city" />
             <option value="$PROJECT_DIR$/domain/login" />

@@ -18,6 +18,23 @@ class AreaAdapter(
 
     private var selectedPosition = 0
 
+    // 외부에서 "id로 선택 복원"
+    fun selectById(id: Int) {
+        val idx = currentList.indexOfFirst { it.seashoreId == id }
+        if (idx >= 0) selectPosition(idx)
+    }
+
+    // 외부에서 "index로 선택 복원"
+    fun selectPosition(idx: Int) {
+        val prev = selectedPosition
+        selectedPosition = idx
+        if (prev != RecyclerView.NO_POSITION) notifyItemChanged(prev)
+        if (idx != RecyclerView.NO_POSITION) notifyItemChanged(idx)
+        getItemOrNull(idx)?.let(onSelected)
+    }
+
+    private fun getItemOrNull(idx: Int) = currentList.getOrNull(idx)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
         val binding = ItemAreaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ContentViewHolder(binding)

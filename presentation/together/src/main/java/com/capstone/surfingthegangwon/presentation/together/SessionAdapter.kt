@@ -2,11 +2,13 @@ package com.capstone.surfingthegangwon.presentation.together
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.capstone.surfingthegangwon.domain.together.model.SessionItem
-import com.capstone.surfingthegangwon.presentation.together.databinding.ItemSessionBinding
+import com.capstone.surfingthegangwon.core.model.SessionState
+import com.capstone.surfingthegangwon.core.ui.databinding.ItemSessionBinding
+import com.capstone.surfingthegangwon.core.model.SessionItem
 
 class SessionAdapter(
     private val onClick: (SessionItem) -> Unit
@@ -48,6 +50,10 @@ class SessionAdapter(
             time.text = item.sessionTime
             numbers.text = item.participants
             grade.setGrade(item.grade)
+            overlay.isVisible = when (item.state) {
+                SessionState.OPEN -> false
+                SessionState.CLOSE -> true
+            }
 
             root.setOnClickListener {
                 onClick(item)
