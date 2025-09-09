@@ -43,7 +43,9 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:resource"))
     implementation(project(":core:model"))
+    implementation(project(":core:util"))
     implementation(project(":domain:together"))
+    implementation(project(":data:together"))
     implementation(project(":data:city"))
     implementation(project(":domain:city"))
 

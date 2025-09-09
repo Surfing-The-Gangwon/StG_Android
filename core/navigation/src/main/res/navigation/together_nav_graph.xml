@@ -19,8 +19,8 @@
         android:id="@+id/sessionWriting"
         android:name="com.capstone.surfingthegangwon.presentation.sessionwriting.SessionWritingFragment" />
 
-<!--    <fragment-->
-<!--        android:id="@+id/sessionReading"-->
-<!--        android:name="com.capstone.surfingthegangwon.presentation.together.TogetherFragment" />-->
+    <fragment
+        android:id="@+id/sessionReading"
+        android:name="com.capstone.surfingthegangwon.presentation.sessionReading.SessionReadingFragment" />
 
 </navigation>

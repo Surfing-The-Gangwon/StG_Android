@@ -35,6 +35,6 @@ class SeashoreViewModel @Inject constructor(
     }
 
     companion object {
-        private const val TAG = "TogetherViewModel"
+        private const val TAG = "SeashoreViewModel"
     }
 }

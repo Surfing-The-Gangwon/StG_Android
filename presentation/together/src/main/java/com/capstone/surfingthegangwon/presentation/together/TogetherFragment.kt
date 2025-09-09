@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.surfingthegangwon.core.ui.CustomHeaderView
+import com.capstone.surfingthegangwon.core.util.DateUtils
 import com.capstone.surfingthegangwon.presentation.together.databinding.FragmentTogetherBinding
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -18,8 +19,6 @@ import com.google.android.flexbox.JustifyContent
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.DayOfWeek
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.Locale
 import com.capstone.surfingthegangwon.core.resource.R as CoRes
 
 @AndroidEntryPoint
@@ -32,9 +31,12 @@ class TogetherFragment : Fragment() {
     private lateinit var sessionAdapter: SessionAdapter
 
     private val seashoreViewModel: SeashoreViewModel by viewModels()
+    private val sessionViewModel: SessionViewModel by viewModels()
 
     private var baseDate: LocalDate = LocalDate.now()
-    private val dateFormatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일", Locale.KOREA)
+    private val dateFormatter = DateUtils.KOREAN_DATE
+    private var selectedSeashoreId: Int? = 1
+    private var selectedDate: LocalDate? = baseDate
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +58,7 @@ class TogetherFragment : Fragment() {
         setupClickListeners()
         setupRecyclerViews()
         updateWeek()
+        tryFetchSessions()
     }
 
     /** 버튼 클릭 리스너 설정 */
@@ -83,9 +86,20 @@ class TogetherFragment : Fragment() {
         setupSessionRecyclerView()
     }
 
+    private fun tryFetchSessions() {
+        val seashoreId = selectedSeashoreId
+        val date = selectedDate
+        if (seashoreId != null && date != null) {
+            sessionViewModel.getGatheringPosts(seashoreId, date)
+        }
+    }
+
     /** 지역 리스트 RecyclerView 설정 */
     private fun setupAreaRecyclerView() {
-        areaAdapter = AreaAdapter()
+        areaAdapter = AreaAdapter { seashore ->
+            selectedSeashoreId = seashore.seashoreId
+            tryFetchSessions()
+        }
         binding.recyclerArea.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = areaAdapter
@@ -103,7 +117,9 @@ class TogetherFragment : Fragment() {
     private fun setupWeekRecyclerView() {
         weekTitle = binding.weekTitle
         weekAdapter = WeekAdapter { clickedDate ->
+            selectedDate = clickedDate
             weekTitle.text = clickedDate.format(dateFormatter)
+            tryFetchSessions()
         }
 
         binding.recyclerWeek.apply {
@@ -122,11 +138,19 @@ class TogetherFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = sessionAdapter
         }
+        observeSessions()
+    }
+
+    private fun observeSessions() {
+        sessionViewModel.sessions.observe(viewLifecycleOwner) { items ->
+            sessionAdapter.submitList(items)
+        }
     }
 
     /** 기준 날짜의 주간 날짜 리스트를 만들고 캘린더에 표시 */
     private fun updateWeek() {
         val weekDates = getWeekDates(baseDate)
+        Log.d(TAG, weekDates.toString())
 
         // 선택된 날짜의 요일을 저장해 다음 주에도 유지
         val prevSelectedDayOfWeek = weekAdapter.getSelectedDate()?.dayOfWeek

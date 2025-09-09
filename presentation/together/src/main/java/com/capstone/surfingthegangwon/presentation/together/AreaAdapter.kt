@@ -32,17 +32,7 @@ class AreaAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.root.setOnClickListener {
-                val pos = adapterPosition
-                if (pos == RecyclerView.NO_POSITION) return@setOnClickListener
-
-                val prev = selectedPosition
-                selectedPosition = pos
-                if (prev != RecyclerView.NO_POSITION) notifyItemChanged(prev)
-                notifyItemChanged(selectedPosition)
-
-                onSelected(getItem(pos))
-            }
+            setOnClickListener()
         }
 
         fun bind(item: Seashores) = with(binding) {
@@ -67,6 +57,28 @@ class AreaAdapter(
                 setTextColor(textColor)
                 this.typeface = typeface
             }
+        }
+
+        private fun setOnClickListener() {
+            binding.root.setOnClickListener {
+                changeColor()
+            }
+        }
+
+        private fun changeColor() {
+            val pos = adapterPosition
+            if (pos == RecyclerView.NO_POSITION) return
+
+            val prev = selectedPosition
+            selectedPosition = pos
+            if (prev != RecyclerView.NO_POSITION) notifyItemChanged(prev)
+            notifyItemChanged(selectedPosition)
+
+            onSelected(getItem(pos))
+        }
+
+        private fun ss() {
+
         }
     }
 
