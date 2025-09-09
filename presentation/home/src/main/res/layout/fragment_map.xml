@@ -68,12 +68,12 @@
             android:elevation="1.5dp">
 
             <ImageView
-                android:layout_width="20dp"
+                android:layout_width="16dp"
                 android:layout_height="20dp"
-                android:src="@drawable/shop"
                 android:layout_marginEnd="4dp"
-                app:tint="@color/tab_icon_tint"
-                android:duplicateParentState="true"/>
+                android:duplicateParentState="true"
+                android:src="@drawable/ic_shop"
+                app:tint="@color/tab_icon_tint" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -102,7 +102,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/school"
+                android:src="@drawable/ic_school"
                 app:tint="@color/tab_icon_tint"
                 android:duplicateParentState="true"
                 android:layout_marginEnd="4dp" />
@@ -134,7 +134,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/tour"
+                android:src="@drawable/ic_tour"
                 app:tint="@color/tab_icon_tint"
                 android:duplicateParentState="true"
                 android:layout_marginEnd="4dp" />
@@ -165,7 +165,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/restaurant"
+                android:src="@drawable/ic_food"
                 app:tint="@color/tab_icon_tint"
                 android:duplicateParentState="true"
                 android:layout_marginEnd="4dp" />
