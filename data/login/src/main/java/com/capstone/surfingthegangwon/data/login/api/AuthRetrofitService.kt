@@ -1,11 +1,14 @@
 package com.capstone.surfingthegangwon.data.login.api
 
-import com.capstone.surfingthegangwon.data.login.dto.TokenRes
+import com.capstone.surfingthegangwon.data.login.dto.TokenReq
+import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.POST
-import retrofit2.http.Query
 
 interface AuthRetrofitService {
 
-    @POST("/kakao/callback")
-    suspend fun exchangeCode(@Query("code") code: String): TokenRes
+    @POST("auth/kakao/register")
+    suspend fun exchangeCode(
+        @Body tokenReq: TokenReq
+    ): Response<Unit>
 }

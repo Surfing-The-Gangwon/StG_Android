@@ -302,7 +302,7 @@
                         android:text="@string/cancel_join" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/completedJoinButton"
+                        android:id="@+id/completedJoin"
                         style="@style/Widget.Stroke.Blue.Button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
