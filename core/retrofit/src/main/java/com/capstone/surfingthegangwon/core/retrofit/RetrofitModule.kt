@@ -22,6 +22,10 @@ object RetrofitModule {
     @Retention(AnnotationRetention.BINARY)
     annotation class ServiceApi
 
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class TourApi
+
     @Provides
     @Singleton
     fun provideDefaultOkHttpClient(): OkHttpClient {
@@ -58,6 +62,28 @@ object RetrofitModule {
     fun provideServiceApiRetrofit(@ServiceApi client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.SERVICE_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    @TourApi
+    fun provideTourOkHttpClient(): OkHttpClient {
+        return OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    @TourApi
+    fun provideTourApiRetrofit(@TourApi client: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BuildConfig.TOUR_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

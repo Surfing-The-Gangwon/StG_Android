@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -28,6 +29,15 @@ android {
             "SERVICE_BASE_URL",
             "\"${localProperties.getProperty("SERVICE_BASE_URL")}\""
         )
+        buildConfigField(
+            "String",
+            "TOUR_BASE_URL",
+            "\"${localProperties.getProperty("TOUR_BASE_URL")}\""
+        )
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
