@@ -133,7 +133,10 @@ class TogetherFragment : Fragment() {
 
     /** 세션 리스트 RecyclerView 설정 및 더미 데이터 삽입 */
     private fun setupSessionRecyclerView() {
-        sessionAdapter = SessionAdapter()
+        sessionAdapter = SessionAdapter { session ->
+            val action = TogetherFragmentDirections.actionTogetherToReading(session)
+            findNavController().navigate(action)
+        }
         binding.recyclerSession.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = sessionAdapter

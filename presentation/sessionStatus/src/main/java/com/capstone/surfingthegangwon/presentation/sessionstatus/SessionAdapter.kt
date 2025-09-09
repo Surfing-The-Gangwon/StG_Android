@@ -6,8 +6,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.capstone.surfingthegangwon.core.model.SessionState
 import com.capstone.surfingthegangwon.domain.sessionstatus.SessionItem
-import com.capstone.surfingthegangwon.domain.sessionstatus.SessionState
 import com.capstone.surfingthegangwon.presentation.sessionstatus.databinding.ItemSessionBinding
 
 class SessionAdapter :

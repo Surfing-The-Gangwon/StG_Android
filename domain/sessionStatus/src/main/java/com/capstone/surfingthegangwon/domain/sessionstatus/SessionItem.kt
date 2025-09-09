@@ -1,6 +1,7 @@
 package com.capstone.surfingthegangwon.domain.sessionstatus
 
 import com.capstone.surfingthegangwon.core.model.Grade
+import com.capstone.surfingthegangwon.core.model.SessionState
 
 data class SessionItem(
     val id: Int,

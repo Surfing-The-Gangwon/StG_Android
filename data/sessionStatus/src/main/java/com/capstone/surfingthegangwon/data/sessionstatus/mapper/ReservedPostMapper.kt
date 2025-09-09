@@ -1,11 +1,11 @@
 package com.capstone.surfingthegangwon.data.sessionstatus.mapper
 
 import com.capstone.surfingthegangwon.core.model.Grade
+import com.capstone.surfingthegangwon.core.model.SessionState
 import com.capstone.surfingthegangwon.core.util.toHourMinute
 import com.capstone.surfingthegangwon.data.sessionstatus.dto.ReservedPostRes
 import com.capstone.surfingthegangwon.data.sessionstatus.dto.ReservedPostResItem
 import com.capstone.surfingthegangwon.domain.sessionstatus.SessionItem
-import com.capstone.surfingthegangwon.domain.sessionstatus.SessionState
 
 fun ReservedPostResItem.toSessionItem(): SessionItem =
     SessionItem(

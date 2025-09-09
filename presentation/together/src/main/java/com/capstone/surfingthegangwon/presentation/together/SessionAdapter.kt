@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.capstone.surfingthegangwon.domain.together.model.SessionItem
 import com.capstone.surfingthegangwon.presentation.together.databinding.ItemSessionBinding
 
-class SessionAdapter :
-    ListAdapter<SessionItem, SessionAdapter.ContentViewHolder>(DIFF_CALLBACK) {
+class SessionAdapter(
+    private val onClick: (SessionItem) -> Unit
+) : ListAdapter<SessionItem, SessionAdapter.ContentViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<SessionItem>() {
@@ -47,6 +48,10 @@ class SessionAdapter :
             time.text = item.sessionTime
             numbers.text = item.participants
             grade.setGrade(item.grade)
+
+            root.setOnClickListener {
+                onClick(item)
+            }
         }
     }
 }

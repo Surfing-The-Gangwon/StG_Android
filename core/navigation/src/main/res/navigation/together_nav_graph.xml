@@ -10,9 +10,9 @@
         <action
             android:id="@+id/action_together_to_writing"
             app:destination="@id/sessionWriting" />
-<!--        <action-->
-<!--            android:id="@+id/action_compose_to_detail"-->
-<!--            app:destination="@id/detailFragment" />-->
+        <action
+            android:id="@+id/action_together_to_reading"
+            app:destination="@id/sessionReading" />
     </fragment>
 
     <fragment
@@ -21,6 +21,11 @@
 
     <fragment
         android:id="@+id/sessionReading"
-        android:name="com.capstone.surfingthegangwon.presentation.sessionReading.SessionReadingFragment" />
+        android:name="com.capstone.surfingthegangwon.presentation.sessionReading.SessionReadingFragment" >
+
+        <argument
+            android:name="session"
+            app:argType="com.capstone.surfingthegangwon.domain.together.model.SessionItem" />
+    </fragment>
 
 </navigation>
