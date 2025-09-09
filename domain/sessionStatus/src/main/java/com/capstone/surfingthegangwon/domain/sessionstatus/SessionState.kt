@@ -1,4 +1,4 @@
-package com.capstone.surfingthegangwon.domain.sessionstate
+package com.capstone.surfingthegangwon.domain.sessionstatus
 
 sealed class SessionState(val label: String) {
     data object OPEN : SessionState("open")

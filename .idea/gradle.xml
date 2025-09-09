@@ -21,10 +21,11 @@
             <option value="$PROJECT_DIR$/core/util" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/login" />
+            <option value="$PROJECT_DIR$/data/sessionStatus" />
             <option value="$PROJECT_DIR$/data/together" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/domain/login" />
-            <option value="$PROJECT_DIR$/domain/sessionState" />
+            <option value="$PROJECT_DIR$/domain/sessionStatus" />
             <option value="$PROJECT_DIR$/domain/together" />
             <option value="$PROJECT_DIR$/presentation" />
             <option value="$PROJECT_DIR$/presentation/home" />

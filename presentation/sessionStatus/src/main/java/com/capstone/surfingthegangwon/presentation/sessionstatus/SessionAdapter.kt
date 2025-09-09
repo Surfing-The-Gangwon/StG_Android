@@ -6,8 +6,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.capstone.surfingthegangwon.domain.sessionstate.SessionItem
-import com.capstone.surfingthegangwon.domain.sessionstate.SessionState
+import com.capstone.surfingthegangwon.domain.sessionstatus.SessionItem
+import com.capstone.surfingthegangwon.domain.sessionstatus.SessionState
 import com.capstone.surfingthegangwon.presentation.sessionstatus.databinding.ItemSessionBinding
 
 class SessionAdapter :
@@ -46,8 +46,7 @@ class SessionAdapter :
         fun bind(item: SessionItem) = with(binding) {
             // 텍스트 세팅
             title.text = item.title
-            sessionTime.text = item.sessionTime
-            time.text = item.time
+            time.text = item.sessionTime
             numbers.text = item.participants
             grade.setGrade(item.grade)
             overlay.isVisible = when (item.state) {

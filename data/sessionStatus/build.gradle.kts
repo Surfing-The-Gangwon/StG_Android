@@ -1,12 +1,13 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.hilt)
     kotlin("kapt")
 }
 
 android {
-    namespace = "com.capstone.surfingthegangwon.presentation.main"
+    namespace = "com.capstone.surfingthegangwon.data.sessionstatus"
     compileSdk = 35
 
     defaultConfig {
@@ -32,31 +33,24 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
-    implementation(project(":presentation:home"))
-    implementation(project(":presentation:together"))
-    implementation(project(":core:navigation"))
-    implementation(project(":core:resource"))
-    implementation(project(":presentation:sessionReading"))
-    implementation(project(":presentation:sessionWriting"))
-    implementation(project(":presentation:sessionStatus"))
-    implementation(project(":presentation:myPage"))
+    implementation(project(":core:retrofit"))
+    implementation(project(":core:model"))
+    implementation(project(":core:util"))
+    implementation(project(":domain:sessionStatus"))
 
+    implementation(libs.retrofit)
+    implementation(libs.gson)
+    implementation(libs.retrofit.converter)
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.navigation.fragment)
-    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
