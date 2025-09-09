@@ -17,5 +17,6 @@ class SurfingTheGangwon: Application() {
 
         KakaoSdk.init(this, BuildConfig.KAKAO_API_KEY)
         KakaoMapSdk.init(this, BuildConfig.KAKAO_API_KEY)
+        // KakaoSdk.init(this, "${BuildConfig.KAKAO_NATIVE_APP_KEY}")
     }
 }

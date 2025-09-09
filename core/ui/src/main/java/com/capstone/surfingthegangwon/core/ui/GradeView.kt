@@ -8,8 +8,8 @@ import android.widget.FrameLayout
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import com.capstone.surfingthegangwon.core.model.Grade
 import com.capstone.surfingthegangwon.core.ui.databinding.ViewGradeBinding
-import com.capstone.surfingthegangwon.domain.together.model.Grade
 import com.capstone.surfingthegangwon.core.resource.R as CoRes
 
 class GradeView @JvmOverloads constructor(

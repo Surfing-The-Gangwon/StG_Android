@@ -62,12 +62,15 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:auth"))
 
     implementation(libs.retrofit)
     implementation(libs.gson)
     implementation(libs.retrofit.converter)
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
+    implementation(platform(libs.okhttpBom))
+    implementation(libs.bundles.okhttpAll)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

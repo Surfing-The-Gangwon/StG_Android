@@ -3,6 +3,7 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt)
     kotlin("kapt")
 }
 
@@ -18,7 +19,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
 
-        buildConfigField("String", "SERVICE_BASE_URL", "\"${getApiKey("SERVICE_BASE_URL")}\"")
+        manifestPlaceholders["KAKAO_NATIVE_APP_KEY"] = getApiKey("KAKAO_NATIVE_APP_KEY")
     }
 
     buildTypes {
@@ -46,11 +47,14 @@ android {
 dependencies {
     implementation(project(":core:resource"))
     implementation(project(":core:ui"))
+    implementation(project(":core:auth"))
     implementation(project(":presentation:main"))
+    implementation(project(":data:login"))
     implementation(project(":domain:login"))
 
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.hilt)
+    implementation(libs.kakao.sdk.all)
     kapt(libs.hilt.compiler)
 
     implementation(libs.androidx.core.ktx)

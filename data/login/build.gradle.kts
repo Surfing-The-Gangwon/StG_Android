@@ -36,6 +36,7 @@ android {
 dependencies {
     implementation(project(":core:retrofit"))
     implementation(project(":domain:login"))
+    implementation(project(":core:auth"))
 
     implementation(libs.retrofit)
     implementation(libs.gson)

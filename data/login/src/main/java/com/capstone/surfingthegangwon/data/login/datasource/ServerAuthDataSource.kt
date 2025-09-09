@@ -1,11 +1,10 @@
 package com.capstone.surfingthegangwon.data.login.datasource
 
-import android.util.Log
-import com.capstone.surfingthegangwon.data.login.api.ServerAuthRetrofitService
+import com.capstone.surfingthegangwon.data.login.api.AuthRetrofitService
 import javax.inject.Inject
 
 class ServerAuthDataSource @Inject constructor(
-    private val authApi: ServerAuthRetrofitService
+    private val authApi: AuthRetrofitService
 ) {
 
 //    private fun exchangeCodeWithBackend(code: String) {

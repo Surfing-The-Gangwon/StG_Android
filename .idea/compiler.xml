@@ -2,7 +2,6 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="11">
-      <module name="SurfingTheGangwon.data.home" target="21" />
       <module name="SurfingTheGangwon.ui" target="21" />
     </bytecodeTargetLevel>
   </component>
