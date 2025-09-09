@@ -91,6 +91,7 @@
             android:id="@+id/recyclerSession"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:paddingTop="40dp"
             android:paddingBottom="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/calenderControl"

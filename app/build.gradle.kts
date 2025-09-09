@@ -22,13 +22,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-//        buildConfigField("String", "KAKAO_REST_API_KEY", "\"${getApiKey("KAKAO_REST_API_KEY")}\"")
-//        buildConfigField("String", "KAKAO_NATIVE_APP_KEY", "\"${getApiKey("KAKAO_NATIVE_APP_KEY")}\"")
-
-        manifestPlaceholders["OAUTH_SCHEME"] = getApiKey("OAUTH_SCHEME")
-        manifestPlaceholders["OAUTH_HOST"] = getApiKey("OAUTH_HOST")
-        manifestPlaceholders["OAUTH_PATH"] = getApiKey("OAUTH_PATH")
         manifestPlaceholders["KAKAO_NATIVE_APP_KEY"] = getApiKey("KAKAO_NATIVE_APP_KEY")
+        buildConfigField("String", "KAKAO_NATIVE_APP_KEY", "\"${getApiKey("KAKAO_NATIVE_APP_KEY")}\"")
     }
 
     buildTypes {
@@ -51,8 +46,11 @@ android {
 
 dependencies {
     implementation(project(":presentation:login"))
+
     implementation(libs.hilt)
+    implementation(libs.kakao.sdk.all)
     kapt(libs.hilt.compiler)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

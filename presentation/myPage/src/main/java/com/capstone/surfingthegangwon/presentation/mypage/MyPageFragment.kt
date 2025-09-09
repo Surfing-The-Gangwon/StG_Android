@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.capstone.surfingthegangwon.presentation.mypage.databinding.FragmentMyPageBinding
+import com.capstone.surfingthegangwon.presentation.sessionstatus.SessionStatusFragment
 
 class MyPageFragment : Fragment() {
     private lateinit var binding: FragmentMyPageBinding
@@ -50,7 +51,7 @@ class MyPageFragment : Fragment() {
 
     companion object {
         private const val TAG = "MyPageFragment"
-        private const val MOVE_CREATED = "CREATED"
-        private const val MOVE_RESERVED = "RESERVED"
+        private const val MOVE_CREATED = SessionStatusFragment.MODE_CREATED
+        private const val MOVE_RESERVED = SessionStatusFragment.MODE_RESERVED
     }
 }

@@ -4,16 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.surfingthegangwon.presentation.sessionstatus.databinding.FragmentSessionStatusBinding
+import com.capstone.surfingthegangwon.presentation.together.TogetherFragmentDirections
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SessionStatusFragment : Fragment() {
     private lateinit var binding: FragmentSessionStatusBinding
     private val args: SessionStatusFragmentArgs by navArgs()
 
     private lateinit var sessionAdapter: SessionAdapter
+    private val sessionViewModel: SessionStatusViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,13 +40,30 @@ class SessionStatusFragment : Fragment() {
     private fun initUI(status: String) {
         var titleName = ""
 
-        if (status == MOVE_CREATED) {
+        if (status == MODE_CREATED) {
             titleName = getString(R.string.recruitment_status)
-        } else if (status == MOVE_RESERVED) {
+            initCreatedModeUi()
+        } else if (status == MODE_RESERVED) {
             titleName = getString(R.string.reservation_status)
+            initReservedModeUi()
         }
         setToolBar(titleName)
         setupSessionRecyclerView()
+        observeSessions()
+    }
+
+    private fun initCreatedModeUi() {
+        sessionViewModel.loadWrittenPosts()
+    }
+
+    private fun initReservedModeUi() {
+        sessionViewModel.loadReservedPosts()
+    }
+
+    private fun observeSessions() {
+        sessionViewModel.sessions.observe(viewLifecycleOwner) { items ->
+            sessionAdapter.submitList(items)
+        }
     }
 
     private fun setToolBar(titleName: String = "error") {
@@ -51,7 +75,10 @@ class SessionStatusFragment : Fragment() {
 
     /** 세션 RecyclerView 설정 */
     private fun setupSessionRecyclerView() {
-        sessionAdapter = SessionAdapter()
+        sessionAdapter = SessionAdapter {
+//            val action = TogetherFragmentDirections.actionTogetherToReading(session)
+//            findNavController().navigate(action)
+        }
         binding.sessionRcv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = sessionAdapter
@@ -60,7 +87,7 @@ class SessionStatusFragment : Fragment() {
 
     companion object {
         private const val TAG = "SessionStatusFragment"
-        private const val MOVE_CREATED = "CREATED"
-        private const val MOVE_RESERVED = "RESERVED"
+        const val MODE_CREATED = "CREATED"
+        const val MODE_RESERVED = "RESERVED"
     }
 }
