@@ -7,21 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.capstone.surfingthegangwon.core.model.Grade
 import com.capstone.surfingthegangwon.core.ui.CustomHeaderView
-import com.capstone.surfingthegangwon.domain.together.model.SessionListItem
 import com.capstone.surfingthegangwon.presentation.together.databinding.FragmentTogetherBinding
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import com.capstone.surfingthegangwon.core.resource.R as CoRes
 
+@AndroidEntryPoint
 class TogetherFragment : Fragment() {
     private lateinit var binding: FragmentTogetherBinding
 
@@ -29,6 +30,8 @@ class TogetherFragment : Fragment() {
     private lateinit var weekAdapter: WeekAdapter
     private lateinit var areaAdapter: AreaAdapter
     private lateinit var sessionAdapter: SessionAdapter
+
+    private val seashoreViewModel: SeashoreViewModel by viewModels()
 
     private var baseDate: LocalDate = LocalDate.now()
     private val dateFormatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일", Locale.KOREA)
@@ -82,13 +85,17 @@ class TogetherFragment : Fragment() {
 
     /** 지역 리스트 RecyclerView 설정 */
     private fun setupAreaRecyclerView() {
-        val dummyAreas =
-            listOf("죽도해변A", "죽도해변B", "죽도해변C", "죽도해변D", "죽도해변A", "죽도해변B", "죽도해변C", "죽도해변D")
-
-        areaAdapter = AreaAdapter(dummyAreas)
+        areaAdapter = AreaAdapter()
         binding.recyclerArea.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = areaAdapter
+        }
+        observeSeashores()
+    }
+
+    private fun observeSeashores() {
+        seashoreViewModel.seashores.observe(viewLifecycleOwner) { items ->
+            areaAdapter.submitList(items)
         }
     }
 
@@ -115,63 +122,6 @@ class TogetherFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = sessionAdapter
         }
-        loadDummySessions()
-    }
-
-    /** 세션 더미 데이터 로딩 */
-    private fun loadDummySessions() {
-        val dummySessions = listOf(
-            SessionListItem.Header(
-                beachName = "죽도해변 A",
-                temperature = "기온 15C 수온 21.3C",
-                wave = "0.69M - 4.49S",
-                wind = "W 8.6 m/h"
-            ),
-            SessionListItem.Content(
-                title = "약한 파도로 함께 입문해봐요!",
-                sessionTime = "세션 시간",
-                time = "14:00",
-                participants = "3/5",
-                grade = Grade.from("초급")
-            ),
-            SessionListItem.Content(
-                title = "조금 더 도전해볼까?",
-                sessionTime = "세션 시간",
-                time = "16:00",
-                participants = "4/6",
-                grade = Grade.from("중급")
-            ),
-            SessionListItem.Content(
-                title = "고수들과 함께 실력 업!",
-                sessionTime = "세션 시간",
-                time = "16:00",
-                participants = "4/6",
-                grade = Grade.from("고급")
-            ),
-            SessionListItem.Content(
-                title = "약한 파도로 함께 입문해봐요!",
-                sessionTime = "세션 시간",
-                time = "14:00",
-                participants = "3/5",
-                grade = Grade.from("초급")
-            ),
-            SessionListItem.Content(
-                title = "조금 더 도전해볼까?",
-                sessionTime = "세션 시간",
-                time = "16:00",
-                participants = "4/6",
-                grade = Grade.from("중급")
-            ),
-            SessionListItem.Content(
-                title = "고수들과 함께 실력 업!",
-                sessionTime = "세션 시간",
-                time = "16:00",
-                participants = "4/6",
-                grade = Grade.from("고급")
-            )
-        )
-
-        sessionAdapter.submitList(dummySessions)
     }
 
     /** 기준 날짜의 주간 날짜 리스트를 만들고 캘린더에 표시 */
@@ -210,16 +160,21 @@ class TogetherFragment : Fragment() {
             CustomHeaderView.OnTabSelectedListener {
             override fun onTabSelected(position: Int) {
                 val place = when (position) {
-                    0 -> getString(CoRes.string.yangyang)
-                    1 -> getString(CoRes.string.goseong)
+                    0 -> getString(CoRes.string.gangneung)
+                    1 -> getString(CoRes.string.yangyang)
                     2 -> getString(CoRes.string.sokcho)
-                    3 -> getString(CoRes.string.gangneung)
+                    3 -> getString(CoRes.string.goseong)
                     else -> "미지정"
                 }
-                Log.d("TogetherFragment", "선택된 탭: $position, 장소: $place")
+                val id = position + 1
+                seashoreViewModel.getSeashores(id)
+                Log.d(TAG, "선택된 탭: $position, 장소: $place")
             }
         })
     }
 
+    companion object {
+        private const val TAG = "TogetherFragment"
+    }
 
 }

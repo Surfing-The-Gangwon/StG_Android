@@ -5,67 +5,81 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.capstone.surfingthegangwon.domain.city.Seashores
 import com.capstone.surfingthegangwon.presentation.together.databinding.ItemAreaBinding
 import com.capstone.surfingthegangwon.core.resource.R as CoreRes
 
-class AreaAdapter(private val items: List<String>) :
-    RecyclerView.Adapter<AreaAdapter.ViewHolder>() {
+class AreaAdapter(
+    private val onSelected: (Seashores) -> Unit = {}
+) : ListAdapter<Seashores, AreaAdapter.ContentViewHolder>(DIFF_CALLBACK) {
 
-    // 현재 선택된 항목 위치
     private var selectedPosition = 0
 
-    inner class ViewHolder(val binding: ItemAreaBinding) : RecyclerView.ViewHolder(binding.root) {
-        init {
-            // 클릭 시 선택 상태 갱신
-            binding.area.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val previousPosition = selectedPosition
-                    selectedPosition = position
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
+        val binding = ItemAreaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ContentViewHolder(binding)
+    }
 
-                    // 이전 항목과 새 항목만 갱신
-                    notifyItemChanged(previousPosition)
-                    notifyItemChanged(selectedPosition)
-                }
+    override fun onBindViewHolder(holder: ContentViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+
+    inner class ContentViewHolder(
+        private val binding: ItemAreaBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                val pos = adapterPosition
+                if (pos == RecyclerView.NO_POSITION) return@setOnClickListener
+
+                val prev = selectedPosition
+                selectedPosition = pos
+                if (prev != RecyclerView.NO_POSITION) notifyItemChanged(prev)
+                notifyItemChanged(selectedPosition)
+
+                onSelected(getItem(pos))
+            }
+        }
+
+        fun bind(item: Seashores) = with(binding) {
+            val context = itemView.context
+            val isSelected = adapterPosition == selectedPosition
+
+            area.text = item.name
+
+            val typeface = if (isSelected) {
+                ResourcesCompat.getFont(context, CoreRes.font.roboto_bold)
+            } else {
+                ResourcesCompat.getFont(context, CoreRes.font.roboto_regular)
+            }
+
+            val textColor = if (isSelected) {
+                ContextCompat.getColor(context, CoreRes.color.blue_700)
+            } else {
+                Color.BLACK
+            }
+
+            area.apply {
+                setTextColor(textColor)
+                this.typeface = typeface
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemAreaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
-    }
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Seashores>() {
+            override fun areItemsTheSame(oldItem: Seashores, newItem: Seashores): Boolean =
+                oldItem.beachCode == newItem.beachCode
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val context = holder.itemView.context
-        val isSelected = position == selectedPosition
-
-        // 텍스트 설정
-        holder.binding.area.text = items[position]
-
-        // 폰트 설정
-        val typeface = if (isSelected) {
-            ResourcesCompat.getFont(context, CoreRes.font.roboto_bold)
-        } else {
-            ResourcesCompat.getFont(context, CoreRes.font.roboto_regular)
-        }
-
-        // 색상 설정
-        val textColor = if (isSelected) {
-            ContextCompat.getColor(context, CoreRes.color.blue_700)
-        } else {
-            Color.BLACK
-        }
-
-        // 스타일 적용
-        holder.binding.area.apply {
-            setTextColor(textColor)
-            this.typeface = typeface
+            override fun areContentsTheSame(oldItem: Seashores, newItem: Seashores): Boolean =
+                oldItem.beachCode == newItem.beachCode
         }
     }
-
-    override fun getItemCount() = items.size
 }
+
 
 

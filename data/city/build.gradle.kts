@@ -1,13 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.navigation.safe.args)
     alias(libs.plugins.hilt)
     kotlin("kapt")
 }
 
 android {
-    namespace = "com.capstone.surfingthegangwon.presentation.together"
+    namespace = "com.capstone.surfingthegangwon.data.city"
     compileSdk = 35
 
     defaultConfig {
@@ -33,33 +32,25 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
-    implementation(project(":core:ui"))
-    implementation(project(":core:navigation"))
-    implementation(project(":core:resource"))
+    implementation(project(":core:retrofit"))
     implementation(project(":core:model"))
-    implementation(project(":domain:together"))
-    implementation(project(":data:city"))
+    implementation(project(":core:util"))
     implementation(project(":domain:city"))
 
-    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.retrofit)
+    implementation(libs.gson)
+    implementation(libs.retrofit.converter)
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.kotlinx.serialization.json)
 
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.flexbox)
 }

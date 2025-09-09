@@ -20,10 +20,12 @@
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/core/util" />
             <option value="$PROJECT_DIR$/data" />
+            <option value="$PROJECT_DIR$/data/city" />
             <option value="$PROJECT_DIR$/data/login" />
             <option value="$PROJECT_DIR$/data/sessionStatus" />
             <option value="$PROJECT_DIR$/data/together" />
             <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/domain/city" />
             <option value="$PROJECT_DIR$/domain/login" />
             <option value="$PROJECT_DIR$/domain/sessionStatus" />
             <option value="$PROJECT_DIR$/domain/together" />
