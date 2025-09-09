@@ -7,9 +7,9 @@ sealed class Grade(val label: String) {
 
     companion object {
         fun from(label: String): Grade = when(label) {
-            "초급" -> Beginner
-            "중급" -> Intermediate
-            "고급" -> Advanced
+            "ELEMENTARY" -> Beginner
+            "INTERMEDIATE" -> Intermediate
+            "ADVANCED" -> Advanced
             else -> Beginner
         }
     }
