@@ -4,7 +4,17 @@
             "outputFile": "com.capstone.surfingthegangwon.test.home-mergeDebugAndroidTestResources-31:/values-v18/values-v18.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\2bab4b73522c0e0214d138a4e2f756db\\transformed\\core-1.6.1\\res\\values-v18\\values.xml",
+                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\df0c41c5dec92ed9947ee037863384dc\\transformed\\appcompat-1.7.0\\res\\values-v18\\values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\64f86dde4016b379134813d04e0273ab\\transformed\\core-1.6.1\\res\\values-v18\\values.xml",
                     "from": {
                         "startLines": "4,12",
                         "startColumns": "0,0",
@@ -20,16 +30,6 @@
                         "endLines": "10,18",
                         "endColumns": "8,8",
                         "endOffsets": "519,937"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\8fec5f3e63f55e364c81aa24edeef5ef\\transformed\\appcompat-1.7.0\\res\\values-v18\\values-v18.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "48",
-                        "endOffsets": "99"
                     }
                 }
             ]
