@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.capstone.surfingthegangwon.data.together.repoImpl.GatheringRepositoryImpl
 import com.capstone.surfingthegangwon.core.model.SessionItem
+import com.capstone.surfingthegangwon.data.together.repoImpl.GatheringRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.time.LocalDate

@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.capstone.surfingthegangwon.core.model.SessionItem
 import com.capstone.surfingthegangwon.data.sessionstatus.mapper.toSessionItems
 import com.capstone.surfingthegangwon.data.sessionstatus.repoImpl.PostRepositoryImpl
-import com.capstone.surfingthegangwon.domain.sessionstatus.SessionItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

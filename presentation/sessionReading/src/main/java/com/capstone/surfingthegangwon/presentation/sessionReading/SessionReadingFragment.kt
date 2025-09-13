@@ -8,8 +8,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.capstone.surfingthegangwon.core.model.PostAction
-import com.capstone.surfingthegangwon.core.model.SessionState
 import com.capstone.surfingthegangwon.core.model.SessionItem
+import com.capstone.surfingthegangwon.core.model.SessionState
 import com.capstone.surfingthegangwon.presentation.sessionReading.databinding.FragmentSessionReadingBinding
 
 class SessionReadingFragment : Fragment() {
@@ -50,8 +50,8 @@ class SessionReadingFragment : Fragment() {
     }
 
     private fun setContents(session: SessionItem) {
-        binding.area
-        binding.beach
+        binding.area.text = session.city
+        binding.beach.text = session.seashore
         binding.sessionDate.text = session.sessionDate
         binding.sessionName.text = session.title
         binding.sessionTimeDetail.text = session.sessionTime

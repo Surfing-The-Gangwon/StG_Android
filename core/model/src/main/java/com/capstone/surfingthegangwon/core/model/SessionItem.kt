@@ -10,7 +10,9 @@ data class SessionItem(
     val sessionDate: String,
     val participants: String,
     val phoneNumber: String,
+    val city: String,
+    val seashore: String,
     val grade: Grade,
     val action: PostAction,
     val state: SessionState
-): Serializable
+) : Serializable

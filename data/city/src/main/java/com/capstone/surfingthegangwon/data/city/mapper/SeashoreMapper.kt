@@ -2,7 +2,6 @@ package com.capstone.surfingthegangwon.data.city.mapper
 
 import com.capstone.surfingthegangwon.data.city.dto.SeashoresBasicRes
 import com.capstone.surfingthegangwon.data.city.dto.SeashoresBasicResItem
-import com.capstone.surfingthegangwon.domain.city.City
 import com.capstone.surfingthegangwon.domain.city.Seashores
 
 // 단일 아이템 매핑

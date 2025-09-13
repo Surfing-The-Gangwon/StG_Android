@@ -1,8 +1,8 @@
 package com.capstone.surfingthegangwon.data.together.repoImpl
 
+import com.capstone.surfingthegangwon.core.model.SessionItem
 import com.capstone.surfingthegangwon.data.together.api.GatheringRetrofitService
 import com.capstone.surfingthegangwon.data.together.mapper.toSessionItems
-import com.capstone.surfingthegangwon.core.model.SessionItem
 import javax.inject.Inject
 
 class GatheringRepositoryImpl @Inject constructor(

@@ -18,6 +18,12 @@ data class ReservedPostResItem(
     val level: String,
     @SerialName("maxCount")
     val maxCount: Int,
+    @SerialName("city")
+    val city: String,
+    @SerialName("seashore")
+    val seashore: String,
+    @SerialName("postAction")
+    val postAction: String,
     @SerialName("meetingTime")
     val meetingTime: String,
     @SerialName("phone")
