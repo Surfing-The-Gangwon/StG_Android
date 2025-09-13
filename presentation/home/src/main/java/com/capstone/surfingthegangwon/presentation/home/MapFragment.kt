@@ -1,5 +1,7 @@
 package com.capstone.surfingthegangwon.presentation.home
 
+import android.content.Intent
+import android.net.Uri
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
@@ -70,9 +72,54 @@ class MapFragment : Fragment() {
                     addAllMarkers(beachName)     // 모든 마커 추가 (beach는 선명, 나머지는 흐림)
                     bindLabelClick(map)          // 마커 클릭 → 커짐(단일)
                     applyCategoryFilter()        // 초기 필터 적용
+
+                    showDefaultBottomSheet(beachName)
                 }
             }
         )
+    }
+
+    /**
+     * 진입 시 기본으로 표시할 BottomSheet 설정
+     */
+    private fun showDefaultBottomSheet(beachName: String) {
+        val defaultPlace = dummyPlaces.find { it.category == Category.BEACH }
+            ?: dummyPlaces.firstOrNull()
+
+        defaultPlace?.let { place ->
+            val placeModel = PlaceUiModel(
+                title = place.name,
+                address = "강원특별자치도 양양시 양양군 70 죽도해변",
+                phone = if (place.category == Category.BEACH) "033-123-4567" else null,
+                lat = place.lat,
+                lng = place.lng
+            )
+
+            binding.placeBottomSheet.bind(placeModel) { model ->
+                // 길찾기 버튼 클릭 시 동작
+                openKakaoNavigation(model)
+            }
+        }
+    }
+
+    /**
+     * 카카오맵 길찾기 실행
+     */
+    private fun openKakaoNavigation(place: PlaceUiModel) {
+        try {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("kakaomap://route?ep=${place.lat},${place.lng}&by=FOOT")
+            )
+            startActivity(intent)
+        } catch (e: Exception) {
+            // 카카오맵이 없는 경우 웹으로 연결
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://map.kakao.com/link/to/${place.title},${place.lat},${place.lng}")
+            )
+            startActivity(intent)
+        }
     }
 
     /**

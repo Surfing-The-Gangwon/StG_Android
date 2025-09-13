@@ -39,7 +39,7 @@ class PlaceBottomSheetView @JvmOverloads constructor(
         }
 
         // 기본은 확장 잠금
-        lock()
+        unlock()
     }
 
     override fun onDetachedFromWindow() {
