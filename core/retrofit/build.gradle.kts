@@ -34,6 +34,11 @@ android {
             "TOUR_BASE_URL",
             "\"${localProperties.getProperty("TOUR_BASE_URL")}\""
         )
+        buildConfigField(
+            "String",
+            "TOUR_API_KEY",
+            "\"${localProperties.getProperty("TOUR_API_KEY")}\""
+        )
     }
 
     buildFeatures {

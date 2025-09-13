@@ -1,5 +1,6 @@
 package com.capstone.surfingthegangwon.core.retrofit
 
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -66,6 +67,15 @@ object RetrofitModule {
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
+            .addInterceptor(
+                TourQueryInterceptor(
+                    serviceKey = BuildConfig.TOUR_API_KEY
+                )
+            )
+            .addInterceptor(DebugResponseInterceptor())
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
             .build()
     }
 
@@ -73,9 +83,14 @@ object RetrofitModule {
     @Singleton
     @TourApi
     fun provideTourApiRetrofit(@TourApi client: OkHttpClient): Retrofit {
+        val gson = GsonBuilder()
+            .setLenient()
+            .setPrettyPrinting()
+            .create()
+
         return Retrofit.Builder()
             .baseUrl(BuildConfig.TOUR_BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
     }

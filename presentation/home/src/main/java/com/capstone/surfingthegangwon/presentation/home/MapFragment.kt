@@ -8,12 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.capstone.surfingthegangwon.presentation.home.databinding.FragmentMapBinding
 import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.MapLifeCycleCallback
 import java.lang.Exception
 import androidx.navigation.fragment.navArgs
+import com.capstone.surfingthegangwon.HubPlace
 import com.kakao.vectormap.label.Label
 import com.kakao.vectormap.label.LabelLayer
 import com.kakao.vectormap.label.LabelOptions
@@ -21,7 +25,10 @@ import com.kakao.vectormap.label.LabelStyles
 import com.kakao.vectormap.LatLng
 import com.kakao.vectormap.label.LabelStyle
 import com.kakao.vectormap.label.LabelTextBuilder
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MapFragment : Fragment() {
 
     private lateinit var binding: FragmentMapBinding
@@ -55,6 +62,7 @@ class MapFragment : Fragment() {
         Log.d("arieum", "Received beach name: $beachName")
 
         setupTabs()
+        viewModel.fetchHubSample(baseYm = "202503", areaCd = "51", signguCd = "51150")
 
         binding.mapview.start(
             object : MapLifeCycleCallback() {
@@ -70,10 +78,51 @@ class MapFragment : Fragment() {
                     addAllMarkers(beachName)     // 모든 마커 추가 (beach는 선명, 나머지는 흐림)
                     bindLabelClick(map)          // 마커 클릭 → 커짐(단일)
                     applyCategoryFilter()        // 초기 필터 적용
+
+                    // 관광지 마커 수신 및 추가
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                            viewModel.hubList.collect { hubList ->
+                                if (kakaoMap != null && labelLayer != null) {
+                                    addTouristMarkers(hubList)
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
         )
     }
+
+    private fun addTouristMarkers(hubList: List<HubPlace>) {
+        val layer = labelLayer ?: return
+
+        hubList.forEach { hub ->
+            val name = hub.name
+            val lat = hub.lat ?: return@forEach
+            val lng = hub.lng ?: return@forEach
+
+            val place = PlaceMarker(
+                name = name,
+                lat = lat,
+                lng = lng,
+                category = Category.TOURIST
+            )
+
+            val style = styles[Category.TOURIST]?.dim ?: return@forEach
+            val label = layer.addLabel(
+                LabelOptions.from(LatLng.from(lat, lng))
+                    .setStyles(style)
+                    .setTexts(LabelTextBuilder().setTexts(name))
+                    .setRank(1000)
+            )
+
+            labelByPlace[place] = label
+            placeByLabel[label] = place
+        }
+    }
+
 
     /**
      * 1) 레이어 & 스타일 등록
