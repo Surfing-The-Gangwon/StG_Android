@@ -1,5 +1,7 @@
 package com.capstone.surfingthegangwon.domain.together.model
 
+import com.capstone.surfingthegangwon.core.model.Grade
+
 sealed class SessionListItem {
     data class Header(
         val beachName: String,

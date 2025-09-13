@@ -12,6 +12,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/auth" />
+            <option value="$PROJECT_DIR$/core/model" />
             <option value="$PROJECT_DIR$/core/navigation" />
             <option value="$PROJECT_DIR$/core/resource" />
             <option value="$PROJECT_DIR$/core/retrofit" />
@@ -20,10 +22,12 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/home" />
             <option value="$PROJECT_DIR$/data/login" />
+            <option value="$PROJECT_DIR$/data/sessionStatus" />
             <option value="$PROJECT_DIR$/data/together" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/domain/home" />
             <option value="$PROJECT_DIR$/domain/login" />
+            <option value="$PROJECT_DIR$/domain/sessionStatus" />
             <option value="$PROJECT_DIR$/domain/together" />
             <option value="$PROJECT_DIR$/presentation" />
             <option value="$PROJECT_DIR$/presentation/home" />
@@ -31,6 +35,7 @@
             <option value="$PROJECT_DIR$/presentation/main" />
             <option value="$PROJECT_DIR$/presentation/myPage" />
             <option value="$PROJECT_DIR$/presentation/sessionReading" />
+            <option value="$PROJECT_DIR$/presentation/sessionStatus" />
             <option value="$PROJECT_DIR$/presentation/sessionWriting" />
             <option value="$PROJECT_DIR$/presentation/together" />
           </set>

@@ -41,6 +41,11 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:resource"))
     implementation(project(":domain:together"))
+
+    // 더미데이터 의존성 -> api 구현 시 삭제
+    implementation(project(":core:model"))
+
+
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.core.ktx)

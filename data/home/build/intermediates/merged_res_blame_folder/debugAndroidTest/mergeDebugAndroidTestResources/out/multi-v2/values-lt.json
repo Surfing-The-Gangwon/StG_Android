@@ -4,7 +4,11 @@
             "outputFile": "com.capstone.surfingthegangwon.test.home-mergeDebugAndroidTestResources-31:/values-lt/values-lt.xml",
             "map": [
                 {
+<<<<<<< HEAD
                     "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\d590e939802a29524276bfc26b0034fd\\transformed\\material-1.12.0\\res\\values-lt\\values-lt.xml",
+=======
+                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\3c0eb28304b6725c6d94af1d2bc794d3\\transformed\\material-1.12.0\\res\\values-lt\\values-lt.xml",
+>>>>>>> network/tourapi
                     "from": {
                         "startLines": "2,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -23,6 +27,7 @@
                     }
                 },
                 {
+<<<<<<< HEAD
                     "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\5c65765ea6495b34c0b300ba61a7c46e\\transformed\\core-1.16.0\\res\\values-lt\\values-lt.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
@@ -41,6 +46,9 @@
                 },
                 {
                     "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\df0c41c5dec92ed9947ee037863384dc\\transformed\\appcompat-1.7.0\\res\\values-lt\\values-lt.xml",
+=======
+                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\b1f66500746ac72a2cd39fa95a2ea710\\transformed\\appcompat-1.7.0\\res\\values-lt\\values-lt.xml",
+>>>>>>> network/tourapi
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -55,6 +63,26 @@
                         "endColumns": "115,103,112,86,101,121,82,79,93,95,96,95,102,95,97,95,93,93,82,108,107,99,109,104,105,175,100,83",
                         "endOffsets": "536,640,753,840,942,1064,1147,1227,1321,1417,1514,1610,1713,1809,1907,2003,2097,2191,2274,2383,2491,2591,2701,2806,2912,3088,3189,9927"
                     }
+<<<<<<< HEAD
+=======
+                },
+                {
+                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\7f39996458f4a5faace2362318cb8efa\\transformed\\core-1.16.0\\res\\values-lt\\values-lt.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,153,263,362,465,576,686,806",
+                        "endColumns": "97,109,98,102,110,109,119,100",
+                        "endOffsets": "148,258,357,460,571,681,801,902"
+                    },
+                    "to": {
+                        "startLines": "40,41,42,43,44,45,46,118",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "3618,3716,3826,3925,4028,4139,4249,10172",
+                        "endColumns": "97,109,98,102,110,109,119,100",
+                        "endOffsets": "3711,3821,3920,4023,4134,4244,4364,10268"
+                    }
+>>>>>>> network/tourapi
                 }
             ]
         }

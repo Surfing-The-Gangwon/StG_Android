@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    kotlin("kapt")
 }
 
 android {
-    namespace = "com.capstone.surfingthegangwon"
+    namespace = "com.capstone.surfingthegangwon.data.home"
     compileSdk = 35
 
     defaultConfig {
@@ -34,6 +35,12 @@ android {
 
 dependencies {
     implementation(project(":domain:home"))
+    implementation(project(":core:retrofit"))
+    implementation(libs.retrofit)
+    implementation(libs.gson)
+    implementation(libs.retrofit.converter)
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

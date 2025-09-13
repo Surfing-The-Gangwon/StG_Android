@@ -29,17 +29,20 @@ class SessionWritingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.topAppBar.setTitle(getString(R.string.create_new_session))
-        binding.topAppBar.setOnBackClick {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
-        }
-
         initUi()
     }
 
     private fun initUi() {
+        setTopToolBar()
         setupRecyclerViews()
         setupClickListeners()
+    }
+
+    private fun setTopToolBar() {
+        binding.topAppBar.setTitle(getString(R.string.create_new_session))
+        binding.topAppBar.setOnBackClick {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     /** 버튼 클릭 리스너 설정 */

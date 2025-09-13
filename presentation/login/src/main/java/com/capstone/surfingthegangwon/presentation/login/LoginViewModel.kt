@@ -1,39 +1,48 @@
 package com.capstone.surfingthegangwon.presentation.login
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.capstone.surfingthegangwon.data.login.repoImpl.AuthRepositoryImpl
 import com.capstone.surfingthegangwon.domain.login.model.TokenPair
-import com.capstone.surfingthegangwon.domain.login.usecase.AuthUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-sealed interface LoginUiState {
-    object Idle : LoginUiState
-    object Loading : LoginUiState
-    data class Success(val token: TokenPair) : LoginUiState
-    data class Error(val message: String) : LoginUiState
-}
-
 @HiltViewModel
 class LoginViewModel @Inject constructor(
+    private val repo: AuthRepositoryImpl
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
-    val uiState: StateFlow<LoginUiState> = _uiState
+    private val _loginState = MutableLiveData<Boolean>()
+    val loginState: LiveData<Boolean> get() = _loginState
 
-    fun handleKakaoRedirectCode(code: String) {
-        _uiState.value = LoginUiState.Loading
+    fun exchangeCode(token: TokenPair) {
         viewModelScope.launch {
             try {
-//                val token = authUsecase(code)
-//                _uiState.value = LoginUiState.Success(token)
-                // TODO: 여기서 token 저장(DataStore 등)
-            } catch (e: Exception) {
-                _uiState.value = LoginUiState.Error(e.message ?: "로그인 실패")
+                //  먼저 카카오 토큰을 로컬에 저장
+                repo.cacheKakaoTokens(token.accessToken, token.refreshToken)
+
+                // 서버 교환 (201 빈 바디 예상)
+                repo.exchangeCode(token)
+                    .onSuccess {
+                        Log.i(TAG, "서비스 토큰 교환 성공")
+                        _loginState.postValue(true)
+                    }
+                    .onFailure { e ->
+                        Log.e(TAG, "백엔드 토큰 교환 실패", e)
+                        _loginState.postValue(false)
+                    }
+            } catch (t: Throwable) {
+                Log.e(TAG, "예외", t)
+                _loginState.postValue(false)
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "LoginViewModel"
     }
 }

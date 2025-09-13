@@ -4,7 +4,11 @@
             "outputFile": "com.capstone.surfingthegangwon.test.home-mergeDebugAndroidTestResources-31:/values-h320dp-port-v13/values-h320dp-port-v13.xml",
             "map": [
                 {
+<<<<<<< HEAD
                     "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\d590e939802a29524276bfc26b0034fd\\transformed\\material-1.12.0\\res\\values-h320dp-port-v13\\values-h320dp-port-v13.xml",
+=======
+                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\3c0eb28304b6725c6d94af1d2bc794d3\\transformed\\material-1.12.0\\res\\values-h320dp-port-v13\\values-h320dp-port-v13.xml",
+>>>>>>> network/tourapi
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

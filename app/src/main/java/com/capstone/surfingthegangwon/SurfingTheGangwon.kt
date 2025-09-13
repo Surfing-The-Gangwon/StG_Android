@@ -6,8 +6,6 @@ import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.util.Utility
 import com.kakao.vectormap.KakaoMapSdk
 import dagger.hilt.android.HiltAndroidApp
-import com.capstone.surfingthegangwon.BuildConfig
-
 
 @HiltAndroidApp
 class SurfingTheGangwon: Application() {
@@ -19,5 +17,6 @@ class SurfingTheGangwon: Application() {
 
         KakaoSdk.init(this, BuildConfig.KAKAO_API_KEY)
         KakaoMapSdk.init(this, BuildConfig.KAKAO_API_KEY)
+        // KakaoSdk.init(this, "${BuildConfig.KAKAO_NATIVE_APP_KEY}")
     }
 }

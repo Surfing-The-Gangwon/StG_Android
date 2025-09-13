@@ -12,6 +12,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -39,11 +41,12 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:resource"))
     implementation(project(":core:ui"))
+    implementation(project(":presentation:sessionStatus"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.circle.image.view)
+    implementation(libs.navigation.fragment.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

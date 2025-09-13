@@ -1,1 +1,1 @@
-com.capstone.surfingthegangwon
+com.capstone.surfingthegangwon.data.home

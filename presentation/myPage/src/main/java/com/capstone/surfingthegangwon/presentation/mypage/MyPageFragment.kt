@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.capstone.surfingthegangwon.presentation.mypage.databinding.FragmentMyPageBinding
+import com.capstone.surfingthegangwon.presentation.sessionstatus.SessionStatusFragment
 
 class MyPageFragment : Fragment() {
     private lateinit var binding: FragmentMyPageBinding
@@ -21,7 +23,35 @@ class MyPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initUI()
+    }
+
+    private fun initUI() {
+        setToolBar()
+        setOnClickListeners()
+    }
+
+    private fun setToolBar() {
         binding.topAppBar.setTitle(getString(R.string.title_my))
         binding.topAppBar.hideBackClick()
+    }
+
+    private fun setOnClickListeners() {
+        binding.createdStatus.setOnClickListener {
+            findNavController().navigate(
+                MyPageFragmentDirections.actionMyPageToSessionStatus(MOVE_CREATED)
+            )
+        }
+        binding.reservedStatus.setOnClickListener {
+            findNavController().navigate(
+                MyPageFragmentDirections.actionMyPageToSessionStatus(MOVE_RESERVED)
+            )
+        }
+    }
+
+    companion object {
+        private const val TAG = "MyPageFragment"
+        private const val MOVE_CREATED = SessionStatusFragment.MODE_CREATED
+        private const val MOVE_RESERVED = SessionStatusFragment.MODE_RESERVED
     }
 }

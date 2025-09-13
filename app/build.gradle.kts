@@ -30,6 +30,7 @@ android {
 
         manifestPlaceholders["SERVICE_BASE_URL"] = getApiKey("SERVICE_BASE_URL")
         manifestPlaceholders["KAKAO_NATIVE_APP_KEY"] = getApiKey("KAKAO_NATIVE_APP_KEY")
+        buildConfigField("String", "KAKAO_NATIVE_APP_KEY", "\"${getApiKey("KAKAO_NATIVE_APP_KEY")}\"")
     }
 
     buildFeatures {
@@ -65,7 +66,9 @@ dependencies {
     implementation(project(":core:resource"))
     implementation(project(":core:ui"))
     implementation(project(":presentation:login"))
+
     implementation(libs.hilt)
+    implementation(libs.kakao.sdk.all)
     kapt(libs.hilt.compiler)
     implementation(libs.kakao.sdk.all)
     implementation(libs.kakao.map)

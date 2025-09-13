@@ -16,26 +16,20 @@
         android:theme="@style/Theme.SurfingTheGangwon"
         tools:targetApi="31">
 
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="${KAKAO_NATIVE_APP_KEY}" />
+
         <activity
             android:name="com.capstone.surfingthegangwon.presentation.login.LoginActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             tools:replace="android:exported">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
 
-            </intent-filter>
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:scheme="${SERVICE_BASE_URL}"
-                    android:host="oauth"
-                    android:path="/kakao/callback" />
             </intent-filter>
         </activity>
     </application>
