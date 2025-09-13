@@ -22,7 +22,7 @@ class MapViewModel @Inject constructor(
     fun fetchHubSample(
         baseYm: String = "202503",
         areaCd: String = "51",
-        signguCd: String = "51150"
+        signguCd: String = "51830"
     ) {
         viewModelScope.launch {
             runCatching {

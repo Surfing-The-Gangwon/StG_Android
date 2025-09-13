@@ -62,7 +62,7 @@ class MapFragment : Fragment() {
         Log.d("arieum", "Received beach name: $beachName")
 
         setupTabs()
-        viewModel.fetchHubSample(baseYm = "202503", areaCd = "51", signguCd = "51150")
+        viewModel.fetchHubSample(baseYm = "202503", areaCd = "51", signguCd = "51830")
 
         binding.mapview.start(
             object : MapLifeCycleCallback() {
