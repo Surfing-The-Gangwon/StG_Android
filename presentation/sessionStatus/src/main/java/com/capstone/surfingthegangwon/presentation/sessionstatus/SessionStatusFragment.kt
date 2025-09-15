@@ -19,6 +19,7 @@ class SessionStatusFragment : Fragment() {
     private val args: SessionStatusFragmentArgs by navArgs()
 
     private lateinit var sessionAdapter: SessionAdapter
+    private var sessionState = ""
     private val sessionViewModel: SessionStatusViewModel by viewModels()
 
     override fun onCreateView(
@@ -33,7 +34,13 @@ class SessionStatusFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val status = args.status
+        sessionState = status
         initUI(status)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initUI(sessionState)
     }
 
     private fun initUI(status: String) {

@@ -9,27 +9,27 @@ import retrofit2.http.Path
 
 interface SessionReadingRetrofitService {
 
-    @POST("api/gathering/join/{gathering_id}}")
+    @POST("api/gathering/join/{gathering_id}")
     @Headers("${AuthHeaderInterceptor.HEADER_REQUIRE_AUTH}: true")
     suspend fun joinPost(
         @Path("gathering_id") gatheringId: Int
-    ): Response<Unit>
+    ): Unit
 
-    @POST("api/gathering/close/{gathering_id}}")
+    @POST("api/gathering/close/{gathering_id}")
     @Headers("${AuthHeaderInterceptor.HEADER_REQUIRE_AUTH}: true")
     suspend fun closePost(
         @Path("gathering_id") gatheringId: Int
-    ): Response<Unit>
+    ): Unit
 
     @POST("api/gathering/cancel/{gathering_id}")
     @Headers("${AuthHeaderInterceptor.HEADER_REQUIRE_AUTH}: true")
     suspend fun cancelPost(
         @Path("gathering_id") gatheringId: Int
-    ): Response<Unit>
+    ): Unit
 
     @DELETE("api/gathering/{gathering_id}")
     @Headers("${AuthHeaderInterceptor.HEADER_REQUIRE_AUTH}: true")
     suspend fun deletePost(
         @Path("gathering_id") gatheringId: Int
-    ): Response<Unit>
+    )
 }

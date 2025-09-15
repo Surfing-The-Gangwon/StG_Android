@@ -42,7 +42,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
     implementation(project(":core:model"))
-    implementation(project(":domain:together"))
+    implementation(project(":data:sessionReading"))
 
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.hilt)

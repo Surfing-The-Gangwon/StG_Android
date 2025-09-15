@@ -56,6 +56,11 @@ class TogetherFragment : Fragment() {
         initUI()
     }
 
+    override fun onResume() {
+        super.onResume()
+        tryFetchSessions()
+    }
+
     /** 초기 UI 세팅: 헤더, 클릭 리스너, 리사이클러뷰, 주간 캘린더 데이터 */
     private fun initUI() {
         setupHeader()
@@ -63,6 +68,7 @@ class TogetherFragment : Fragment() {
         setupRecyclerViews()
         updateWeek()
         tryFetchSessions()
+        Log.d(TAG, "initUi")
     }
 
     /** 버튼 클릭 리스너 설정 */
