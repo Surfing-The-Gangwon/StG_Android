@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -19,7 +20,11 @@ import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.MapLifeCycleCallback
 import java.lang.Exception
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.surfingthegangwon.HubPlace
+import com.capstone.surfingthegangwon.presentation.home.databinding.BottomSheetListBinding
+import com.capstone.surfingthegangwon.presentation.home.databinding.BottomSheetSurfSchoolBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kakao.vectormap.label.Label
 import com.kakao.vectormap.label.LabelLayer
 import com.kakao.vectormap.label.LabelOptions
@@ -48,6 +53,13 @@ class MapFragment : Fragment() {
     private data class StyleBundle(val normal: LabelStyles, val dim: LabelStyles)
     private lateinit var styles: Map<Category, StyleBundle>
 
+    private lateinit var placeListAdapter: PlaceListAdapter
+    private lateinit var placeSheetBehavior: BottomSheetBehavior<*>
+    private lateinit var listSheetBehavior: BottomSheetBehavior<*>
+    private lateinit var surfSchoolBehavior: BottomSheetBehavior<*>
+    private lateinit var listBinding: BottomSheetListBinding
+    private lateinit var surfSchoolSheet: BottomSheetSurfSchoolBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,6 +77,7 @@ class MapFragment : Fragment() {
 
         setupTabs()
         viewModel.fetchHubSample(baseYm = "202503", areaCd = "51", signguCd = "51830")
+        setupBottomSheets()
 
         binding.mapview.start(
             object : MapLifeCycleCallback() {
@@ -82,12 +95,15 @@ class MapFragment : Fragment() {
                     applyCategoryFilter()        // 초기 필터 적용
 
                     showDefaultBottomSheet(beachName)
-                    // 관광지 마커 수신 및 추가
+
                     viewLifecycleOwner.lifecycleScope.launch {
                         viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                             viewModel.hubList.collect { hubList ->
                                 if (kakaoMap != null && labelLayer != null) {
                                     addTouristMarkers(hubList)
+                                }
+                                if (selectedCategory == Category.TOURIST) {
+                                    placeListAdapter.submitList(buildTourPlaceMarkers())
                                 }
                             }
                         }
@@ -97,6 +113,40 @@ class MapFragment : Fragment() {
         )
     }
 
+    private fun setupBottomSheets() {
+        placeSheetBehavior = BottomSheetBehavior.from(binding.placeBottomSheet).apply {
+            isHideable = true
+            state = BottomSheetBehavior.STATE_HIDDEN
+        }
+
+        // 장소 리스트 시트
+        listBinding = binding.placeListSheet
+        listBinding.root.visibility = View.VISIBLE
+        listSheetBehavior = BottomSheetBehavior.from(listBinding.root).apply {
+            isHideable = true
+            state = BottomSheetBehavior.STATE_HIDDEN
+            skipCollapsed = false
+        }
+
+        // 서핑스쿨 상세 시트
+        surfSchoolSheet = binding.surfSchoolSheet
+        surfSchoolSheet.root.visibility = View.VISIBLE
+        surfSchoolBehavior = BottomSheetBehavior.from(surfSchoolSheet.root).apply {
+            isHideable = true
+            state = BottomSheetBehavior.STATE_HIDDEN
+            skipCollapsed = false
+        }
+
+        placeListAdapter = PlaceListAdapter()
+        listBinding.recyclerViewPlaces.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = placeListAdapter
+        }
+    }
+
+    /**
+     * TourAPI 관광지 마커 추가
+     */
     private fun addTouristMarkers(hubList: List<HubPlace>) {
         val layer = labelLayer ?: return
 
@@ -125,7 +175,6 @@ class MapFragment : Fragment() {
         }
     }
 
-
     /**
      * 진입 시 기본으로 표시할 BottomSheet 설정
      */
@@ -150,6 +199,20 @@ class MapFragment : Fragment() {
     }
 
     /**
+     * 서핑스쿨 상세 시트 바인딩
+     */
+    private fun bindSurfSchoolSheet(p: PlaceUiModel) = with(surfSchoolSheet) {
+        tvPlaceName.text = p.title
+        tvAddress.text   = p.address ?: ""
+        tvPhone.text     = p.phone ?: ""
+
+        tvAddress.isVisible = !p.address.isNullOrBlank()
+        tvPhone.isVisible   = !p.phone.isNullOrBlank()
+
+        kakaoRouteBtn.setOnClickListener { openKakaoPlace(p) }
+    }
+
+    /**
      * 카카오맵 길찾기 실행
      */
     private fun openKakaoNavigation(place: PlaceUiModel) {
@@ -168,6 +231,25 @@ class MapFragment : Fragment() {
             startActivity(intent)
         }
     }
+
+    private fun openKakaoPlace(place: PlaceUiModel) {
+        try {
+            // 카카오맵 앱으로 '해당 좌표 보기'
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("kakaomap://look?p=${place.lat},${place.lng}")
+            )
+            startActivity(intent)
+        } catch (e: Exception) {
+            // 앱이 없으면 웹으로 (지도 열기)
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://map.kakao.com/link/map/${place.title},${place.lat},${place.lng}")
+            )
+            startActivity(intent)
+        }
+    }
+
 
     /**
      * 1) 레이어 & 스타일 등록
@@ -202,10 +284,6 @@ class MapFragment : Fragment() {
             Category.TOURIST     to StyleBundle(
                 normal  = makeStyles(R.drawable.ic_pin_tour)!!,
                 dim     = makeStyles(R.drawable.ic_pin_tour_dim)!!
-            ),
-            Category.FOOD        to StyleBundle(
-                normal  = makeStyles(R.drawable.ic_pin_food)!!,
-                dim     = makeStyles(R.drawable.ic_pin_food_dim)!!
             )
         )
     }
@@ -258,6 +336,31 @@ class MapFragment : Fragment() {
                 val place = placeByLabel[label] ?: return true
                 selectedPlace = if (selectedPlace == place) null else place
                 applyCategoryFilter()
+
+                if (place.category == Category.SURF_SCHOOL) {
+                    // 필요하면 주소/전화는 실제 데이터로 채우세요
+                    val model = PlaceUiModel(
+                        title = place.name,
+                        address = "강원특별자치도 양양시 양양군 70 죽도해변",   // 없으면 null 가능
+                        phone = "033-252-3342",
+                        lat = place.lat,
+                        lng = place.lng
+                    )
+
+                    // 리스트 시트는 숨김
+                    listSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                    placeSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+                    // 서핑스쿨 시트 바인딩 + 열기
+                    bindSurfSchoolSheet(model)
+                    surfSchoolSheet.root.bringToFront()
+                    surfSchoolSheet.root.post {
+                        surfSchoolBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                    }
+                } else {
+                    // 다른 카테고리는 기존 동작 유지(필요 시)
+                }
+
                 return true
             }
         })
@@ -284,9 +387,11 @@ class MapFragment : Fragment() {
         placeByLabel[newLabel] = place
     }
 
-
+    /**
+     * 탭 선택 로직
+     * */
     private fun setupTabs() = with(binding) {
-        val tabs = listOf(tabShop, tabSchool, tabTour, tabRestaurant)
+        val tabs = listOf(tabShop, tabSchool, tabTour)
 
         fun select(tab: View) {
             tabs.forEach { it.isSelected = (it === tab) }
@@ -294,7 +399,6 @@ class MapFragment : Fragment() {
                 R.id.tab_shop       -> showMarkers(Category.SURF_SHOP)
                 R.id.tab_school     -> showMarkers(Category.SURF_SCHOOL)
                 R.id.tab_tour       -> showMarkers(Category.TOURIST)
-                R.id.tab_restaurant -> showMarkers(Category.FOOD)
             }
         }
 
@@ -309,6 +413,41 @@ class MapFragment : Fragment() {
     private fun showMarkers(category: Category) {
         selectedCategory = category
         applyCategoryFilter()
+
+        // 리스트 데이터 준비
+        val listForSheet: List<PlaceMarker> = when (category) {
+            Category.TOURIST -> buildTourPlaceMarkers()                     // TourAPI 리스트
+            else -> dummyPlaces.filter { it.category == category }          // 더미 리스트
+        }
+
+        // 상세 시트는 숨기고
+        placeSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        surfSchoolBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+        // 리스트 업데이트 후 바로 상태 전환
+        placeListAdapter.submitList(listForSheet) {
+            listBinding.root.post {
+                listSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
+        }
+    }
+
+    /**
+     * TourAPI 관광지 리스트를 PlaceMarker 리스트로 변환
+     * */
+    private fun buildTourPlaceMarkers(): List<PlaceMarker> {
+        return viewModel.hubList.value
+            .asSequence()
+            .filter { it.lat != null && it.lng != null }
+            .map { hub ->
+                PlaceMarker(
+                    name = hub.name,
+                    lat = hub.lat!!,
+                    lng = hub.lng!!,
+                    category = Category.TOURIST
+                )
+            }
+            .toList()
     }
 
 
@@ -326,20 +465,9 @@ class MapFragment : Fragment() {
 /**
  * 더미데이터
  * */
-private enum class Category { BEACH, SURF_SHOP, SURF_SCHOOL, TOURIST, FOOD }
-
-private data class PlaceMarker(
-    val name: String,
-    val lat: Double,
-    val lng: Double,
-    val category: Category
-)
-
 private val dummyPlaces = listOf(
     PlaceMarker("죽도해변", 37.9705, 128.7518, Category.BEACH),
     PlaceMarker("죽도 서핑샵 A", 37.98, 128.74, Category.SURF_SHOP),
     PlaceMarker("죽도 서핑샵 B", 37.9809, 128.73, Category.SURF_SHOP),
     PlaceMarker("죽도 서핑스쿨",  37.9712, 128.72, Category.SURF_SCHOOL),
-    PlaceMarker("죽도 전망대",    37.9723, 128.76, Category.TOURIST),
-    PlaceMarker("죽도 맛집 A",    37.9692, 128.759, Category.FOOD)
 )

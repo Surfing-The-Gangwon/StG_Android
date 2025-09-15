@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/surfSchoolSheetRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bottom_sheet_background">
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bottom_sheet_handle"
+        android:layout_gravity="center"/>
+
+    <!-- 스크롤 가능한 내용 -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="24dp">
+
+            <!-- 장소 헤더 -->
+            <LinearLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvPlaceName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="서프 서핑스쿨"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#111111" />
+
+                    <TextView
+                        android:id="@+id/tvAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="강원특별자치도 양양군 양양읍 7길 독도해변"
+                        android:textSize="13sp"
+                        android:textColor="#666666" />
+
+                    <TextView
+                        android:id="@+id/tvPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="033-225-9999"
+                        android:textSize="13sp"
+                        android:textColor="#666666" />
+                </LinearLayout>
+
+                <!-- 즐겨찾기/공유 등 액션 -->
+                <ImageButton
+                    android:id="@+id/kakaoRouteBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_kakaomap" />
+            </LinearLayout>
+
+            <!-- 한 줄 소개 -->
+            <TextView
+                android:id="@+id/tvIntro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="전문 강사진이 1:1 맞춤 커리큘럼으로 안전하고 즐거운 서핑을 제공합니다. 최신 서핑 장비 대여 서비스도 운영합니다."
+                android:textSize="13sp"
+                android:lineSpacingExtra="2dp"
+                android:textColor="#444444" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/img1"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/surfschool1" />
+
+                <ImageView
+                    android:id="@+id/img2"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+
+                    android:src="@drawable/surfschool2" />
+
+            </LinearLayout>
+
+            <!-- 구분선 -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="#EEEEEE" />
+
+            <!-- 섹션: 수강료 -->
+            <TextView
+                android:id="@+id/sectionLesson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="8dp"
+                android:text="수강료"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#111111" />
+
+            <!-- 아이템: 레슨 카드 -->
+            <LinearLayout
+                android:id="@+id/itemLesson1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_lesson_item"
+                android:padding="10dp"
+                android:paddingVertical="10dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvLessonTitle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="프라이빗 서핑 레슨"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:textColor="#222222" />
+
+                    <TextView
+                        android:id="@+id/tvLessonDesc1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="1:1 맞춤 커리큘럼과 비치 세이프티."
+                        android:textSize="12sp"
+                        android:textColor="#777777" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvLessonDuration1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="60분"
+                    android:textSize="12sp"
+                    android:textColor="#909090"
+                    android:layout_marginEnd="10dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="end">
+
+                    <TextView
+                        android:id="@+id/tvLessonOriginPrice1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="100,000원"
+                        android:textSize="12sp"
+                        android:textColor="#B0B0B0" />
+
+                    <TextView
+                        android:id="@+id/tvLessonPrice1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="90,000원"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="#1976D2" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 두 번째 레슨 -->
+            <LinearLayout
+                android:id="@+id/itemLesson2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_lesson_item"
+                android:padding="10dp"
+                android:paddingVertical="10dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvLessonTitle2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="프라이빗 서핑 레슨+"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:textColor="#222222" />
+
+                    <TextView
+                        android:id="@+id/tvLessonDesc2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="실전 라이딩 피드백 포함."
+                        android:textSize="12sp"
+                        android:textColor="#777777" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvLessonDuration2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="60분"
+                    android:textSize="12sp"
+                    android:textColor="#909090"
+                    android:layout_marginEnd="10dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="end">
+
+                    <TextView
+                        android:id="@+id/tvLessonOriginPrice2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="120,000원"
+                        android:textSize="12sp"
+                        android:textColor="#B0B0B0" />
+
+                    <TextView
+                        android:id="@+id/tvLessonPrice2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="90,000원"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="#1976D2" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 구분선 -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="#EEEEEE" />
+
+            <!-- 섹션: 대여료 -->
+            <TextView
+                android:id="@+id/sectionRent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="8dp"
+                android:text="대여료"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#111111" />
+
+            <!-- 대여 아이템 1 -->
+            <LinearLayout
+                android:id="@+id/itemRent1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="10dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvRentTitle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="소프트보드 (하루)"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:textColor="#222222" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvRentDuration1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" "
+                    android:layout_marginEnd="10dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="end">
+
+                    <TextView
+                        android:id="@+id/tvRentOriginPrice1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="40,000원"
+                        android:textSize="12sp"
+                        android:textColor="#B0B0B0" />
+
+                    <TextView
+                        android:id="@+id/tvRentPrice1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="35,000원"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="#1976D2" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 대여 아이템 2 -->
+            <LinearLayout
+                android:id="@+id/itemRent2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="10dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvRentTitle2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="웻슈트 (1시간)"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:textColor="#222222" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvRentDuration2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" "
+                    android:layout_marginEnd="10dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="end">
+
+                    <TextView
+                        android:id="@+id/tvRentOriginPrice2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12,000원"
+                        android:textSize="12sp"
+                        android:textColor="#B0B0B0" />
+
+                    <TextView
+                        android:id="@+id/tvRentPrice2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10,000원"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="#1976D2" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:backgroundTint="@android:color/white">
+    android:background="@android:color/white">
 
     <LinearLayout
         android:id="@+id/bs_content"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="22dp"
-        android:backgroundTint="@android:color/white">
+        android:background="@android:color/white">
 
         <!-- Header Section -->
         <LinearLayout
