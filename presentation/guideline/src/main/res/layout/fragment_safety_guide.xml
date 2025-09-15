@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- 경고 배너 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⚠️ 바다 상태가 나쁘면 입수하지 마세요!"
+            android:padding="12dp"
+            android:background="@android:color/holo_orange_light"
+            android:textColor="@android:color/black"/>
+
+        <!-- 섹션: 바다 상태 확인 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="■ 바다 상태 확인"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="바람, 너울, 조위, 파고를 확인하세요. 입수 전/후 최소 2회 체크!"
+            android:layout_marginTop="6dp"/>
+
+        <!-- 예시 이미지 -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_wave1"
+            android:contentDescription="바다 상태 예시"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="하얀 포말이 끊기는 좁은 바다가 이안류일 수 있어요. 평행 이동 후 탈출하세요."
+            android:layout_marginTop="6dp"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/img_wave2"
+            android:contentDescription="이안류 다이어그램"/>
+
+        <!-- 섹션: 장비 점검 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="■ 장비 안전 점검"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="리쉬 코드, 핀, 웻수트, 왁스 상태 확인!"
+            android:layout_marginTop="6dp"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/img_equipment"
+            android:contentDescription="이안류 다이어그램"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp" />
+    </LinearLayout>
+</ScrollView>

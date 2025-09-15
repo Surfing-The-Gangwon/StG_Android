@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- 체크 배너 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="✅ 간단 체크: 준비운동, 물, 장비"
+            android:padding="12dp"
+            android:background="@android:color/holo_green_light"
+            android:textColor="@android:color/black"/>
+
+        <!-- 준비운동 1 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1. 어깨/팔 스트레칭"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/img_strech1"
+            android:contentDescription="어깨 스트레칭"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="양 팔을 뒤쪽으로 뻗은 후 오른쪽 팔꿈치는 왼쪽 손으로 잡고 왼쪽 어깨쪽으로 구부린 후 10초정도 쭉 눌러줍니다. 이후 반대쪽도 동일하게 진행해줍니다."
+            android:layout_marginTop="6dp"/>
+
+        <!-- 준비운동 2 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2. 하체 스트레칭"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/img_stretch2"
+            android:contentDescription="하체 스트레칭"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="다리를 앞 뒤로 큰 보폭으로 벌려서 허벅지와 종아리를 스트레칭합니다. 각다리를 번갈아 가면서 앞으로 내밀어 엉덩이와 허벅지 종아 리 모두 늘어나는 느낌을 받아주시면 됩니다."
+            android:layout_marginTop="6dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="12dp" />
+    </LinearLayout>
+</ScrollView>

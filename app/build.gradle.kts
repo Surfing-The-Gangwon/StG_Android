@@ -66,6 +66,7 @@ dependencies {
     implementation(project(":core:resource"))
     implementation(project(":core:ui"))
     implementation(project(":presentation:login"))
+    implementation(project(":presentation:guideline"))
 
     implementation(libs.hilt)
     implementation(libs.kakao.sdk.all)

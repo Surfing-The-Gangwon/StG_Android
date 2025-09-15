@@ -30,6 +30,7 @@
             <option value="$PROJECT_DIR$/domain/sessionStatus" />
             <option value="$PROJECT_DIR$/domain/together" />
             <option value="$PROJECT_DIR$/presentation" />
+            <option value="$PROJECT_DIR$/presentation/guideline" />
             <option value="$PROJECT_DIR$/presentation/home" />
             <option value="$PROJECT_DIR$/presentation/login" />
             <option value="$PROJECT_DIR$/presentation/main" />
