@@ -55,6 +55,7 @@
         android:paddingStart="30dp"
         android:paddingTop="40dp"
         android:paddingEnd="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sessionWindow">
 
         <LinearLayout
@@ -217,6 +218,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:paddingBottom="150dp"
                 android:visibility="gone">
 
                 <TextView
@@ -245,6 +247,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:paddingBottom="150dp"
                 android:visibility="gone">
 
                 <!-- 참여글일 시 visiblity를 gone으로 -->
@@ -274,6 +277,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:paddingBottom="150dp"
                 android:visibility="gone">
 
                 <TextView
@@ -302,7 +306,7 @@
                         android:text="@string/cancel_join" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/completedJoinButton"
+                        android:id="@+id/completedJoin"
                         style="@style/Widget.Stroke.Blue.Button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -319,6 +323,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:paddingBottom="150dp"
                 android:visibility="gone">
 
                 <TextView

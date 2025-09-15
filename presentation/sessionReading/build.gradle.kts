@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.navigation.safe.args)
+    alias(libs.plugins.hilt)
+    kotlin("kapt")
 }
 
 android {
@@ -39,6 +40,15 @@ android {
 dependencies {
     implementation(project(":core:resource"))
     implementation(project(":core:ui"))
+    implementation(project(":core:navigation"))
+    implementation(project(":core:model"))
+    implementation(project(":data:sessionReading"))
+
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

@@ -12,10 +12,10 @@
         android:id="@+id/together_nav_graph"
         android:title="@string/together"
         android:icon="@drawable/icon_together"/>
-    <item
-        android:id="@+id/notification"
-        android:title="@string/notification"
-        android:icon="@drawable/icon_notification"/>
+<!--    <item-->
+<!--        android:id="@+id/notification"-->
+<!--        android:title="@string/notification"-->
+<!--        android:icon="@drawable/icon_notification"/>-->
     <item
         android:id="@+id/mypage_nav_graph"
         android:title="@string/my"

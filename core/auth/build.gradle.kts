@@ -20,7 +20,6 @@ android {
 
         buildConfigField("String", "KAKAO_CLIENT_ID", "\"${getApiKey("KAKAO_CLIENT_ID")}\"")
         buildConfigField("String", "SERVICE_BASE_URL", "\"${getApiKey("SERVICE_BASE_URL")}\"")
-        buildConfigField("String", "OAUTH_APP_DIRECT", "\"${getApiKey("OAUTH_APP_DIRECT")}\"")
     }
 
     buildTypes {
