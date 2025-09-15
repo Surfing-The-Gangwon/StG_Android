@@ -231,7 +231,7 @@
 
             <!-- 자외선 정보 -->
             <LinearLayout
-                android:id="@+id/btn_wave_height"
+                android:id="@+id/btn_uv"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:orientation="vertical"

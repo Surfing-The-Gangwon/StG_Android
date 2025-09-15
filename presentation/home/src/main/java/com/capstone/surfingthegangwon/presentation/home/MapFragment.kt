@@ -14,6 +14,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.capstone.surfingthegangwon.presentation.home.databinding.FragmentMapBinding
 import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
@@ -111,6 +112,16 @@ class MapFragment : Fragment() {
                 }
             }
         )
+
+        with(binding) {
+            listOf(btnWaterTemp, btnAirTemp, btnUv).forEach { it.navToForecast() }
+        }
+    }
+
+    private fun View.navToForecast() {
+        setOnClickListener {
+            findNavController().navigate(MapFragmentDirections.actionMapToForecast())
+        }
     }
 
     private fun setupBottomSheets() {
