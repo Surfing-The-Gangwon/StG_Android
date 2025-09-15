@@ -22,6 +22,7 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/city" />
             <option value="$PROJECT_DIR$/data/login" />
+            <option value="$PROJECT_DIR$/data/sessionReading" />
             <option value="$PROJECT_DIR$/data/sessionStatus" />
             <option value="$PROJECT_DIR$/data/together" />
             <option value="$PROJECT_DIR$/data/user" />

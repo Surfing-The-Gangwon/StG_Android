@@ -19,6 +19,7 @@ import com.google.android.flexbox.JustifyContent
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.temporal.TemporalAdjusters
 import com.capstone.surfingthegangwon.core.resource.R as CoRes
 
 @AndroidEntryPoint
@@ -174,40 +175,26 @@ class TogetherFragment : Fragment() {
         val weekDates = getWeekDates(baseDate)
         Log.d(TAG, weekDates.toString())
 
-        // 선택된 날짜의 요일을 저장해 다음 주에도 유지
         val prevSelectedDayOfWeek = weekAdapter.getSelectedDate()?.dayOfWeek
 
-        // 캘린더 텍스트 업데이트
-        weekTitle.text = baseDate.format(dateFormatter)
-
-        // 주간 리스트 갱신 및 선택된 요일 유지
         weekAdapter.submitList(weekDates) {
-            // 최우선: 저장된 selectedDate 가 이번 주 범위에 있으면 그대로 선택
             val byExactSelected = selectedDate?.takeIf { it in weekDates }
-
-            // 다음: 이전에 선택했던 요일 유지(주차만 바뀐 경우)
             val bySameDow = prevSelectedDayOfWeek?.let { dow ->
                 weekDates.find { it.dayOfWeek == dow }
             }
+            val today = LocalDate.now().takeIf { it in weekDates }
 
-            // 마지막: 기본은 일요일
-            val fallbackSunday = weekDates.firstOrNull { it.dayOfWeek == DayOfWeek.SUNDAY }
+            val dateToSelect = byExactSelected ?: bySameDow ?: today ?: baseDate
 
-            val dateToSelect = byExactSelected ?: bySameDow ?: fallbackSunday
-            dateToSelect?.let {
-                // 어댑터에도 선택 반영 (클릭 콜백이 tryFetchSessions 도 호출)
-                weekAdapter.selectDate(it)
-                // Fragment의 상태도 동기화
-                selectedDate = it
-            }
-
-            dateToSelect?.let { weekAdapter.selectDate(it) }
+            weekAdapter.selectDate(dateToSelect)
+            selectedDate = dateToSelect
+            weekTitle.text = dateToSelect.format(dateFormatter)
         }
     }
 
     /** 해당 날짜가 포함된 주(일~토) 리스트 생성 */
     private fun getWeekDates(date: LocalDate): List<LocalDate> {
-        val sunday = date.with(DayOfWeek.SUNDAY)
+        val sunday = date.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY))
         return List(7) { offset -> sunday.plusDays(offset.toLong()) }
     }
 
