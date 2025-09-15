@@ -1,10 +1,13 @@
 package com.capstone.surfingthegangwon.presentation.sessionReading
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -42,15 +45,24 @@ class SessionReadingFragment : Fragment() {
     private fun initUI() {
         setTopToolBar()
         observeSession()
+        setOnClickListeners()
+    }
+
+    private fun setOnClickListeners() {
+        setOnClickCancelWindow()
+        setOnClickCompleteWindow()
+        setOnClickJoinWindow()
     }
 
     private fun setOnClickCompleteWindow() {
         binding.cancelInviteButton.setOnClickListener {
             readingViewModel.deletePost()
+            requireContext().toast(R.string.session_delete)
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
         binding.completeInviteButton.setOnClickListener {
             readingViewModel.closePost()
+            requireContext().toast(R.string.session_close)
             binding.invitedWindow.isVisible = false
             binding.completedWindow.isVisible = true
         }
@@ -59,6 +71,7 @@ class SessionReadingFragment : Fragment() {
     private fun setOnClickCancelWindow() {
         binding.cancelJoinButton.setOnClickListener {
             readingViewModel.cancelPost()
+            requireContext().toast(R.string.session_cancel)
             binding.joinedWindow.isVisible = false
             binding.unjoinedWindow.isVisible = true
         }
@@ -67,6 +80,7 @@ class SessionReadingFragment : Fragment() {
     private fun setOnClickJoinWindow() {
         binding.joinButton.setOnClickListener {
             readingViewModel.joinPost()
+            requireContext().toast(R.string.session_join)
             binding.unjoinedWindow.isVisible = false
             binding.joinedWindow.isVisible = true
         }
@@ -98,17 +112,14 @@ class SessionReadingFragment : Fragment() {
         when (action) {
             PostAction.Cancel -> {
                 binding.joinedWindow.isVisible = true
-                setOnClickCancelWindow()
             }
 
             PostAction.Complete -> {
                 binding.invitedWindow.isVisible = true
-                setOnClickCompleteWindow()
             }
 
             PostAction.Join -> {
                 binding.unjoinedWindow.isVisible = true
-                setOnClickJoinWindow()
             }
         }
     }
@@ -125,6 +136,14 @@ class SessionReadingFragment : Fragment() {
         binding.topAppBar.setOnBackClick {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
+    }
+
+    private fun Context.toast(
+        @StringRes resId: Int,
+        vararg args: Any,
+        duration: Int = Toast.LENGTH_SHORT
+    ) {
+        Toast.makeText(this, getString(resId, *args), duration).show()
     }
 
     companion object {

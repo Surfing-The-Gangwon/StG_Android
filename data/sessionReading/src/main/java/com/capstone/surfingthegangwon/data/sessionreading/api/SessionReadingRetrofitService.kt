@@ -1,7 +1,6 @@
 package com.capstone.surfingthegangwon.data.sessionreading.api
 
 import com.capstone.surfingthegangwon.core.retrofit.AuthHeaderInterceptor
-import retrofit2.Response
 import retrofit2.http.DELETE
 import retrofit2.http.Headers
 import retrofit2.http.POST
