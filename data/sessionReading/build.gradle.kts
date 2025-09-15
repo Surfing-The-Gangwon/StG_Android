@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.capstone.surfingthegangwon.presentation.sessionReading"
+    namespace = "com.capstone.surfingthegangwon.data.sessionreading"
     compileSdk = 35
 
     defaultConfig {
@@ -32,29 +32,23 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
-    implementation(project(":core:resource"))
-    implementation(project(":core:ui"))
-    implementation(project(":core:navigation"))
+    implementation(project(":core:retrofit"))
     implementation(project(":core:model"))
-    implementation(project(":data:sessionReading"))
+    implementation(project(":core:util"))
 
-    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.retrofit)
+    implementation(libs.gson)
+    implementation(libs.retrofit.converter)
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

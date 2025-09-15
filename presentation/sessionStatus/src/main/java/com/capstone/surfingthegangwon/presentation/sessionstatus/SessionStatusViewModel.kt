@@ -24,7 +24,7 @@ class SessionStatusViewModel @Inject constructor(
         repo.getWrittenPosts()
             .onSuccess { posts -> _sessions.value = posts.toSessionItems() }
             .onFailure { e ->
-                Log.e(TAG, "실패", e)
+                Log.e(TAG, "작성 모집글 불러오기 실패", e)
                 _sessions.value = emptyList() // 에러 처리
             }
     }
@@ -33,7 +33,7 @@ class SessionStatusViewModel @Inject constructor(
         repo.getReservedPosts()
             .onSuccess { posts -> _sessions.value = posts.toSessionItems() }
             .onFailure { e ->
-                Log.e(TAG, "실패", e)
+                Log.e(TAG, "예약 모집글 불러오기 실패", e)
                 _sessions.value = emptyList() // 에러 처리
             }
     }
