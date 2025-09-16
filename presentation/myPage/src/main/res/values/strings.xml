@@ -5,4 +5,6 @@
     <string name="enable_reserved_session_articles">내가 예약한 \‘같이타기\’ 를 볼 수 있어요</string>
     <string name="logout">로그아웃</string>
     <string name="title_my">MY</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

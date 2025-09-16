@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/pretendard_regular"
-                android:text="@string/created_sessions_status"
+                android:text="내 정보"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
@@ -85,67 +85,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/pretendard_light"
-                android:text="@string/enable_created_session_articles"
+                android:text="클릭해서 간단한 내 정보를 확인하세요!"
                 android:textColor="@color/zinc_400"
                 android:textSize="12sp" />
-
-            <ImageView
-                android:id="@+id/createdArrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/gray_right_arrow" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/zinc_300" />
-
-        <!-- 예약 현황 윈도우 -->
-        <LinearLayout
-            android:id="@+id/reservedStatus"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp">
-
-            <ImageView
-                android:id="@+id/reservedIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/reserved_sessions_icon" />
-
-            <TextView
-                android:id="@+id/reservedText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/pretendard_regular"
-                android:text="@string/reserved_sessions_status"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/pretendard_light"
-                android:text="@string/enable_reserved_session_articles"
-                android:textColor="@color/zinc_400"
-                android:textSize="12sp" />
-
-            <ImageView
-                android:id="@+id/reservedArrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/gray_right_arrow" />
-        </LinearLayout>
     </LinearLayout>
 
     <View
@@ -163,13 +111,15 @@
         app:layout_constraintTop_toBottomOf="@id/topWindow" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
+        android:id="@+id/logoutBtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/logout"
         android:textColor="@color/zinc_500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topWindow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

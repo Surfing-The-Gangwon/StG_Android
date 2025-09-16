@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/activity_gray"
     android:orientation="vertical"
     tools:context=".SessionStatusFragment">
 
@@ -23,9 +24,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sessionRcv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="30dp"
-        android:paddingBottom="30dp"
+        android:paddingBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topAppBar"
         tools:listitem="@layout/item_session" />
 

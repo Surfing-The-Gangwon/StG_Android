@@ -14,8 +14,8 @@
     <color name="zinc_300">#D4D4D8</color>
     <color name="zinc_400">#A1A1AA</color>
     <color name="zinc_500">#71717A</color>
-    <color name="navi_selected">#004493</color>
-    <color name="navi_unselected">#71717A</color>
+    <color name="navi_selected">@android:color/white</color>
+    <color name="navi_unselected">#8FB1D7</color>
     <color name="activity_gray">#FAFAFA</color>
     <color name="sunday">#FF3B30</color>
     <color name="saturday">#006FEE</color>

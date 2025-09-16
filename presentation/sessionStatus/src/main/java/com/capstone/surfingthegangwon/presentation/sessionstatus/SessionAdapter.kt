@@ -6,12 +6,13 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.capstone.surfingthegangwon.domain.sessionstatus.SessionItem
-import com.capstone.surfingthegangwon.domain.sessionstatus.SessionState
-import com.capstone.surfingthegangwon.presentation.sessionstatus.databinding.ItemSessionBinding
+import com.capstone.surfingthegangwon.core.model.SessionItem
+import com.capstone.surfingthegangwon.core.model.SessionState
+import com.capstone.surfingthegangwon.core.ui.databinding.ItemSessionBinding
 
-class SessionAdapter :
-    ListAdapter<SessionItem, SessionAdapter.ContentViewHolder>(DIFF_CALLBACK) {
+class SessionAdapter(
+    private val onClick: (SessionItem) -> Unit
+) : ListAdapter<SessionItem, SessionAdapter.ContentViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<SessionItem>() {
@@ -52,6 +53,10 @@ class SessionAdapter :
             overlay.isVisible = when (item.state) {
                 SessionState.OPEN -> false
                 SessionState.CLOSE -> true
+            }
+
+            root.setOnClickListener {
+                onClick(item)
             }
         }
     }
