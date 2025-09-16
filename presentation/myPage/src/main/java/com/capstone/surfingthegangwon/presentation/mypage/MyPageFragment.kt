@@ -41,7 +41,7 @@ class MyPageFragment : Fragment() {
     private fun initUI() {
         setToolBar()
         setOnClickListeners()
-        setUserProfile()
+        // setUserProfile()
     }
 
     private fun setUserProfile() {
@@ -58,24 +58,9 @@ class MyPageFragment : Fragment() {
     private fun setOnClickListeners() {
         myPageViewModel.userName.observe(viewLifecycleOwner) { name ->
             binding.createdStatus.setOnClickListener {
-                Toast.makeText(requireContext(), "카카오로그인: ${name}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "비로그인: 익명의 서핑이조아님", Toast.LENGTH_SHORT).show()
             }
         }
-        binding.logoutBtn.setOnClickListener {
-            tokenStore.clear()
-            switchLoginActivity()
-        }
-    }
-
-    private fun switchLoginActivity() {
-        val intent = Intent("com.capstone.surfingthegangwon.action.LOGIN").apply {
-            // 같은 앱 내에서만 처리되도록 안전장치
-            `package` = requireContext().packageName
-            // 스택 제거
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
-        startActivity(intent)
-        requireActivity().finish()
     }
 
     companion object {

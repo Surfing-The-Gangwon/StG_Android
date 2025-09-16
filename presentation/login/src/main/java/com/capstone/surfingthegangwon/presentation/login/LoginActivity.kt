@@ -54,17 +54,13 @@ class LoginActivity : AppCompatActivity() {
 
         // switchActivityToMain() // 임시로 자동 로그인 처리
 
-        if (!tokenStore.getAccessToken().isNullOrEmpty()) {
-            switchActivityToMain()
-        }
-
         setTvLogoAsGradient()
         setClickKakaoLoginBtn()
     }
 
     private fun setClickKakaoLoginBtn() {
         binding.kakaoLoginBtn.setOnClickListener {
-            loginWithKakao()
+            switchActivityToMain()
         }
     }
 
