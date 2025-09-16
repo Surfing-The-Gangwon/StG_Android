@@ -10,9 +10,9 @@ class HomeViewModel : ViewModel() {
     val beachWaveList: LiveData<List<BeachInfo>> = _beachWaveList
 
     fun setBeachData(beach: String) {
-        val dummy = List(10) {
+        val dummy = List(1) {
             BeachInfo(
-                beachName = "$beach 죽도해변",
+                beachName = "$beach 해변",
                 airTemp = 32.0f,
                 waterTemp = 22.5f,
                 waveHeight = 0.69f,

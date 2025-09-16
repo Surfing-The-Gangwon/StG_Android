@@ -9,10 +9,6 @@
         android:title="@string/guideline"
         android:icon="@drawable/icon_guideline"/>
     <item
-        android:id="@+id/together_nav_graph"
-        android:title="@string/together"
-        android:icon="@drawable/icon_together"/>
-    <item
         android:id="@+id/mypage_nav_graph"
         android:title="@string/my"
         android:icon="@drawable/icon_my"/>

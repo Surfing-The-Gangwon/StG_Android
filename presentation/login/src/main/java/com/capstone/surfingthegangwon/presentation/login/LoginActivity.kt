@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        switchActivityToMain() // 임시로 자동 로그인 처리
+        // switchActivityToMain() // 임시로 자동 로그인 처리
 
         if (!tokenStore.getAccessToken().isNullOrEmpty()) {
             switchActivityToMain()
