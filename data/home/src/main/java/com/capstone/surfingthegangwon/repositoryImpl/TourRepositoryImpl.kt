@@ -1,5 +1,9 @@
-package com.capstone.surfingthegangwon
+package com.capstone.surfingthegangwon.repositoryImpl
 
+import com.capstone.surfingthegangwon.dto.HubPlace
+import com.capstone.surfingthegangwon.dto.HubResult
+import com.capstone.surfingthegangwon.api.TourApiService
+import com.capstone.surfingthegangwon.repository.TourRepository
 import javax.inject.Inject
 
 class TourRepositoryImpl @Inject constructor(

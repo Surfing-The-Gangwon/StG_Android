@@ -1,4 +1,6 @@
-package com.capstone.surfingthegangwon
+package com.capstone.surfingthegangwon.repository
+
+import com.capstone.surfingthegangwon.dto.HubResult
 
 interface TourRepository {
     suspend fun getHubs(

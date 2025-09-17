@@ -42,6 +42,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":domain:home"))
     implementation(project(":data:home"))
+    implementation(libs.lottie)
     implementation(libs.recyclerview)
     implementation(libs.glide)
     implementation(libs.hilt)

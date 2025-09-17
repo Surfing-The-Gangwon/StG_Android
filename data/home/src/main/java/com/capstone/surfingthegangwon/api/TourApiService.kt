@@ -1,5 +1,6 @@
-package com.capstone.surfingthegangwon
+package com.capstone.surfingthegangwon.api
 
+import com.capstone.surfingthegangwon.dto.TourResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

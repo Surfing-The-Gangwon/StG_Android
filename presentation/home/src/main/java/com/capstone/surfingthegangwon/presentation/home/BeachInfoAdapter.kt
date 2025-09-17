@@ -26,9 +26,9 @@ class BeachInfoAdapter(
 
         fun bind(item: BeachInfo) {
             binding.tvBeachName.text = item.beachName
-            binding.tvTempInfo.text = "기온 ${item.airTemp}℃ 수온 ${item.waterTemp}℃"
-            binding.tvWaveInfo.text = "${item.waveHeight}M - ${item.wavePeriod}S"
-            binding.tvWindInfo.text = "${item.windDirection} ${item.windSpeed} m/h"
+            binding.tvTempInfo.text = "기온 ${item.airTemp} 수온 ${item.waterTemp}"
+            binding.tvWaveInfo.text = "${item.waveHeight} - ${item.wavePeriod}"
+            binding.tvWindInfo.text = "${item.windDirection} ${item.windSpeed}"
 
             binding.root.setOnClickListener {
                 onItemClick(item)

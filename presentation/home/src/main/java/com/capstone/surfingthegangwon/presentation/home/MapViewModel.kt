@@ -3,9 +3,8 @@ package com.capstone.surfingthegangwon.presentation.home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.capstone.surfingthegangwon.HubPlace
-import com.capstone.surfingthegangwon.HubResult
-import com.capstone.surfingthegangwon.TourRepository
+import com.capstone.surfingthegangwon.dto.HubPlace
+import com.capstone.surfingthegangwon.repository.TourRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

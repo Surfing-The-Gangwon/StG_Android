@@ -1,6 +1,9 @@
-package com.capstone.surfingthegangwon
+package com.capstone.surfingthegangwon.module
 
+import com.capstone.surfingthegangwon.api.TourApiService
 import com.capstone.surfingthegangwon.core.retrofit.RetrofitModule
+import com.capstone.surfingthegangwon.repository.TourRepository
+import com.capstone.surfingthegangwon.repositoryImpl.TourRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

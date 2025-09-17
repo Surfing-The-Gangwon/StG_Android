@@ -1,4 +1,6 @@
-package com.capstone.surfingthegangwon
+package com.capstone.surfingthegangwon.dto
+
+import com.capstone.surfingthegangwon.BeachInfo
 
 fun BeachInfoDTO.toDomain(): BeachInfo {
     return BeachInfo(

@@ -1,4 +1,4 @@
-package com.capstone.surfingthegangwon
+package com.capstone.surfingthegangwon.dto
 
 data class HubResult(
     val total: Int,

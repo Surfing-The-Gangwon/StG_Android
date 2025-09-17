@@ -22,7 +22,7 @@ import com.kakao.vectormap.MapLifeCycleCallback
 import java.lang.Exception
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.capstone.surfingthegangwon.HubPlace
+import com.capstone.surfingthegangwon.dto.HubPlace
 import com.capstone.surfingthegangwon.presentation.home.databinding.BottomSheetListBinding
 import com.capstone.surfingthegangwon.presentation.home.databinding.BottomSheetSurfSchoolBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior

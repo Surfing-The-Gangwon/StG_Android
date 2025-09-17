@@ -1,4 +1,4 @@
-package com.capstone.surfingthegangwon
+package com.capstone.surfingthegangwon.dto
 
 import com.google.gson.annotations.SerializedName
 
