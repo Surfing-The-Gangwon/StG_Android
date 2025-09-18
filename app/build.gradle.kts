@@ -62,6 +62,7 @@ dependencies {
     implementation(project(":domain:together"))
     implementation(project(":data:home"))
     implementation(project(":data:together"))
+    implementation(project(":data:sessionWriting"))
     implementation(project(":core:navigation"))
     implementation(project(":core:resource"))
     implementation(project(":core:ui"))

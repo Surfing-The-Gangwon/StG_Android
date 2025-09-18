@@ -23,6 +23,7 @@
             <option value="$PROJECT_DIR$/data/home" />
             <option value="$PROJECT_DIR$/data/login" />
             <option value="$PROJECT_DIR$/data/sessionStatus" />
+            <option value="$PROJECT_DIR$/data/sessionWriting" />
             <option value="$PROJECT_DIR$/data/together" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/domain/home" />
