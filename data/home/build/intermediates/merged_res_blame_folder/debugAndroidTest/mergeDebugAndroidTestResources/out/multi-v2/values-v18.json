@@ -1,24 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.capstone.surfingthegangwon.test.home-mergeDebugAndroidTestResources-31:/values-v18/values-v18.xml",
+            "outputFile": "com.capstone.surfingthegangwon.data.home.test.home-mergeDebugAndroidTestResources-33:/values-v18/values-v18.xml",
             "map": [
                 {
-<<<<<<< HEAD
-                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\df0c41c5dec92ed9947ee037863384dc\\transformed\\appcompat-1.7.0\\res\\values-v18\\values-v18.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "48",
-                        "endOffsets": "99"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\64f86dde4016b379134813d04e0273ab\\transformed\\core-1.6.1\\res\\values-v18\\values.xml",
-=======
-                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\60aae476cd2cbda0cb4843fd81748ce5\\transformed\\core-1.6.1\\res\\values-v18\\values.xml",
->>>>>>> network/tourapi
+                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\70fbb075e846900af6789fd8d6eff4ad\\transformed\\core-1.6.1\\res\\values-v18\\values.xml",
                     "from": {
                         "startLines": "4,12",
                         "startColumns": "0,0",
@@ -35,11 +21,9 @@
                         "endColumns": "8,8",
                         "endOffsets": "519,937"
                     }
-<<<<<<< HEAD
-=======
                 },
                 {
-                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\b1f66500746ac72a2cd39fa95a2ea710\\transformed\\appcompat-1.7.0\\res\\values-v18\\values-v18.xml",
+                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\6cc9b5cb983e908f20da1224cc3a628a\\transformed\\appcompat-1.7.0\\res\\values-v18\\values-v18.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -47,7 +31,6 @@
                         "endColumns": "48",
                         "endOffsets": "99"
                     }
->>>>>>> network/tourapi
                 }
             ]
         }

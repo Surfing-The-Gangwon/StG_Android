@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.surfingthegangwon.BeachInfo
 import com.capstone.surfingthegangwon.core.ui.CustomHeaderView
+import com.capstone.surfingthegangwon.dto.SeashoreDetailArg
 import com.capstone.surfingthegangwon.presentation.home.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,6 +21,9 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
+
+    private var selectedSeashoreId: Int = -1
+    private var isTabsInitialized = false
 
     private val beachAdapter by lazy {
         BeachInfoAdapter { beach -> navigateToMap(beach) }
@@ -40,11 +44,37 @@ class HomeFragment : Fragment() {
         initRecyclerView()
         observeBeachInfoList()
         observeCitiesAndTabs()
+        observeDetailForNav()
 
         viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
             setLoading(isLoading) // 로딩 상태에 따라 UI 업데이트
         }
-        viewModel.loadCities()
+        if (!isTabsInitialized) {
+            viewModel.loadCities()
+        }
+    }
+
+    private fun observeDetailForNav() {
+        viewModel.detailForNav.observe(viewLifecycleOwner) { d ->
+            if (d == null) return@observe
+
+            val cityId = viewModel.currentCityIdOrNull() ?: 1
+            val detailArg = SeashoreDetailArg(
+                name = d.name,
+                address = d.address,
+                telephone = d.telephone,
+                lat = d.latitude,
+                lng = d.longitude
+            )
+
+            val action = HomeFragmentDirections.actionHomeToMap(
+                cityId     = cityId,
+                seashoreId = selectedSeashoreId,
+                detail     = detailArg
+            )
+            findNavController().navigate(action)
+            viewModel.consumeDetailForNav()
+        }
     }
 
     private fun setHeaderView() {
@@ -77,7 +107,7 @@ class HomeFragment : Fragment() {
 
     private fun observeCitiesAndTabs() {
         viewModel.tabTitles.observe(viewLifecycleOwner) { titles ->
-            if (titles.isNullOrEmpty()) return@observe
+            if (titles.isNullOrEmpty() || isTabsInitialized) return@observe
 
             binding.headerView.setBeachTabItem(titles)
             binding.headerView.setOnTabSelectedListener(object : CustomHeaderView.OnTabSelectedListener {
@@ -91,6 +121,7 @@ class HomeFragment : Fragment() {
             })
 
             binding.headerView.adjustIndicatorWidth()
+            isTabsInitialized = true
         }
 
         viewModel.error.observe(viewLifecycleOwner) { msg ->
@@ -113,8 +144,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateToMap(beach: BeachInfo) {
-        val args = bundleOf("beachName" to beach.beachName)
-        findNavController().navigate(com.capstone.surfingthegangwon.core.navigation.R.id.action_home_to_map, args)
+        selectedSeashoreId = beach.seashoreId
+        viewModel.loadSeashoreDetailForNav(beach.seashoreId)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        isTabsInitialized = false
+    }
 }

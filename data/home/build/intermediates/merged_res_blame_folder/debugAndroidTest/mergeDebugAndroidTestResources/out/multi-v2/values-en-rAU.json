@@ -1,31 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.capstone.surfingthegangwon.test.home-mergeDebugAndroidTestResources-31:/values-en-rAU/values-en-rAU.xml",
+            "outputFile": "com.capstone.surfingthegangwon.data.home.test.home-mergeDebugAndroidTestResources-33:/values-en-rAU/values-en-rAU.xml",
             "map": [
                 {
-<<<<<<< HEAD
-                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\5c65765ea6495b34c0b300ba61a7c46e\\transformed\\core-1.16.0\\res\\values-en-rAU\\values-en-rAU.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,151,253,352,451,555,658,774",
-                        "endColumns": "95,101,98,98,103,102,115,100",
-                        "endOffsets": "146,248,347,446,550,653,769,870"
-                    },
-                    "to": {
-                        "startLines": "29,30,31,32,33,34,35,37",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "2762,2858,2960,3059,3158,3262,3365,3564",
-                        "endColumns": "95,101,98,98,103,102,115,100",
-                        "endOffsets": "2853,2955,3054,3153,3257,3360,3476,3660"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\df0c41c5dec92ed9947ee037863384dc\\transformed\\appcompat-1.7.0\\res\\values-en-rAU\\values-en-rAU.xml",
-=======
-                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\b1f66500746ac72a2cd39fa95a2ea710\\transformed\\appcompat-1.7.0\\res\\values-en-rAU\\values-en-rAU.xml",
->>>>>>> network/tourapi
+                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\6cc9b5cb983e908f20da1224cc3a628a\\transformed\\appcompat-1.7.0\\res\\values-en-rAU\\values-en-rAU.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -42,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\7f39996458f4a5faace2362318cb8efa\\transformed\\core-1.16.0\\res\\values-en-rAU\\values-en-rAU.xml",
+                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\caaa35ee667c8549ae01e58c5734ec93\\transformed\\core-1.16.0\\res\\values-en-rAU\\values-en-rAU.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",

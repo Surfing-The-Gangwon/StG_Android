@@ -4,6 +4,7 @@ import com.capstone.surfingthegangwon.BeachInfo
 
 fun BeachInfoDTO.toDomain(): BeachInfo {
     return BeachInfo(
+        seashoreId = this.seashoreId,
         beachName = this.beachName,
         airTemp = this.airTemp,
         waterTemp = this.waterTemp,
@@ -13,8 +14,3 @@ fun BeachInfoDTO.toDomain(): BeachInfo {
         windSpeed = this.windSpeed
     )
 }
-
-/**
- * 외부에서 불러온 API에서 전처리가 필요하다면
- * 여기에(Mapper) 추가적인 변환 로직을 작성할 수 있음.
- */

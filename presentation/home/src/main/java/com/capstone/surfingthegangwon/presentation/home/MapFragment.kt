@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
@@ -22,7 +24,12 @@ import com.kakao.vectormap.MapLifeCycleCallback
 import java.lang.Exception
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.capstone.surfingthegangwon.dto.HubPlace
+import com.capstone.surfingthegangwon.dto.LessonDto
+import com.capstone.surfingthegangwon.dto.RentalDto
+import com.capstone.surfingthegangwon.dto.SeashoreMarkerDto
+import com.capstone.surfingthegangwon.dto.SurfingShopDetailDto
 import com.capstone.surfingthegangwon.presentation.home.databinding.BottomSheetListBinding
 import com.capstone.surfingthegangwon.presentation.home.databinding.BottomSheetSurfSchoolBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -43,7 +50,6 @@ class MapFragment : Fragment() {
     private val viewModel: MapViewModel by viewModels()
     private val args: MapFragmentArgs by navArgs()
 
-    private var kakaoMap: KakaoMap? = null
     private var labelLayer: LabelLayer? = null
 
     private val labelByPlace = mutableMapOf<PlaceMarker, Label>()
@@ -72,12 +78,28 @@ class MapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val beachName = args.beachName
-        binding.tvTitle.text = beachName
-        Log.d("arieum", "Received beach name: $beachName")
-
         setupTabs()
-        viewModel.fetchHubSample(baseYm = "202503", areaCd = "51", signguCd = "51830")
+        val d = args.detail
+        binding.tvTitle.text = d.name
+
+        val currentBeach = PlaceUiModel(
+            title = d.name, address = d.address, phone = d.telephone,
+            lat = d.lat, lng = d.lng
+        )
+        binding.placeBottomSheet.bind(currentBeach) { openKakaoNavigation(it) }
+
+        viewModel.fetchHubsByCityCode(serverCityCode = args.cityId)
+
+        viewModel.fetchUv(args.seashoreId)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.uv.collect { uv ->
+                        binding.tvUv.text = uv.levelText
+                    }
+                }
+            }
+        }
         setupBottomSheets()
 
         binding.mapview.start(
@@ -86,25 +108,65 @@ class MapFragment : Fragment() {
                 override fun onMapError(error: Exception) {}
             },
             object : KakaoMapReadyCallback() {
-                override fun getPosition(): LatLng = LatLng.from(37.9705, 128.7518)
+                override fun getPosition(): LatLng = LatLng.from(d.lat, d.lng)
                 override fun getZoomLevel(): Int = 15
                 override fun onMapReady(map: KakaoMap) {
-                    kakaoMap = map
                     initLayerAndStyles(map)
-                    addAllMarkers(beachName)     // 모든 마커 추가 (beach는 선명, 나머지는 흐림)
+
+                    // 현재 해변 마커
+                    labelLayer = map.labelManager?.layer
+                    labelLayer?.removeAll()
+                    val style = styles[Category.BEACH]?.normal ?: return
+                    labelLayer!!.addLabel(
+                        LabelOptions.from(LatLng.from(d.lat, d.lng))
+                            .setStyles(style)
+                            .setTexts(LabelTextBuilder().setTexts(d.name))
+                            .setRank(1000)
+                    )
+
+                    viewModel.fetchSeashoreMarkers(args.seashoreId) // 서버 마커 불러오기 (SCHOOL/SHOP)
                     bindLabelClick(map)          // 마커 클릭 → 커짐(단일)
                     applyCategoryFilter()        // 초기 필터 적용
 
-                    showDefaultBottomSheet(beachName)
-
                     viewLifecycleOwner.lifecycleScope.launch {
                         viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                            viewModel.hubList.collect { hubList ->
-                                if (kakaoMap != null && labelLayer != null) {
-                                    addTouristMarkers(hubList)
+                            launch { // 서버 마커
+                                viewModel.markers.collect { server ->
+                                    addServerMarkers(server)
+                                    if (selectedCategory == Category.SURF_SHOP ||
+                                        selectedCategory == Category.SURF_SCHOOL) {
+                                        placeListAdapter.submitList(buildServerPlaceMarkers(selectedCategory!!))
+                                    }
                                 }
-                                if (selectedCategory == Category.TOURIST) {
-                                    placeListAdapter.submitList(buildTourPlaceMarkers())
+                            }
+                            launch { // TourAPI 마커
+                                viewModel.hubList.collect { hubList ->
+                                    if (labelLayer != null) addTouristMarkers(hubList)
+                                    if (selectedCategory == Category.TOURIST) {
+                                        placeListAdapter.submitList(buildTourPlaceMarkers())
+                                    }
+                                }
+                            }
+                            launch {
+                                viewModel.surfing.collect { state ->
+                                    when (state) {
+                                        is MapViewModel.SurfingUiState.Loaded -> {
+                                            // 리스트/기본 시트 숨기고 상세 시트 표시
+                                            listSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                                            placeSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+                                            bindSurfingSheet(state.detail, state.lessons, state.rentals)
+
+                                            surfSchoolSheet.root.bringToFront()
+                                            surfSchoolSheet.root.post {
+                                                surfSchoolBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                                            }
+                                        }
+                                        is MapViewModel.SurfingUiState.Error -> {
+                                            Toast.makeText(requireContext(), "상세 불러오기 실패", Toast.LENGTH_SHORT).show()
+                                        }
+                                        else -> Unit
+                                    }
                                 }
                             }
                         }
@@ -115,12 +177,6 @@ class MapFragment : Fragment() {
 
         with(binding) {
             listOf(btnWaterTemp, btnAirTemp, btnUv).forEach { it.navToForecast() }
-        }
-    }
-
-    private fun View.navToForecast() {
-        setOnClickListener {
-            findNavController().navigate(MapFragmentDirections.actionMapToForecast())
         }
     }
 
@@ -187,40 +243,146 @@ class MapFragment : Fragment() {
     }
 
     /**
-     * 진입 시 기본으로 표시할 BottomSheet 설정
+     * 서버 마커 추가
      */
-    private fun showDefaultBottomSheet(beachName: String) {
-        val defaultPlace = dummyPlaces.find { it.category == Category.BEACH }
-            ?: dummyPlaces.firstOrNull()
+    private fun addServerMarkers(items: List<SeashoreMarkerDto>) {
+        val layer = labelLayer ?: return
 
-        defaultPlace?.let { place ->
-            val placeModel = PlaceUiModel(
-                title = place.name,
-                address = "강원특별자치도 양양시 양양군 70 죽도해변",
-                phone = if (place.category == Category.BEACH) "033-123-4567" else null,
-                lat = place.lat,
-                lng = place.lng
+        // 중복 추가 방지: 기존 SHOP/SCHOOL 라벨만 걷어내고 다시 그림
+        val toRemove = labelByPlace.filter { it.key.category == Category.SURF_SHOP || it.key.category == Category.SURF_SCHOOL }
+        toRemove.forEach { (place, label) ->
+            label.remove()
+            labelByPlace.remove(place)
+            placeByLabel.remove(label)
+        }
+
+        items.forEach { m ->
+            val category = when (m.type.uppercase()) {
+                "SCHOOL" -> Category.SURF_SCHOOL
+                "SHOP"   -> Category.SURF_SHOP
+                else     -> return@forEach
+            }
+
+            val style = styles[category]?.dim ?: return@forEach  // 초기엔 흐리게
+            val label = layer.addLabel(
+                LabelOptions.from(LatLng.from(m.latitude, m.longitude))
+                    .setStyles(style)
+                    .setTexts(LabelTextBuilder().setTexts(m.name))
+                    .setRank(1000)
             )
 
-            binding.placeBottomSheet.bind(placeModel) { model ->
-                // 길찾기 버튼 클릭 시 동작
-                openKakaoNavigation(model)
-            }
+            val place = PlaceMarker(
+                id = m.id,
+                name = m.name,
+                lat = m.latitude,
+                lng = m.longitude,
+                category = category
+            )
+            labelByPlace[place] = label
+            placeByLabel[label] = place
         }
+
+        applyCategoryFilter()
     }
 
     /**
      * 서핑스쿨 상세 시트 바인딩
      */
-    private fun bindSurfSchoolSheet(p: PlaceUiModel) = with(surfSchoolSheet) {
-        tvPlaceName.text = p.title
-        tvAddress.text   = p.address ?: ""
-        tvPhone.text     = p.phone ?: ""
+    private fun bindSurfingSheet(
+        detail: SurfingShopDetailDto,
+        lessons: List<LessonDto>,
+        rentals: List<RentalDto>
+    ) = with(surfSchoolSheet) {
 
-        tvAddress.isVisible = !p.address.isNullOrBlank()
-        tvPhone.isVisible   = !p.phone.isNullOrBlank()
+        // 헤더/소개
+        tvPlaceName.text = detail.name
+        tvAddress.text   = detail.address.orEmpty()
+        tvPhone.text     = detail.phone.orEmpty()
+        tvIntro.text     = detail.introduce.orEmpty()
 
-        kakaoRouteBtn.setOnClickListener { openKakaoPlace(p) }
+        tvAddress.showOrGone(!detail.address.isNullOrBlank())
+        tvPhone.showOrGone(!detail.phone.isNullOrBlank())
+        tvIntro.showOrGone(!detail.introduce.isNullOrBlank())
+
+        // 이미지 2장까지
+        val img1Url = detail.shopImg.getOrNull(0)?.imgUrl
+        val img2Url = detail.shopImg.getOrNull(1)?.imgUrl
+
+        if (img1Url.isNullOrBlank()) {
+            img1.showOrGone(false)
+        } else {
+            img1.showOrGone(true)
+            Glide.with(img1).load(img1Url).into(img1)
+        }
+
+        if (img2Url.isNullOrBlank()) {
+            img2.showOrGone(false)
+        } else {
+            img2.showOrGone(true)
+            Glide.with(img2).load(img2Url).into(img2)
+        }
+
+        // ===== 레슨 2개 =====
+        fun bindLesson(
+            root: View,
+            title: TextView,
+            desc: TextView,
+            duration: TextView,
+            origin: TextView,
+            price: TextView,
+            item: LessonDto?
+        ) {
+            if (item == null) { root.showOrGone(false); return }
+            root.showOrGone(true)
+            title.text = item.title
+            desc.text  = item.contents.orEmpty()
+            duration.text = item.classTime?.let { "${it}분" } ?: ""
+
+            val showOrigin = (item.originalPrice ?: 0) > 0 &&
+                    item.originalPrice != item.discountedPrice
+            origin.text = item.originalPrice.toWon()
+            origin.setStrike(showOrigin)
+            origin.showOrGone(showOrigin)
+
+            price.text = item.discountedPrice.toWon()
+        }
+
+        bindLesson(
+            itemLesson1, tvLessonTitle1, tvLessonDesc1, tvLessonDuration1,
+            tvLessonOriginPrice1, tvLessonPrice1, lessons.getOrNull(0)
+        )
+        bindLesson(
+            itemLesson2, tvLessonTitle2, tvLessonDesc2, tvLessonDuration2,
+            tvLessonOriginPrice2, tvLessonPrice2, lessons.getOrNull(1)
+        )
+
+        // ===== 대여 2개 =====
+        fun bindRent(
+            root: View,
+            title: TextView,
+            duration: TextView,
+            origin: TextView,
+            price: TextView,
+            item: RentalDto?
+        ) {
+            if (item == null) { root.showOrGone(false); return }
+            root.showOrGone(true)
+            title.text = item.name
+            duration.text = item.rentalTime?.let { if (it > 0) "${it}분" else "" } ?: ""
+
+            val showOrigin = (item.originalPrice ?: 0) > 0 &&
+                    item.originalPrice != item.discountedPrice
+            origin.text = item.originalPrice.toWon()
+            origin.setStrike(showOrigin)
+            origin.showOrGone(showOrigin)
+
+            price.text = item.discountedPrice.toWon()
+        }
+
+        bindRent(itemRent1, tvRentTitle1, tvRentDuration1, tvRentOriginPrice1, tvRentPrice1, rentals.getOrNull(0))
+        bindRent(itemRent2, tvRentTitle2, tvRentDuration2, tvRentOriginPrice2, tvRentPrice2, rentals.getOrNull(1))
+
+        kakaoRouteBtn.setOnClickListener { openKakaoPlaceByTitle(detail.name) }
     }
 
     /**
@@ -243,24 +405,23 @@ class MapFragment : Fragment() {
         }
     }
 
-    private fun openKakaoPlace(place: PlaceUiModel) {
+    private fun openKakaoPlaceByTitle(title: String) {
         try {
-            // 카카오맵 앱으로 '해당 좌표 보기'
+            // 카카오맵 앱으로 검색
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("kakaomap://look?p=${place.lat},${place.lng}")
+                Uri.parse("kakaomap://search?q=${Uri.encode(title)}")
             )
             startActivity(intent)
         } catch (e: Exception) {
-            // 앱이 없으면 웹으로 (지도 열기)
+            // 웹으로 검색
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://map.kakao.com/link/map/${place.title},${place.lat},${place.lng}")
+                Uri.parse("https://map.kakao.com/link/search/${Uri.encode(title)}")
             )
             startActivity(intent)
         }
     }
-
 
     /**
      * 1) 레이어 & 스타일 등록
@@ -300,28 +461,6 @@ class MapFragment : Fragment() {
     }
 
     /**
-     * 2) 모든 마커 추가 (초기: beach만 선명, 나머지 흐림)
-     * */
-    private fun addAllMarkers(beachName: String) {
-        val layer = labelLayer ?: return
-        labelByPlace.clear(); placeByLabel.clear()
-
-        dummyPlaces.forEach { p ->
-            val bundle = styles[p.category]!!
-            val style  = if (p.category == Category.BEACH) bundle.normal else bundle.dim
-
-            val label = layer.addLabel(
-                LabelOptions.from(LatLng.from(p.lat, p.lng))
-                    .setStyles(style)
-                    .setTexts(LabelTextBuilder().setTexts(p.name))
-                    .setRank(1000)
-            )
-            labelByPlace[p] = label
-            placeByLabel[label] = p
-        }
-    }
-
-    /**
      * 3) 탭 → 단일 선택 필터 (선택 카테고리만 선명, 그 외 흐림 / beach는 항상 선명)
      * */
     private fun applyCategoryFilter() {
@@ -348,28 +487,23 @@ class MapFragment : Fragment() {
                 selectedPlace = if (selectedPlace == place) null else place
                 applyCategoryFilter()
 
-                if (place.category == Category.SURF_SCHOOL) {
-                    // 필요하면 주소/전화는 실제 데이터로 채우세요
-                    val model = PlaceUiModel(
-                        title = place.name,
-                        address = "강원특별자치도 양양시 양양군 70 죽도해변",   // 없으면 null 가능
-                        phone = "033-252-3342",
-                        lat = place.lat,
-                        lng = place.lng
-                    )
+                // 리스트/기본 하단시트는 우선 숨김
+                listSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                placeSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
-                    // 리스트 시트는 숨김
-                    listSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                    placeSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-
-                    // 서핑스쿨 시트 바인딩 + 열기
-                    bindSurfSchoolSheet(model)
-                    surfSchoolSheet.root.bringToFront()
-                    surfSchoolSheet.root.post {
-                        surfSchoolBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                when (place.category) {
+                    Category.SURF_SCHOOL, Category.SURF_SHOP -> {
+                        val markerId = place.id
+                        if (markerId != null) {
+                            viewModel.loadSurfing(markerId)
+                        } else {
+                            Toast.makeText(requireContext(), "잘못된 마커 ID", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                } else {
-                    // 다른 카테고리는 기존 동작 유지(필요 시)
+
+                    else -> {
+                        // 기존 동작 유지
+                    }
                 }
 
                 return true
@@ -425,10 +559,11 @@ class MapFragment : Fragment() {
         selectedCategory = category
         applyCategoryFilter()
 
-        // 리스트 데이터 준비
+        // 마커 데이터 준비
         val listForSheet: List<PlaceMarker> = when (category) {
-            Category.TOURIST -> buildTourPlaceMarkers()                     // TourAPI 리스트
-            else -> dummyPlaces.filter { it.category == category }          // 더미 리스트
+            Category.TOURIST                         -> buildTourPlaceMarkers()
+            Category.SURF_SHOP, Category.SURF_SCHOOL -> buildServerPlaceMarkers(category)
+            else                 -> emptyList()
         }
 
         // 상세 시트는 숨기고
@@ -461,6 +596,47 @@ class MapFragment : Fragment() {
             .toList()
     }
 
+    private fun buildServerPlaceMarkers(category: Category): List<PlaceMarker> {
+        return viewModel.markers.value
+            .asSequence()
+            .filter {
+                val cat = when (it.type.uppercase()) {
+                    "SCHOOL" -> Category.SURF_SCHOOL
+                    "SHOP"   -> Category.SURF_SHOP
+                    else     -> null
+                }
+                cat == category
+            }
+            .map {
+                PlaceMarker(
+                    id = it.id,
+                    name = it.name,
+                    lat = it.latitude,
+                    lng = it.longitude,
+                    category = category
+                )
+            }
+            .toList()
+    }
+
+    /* 유틸함수 */
+    private fun View.navToForecast() {
+        setOnClickListener {
+            val id = args.seashoreId
+            val direction = MapFragmentDirections.actionMapToForecast(seashoreId = id)
+            findNavController().navigate(direction)
+        }
+    }
+
+    private fun Int?.toWon(): String =
+        this?.let { java.text.NumberFormat.getNumberInstance(java.util.Locale.KOREA).format(it) + "원" } ?: ""
+
+    private fun TextView.setStrike(show: Boolean) {
+        paintFlags = if (show) paintFlags or android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
+        else paintFlags and android.graphics.Paint.STRIKE_THRU_TEXT_FLAG.inv()
+    }
+
+    private fun View.showOrGone(show: Boolean) { isVisible = show }
 
     override fun onResume() {
         super.onResume()
@@ -472,13 +648,3 @@ class MapFragment : Fragment() {
         binding.mapview.pause()
     }
 }
-
-/**
- * 더미데이터
- * */
-private val dummyPlaces = listOf(
-    PlaceMarker("죽도해변", 37.9705, 128.7518, Category.BEACH),
-    PlaceMarker("죽도 서핑샵 A", 37.98, 128.74, Category.SURF_SHOP),
-    PlaceMarker("죽도 서핑샵 B", 37.9809, 128.73, Category.SURF_SHOP),
-    PlaceMarker("죽도 서핑스쿨",  37.9712, 128.72, Category.SURF_SCHOOL),
-)

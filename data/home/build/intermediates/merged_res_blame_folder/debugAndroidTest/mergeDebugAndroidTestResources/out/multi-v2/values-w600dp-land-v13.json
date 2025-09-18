@@ -1,14 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.capstone.surfingthegangwon.test.home-mergeDebugAndroidTestResources-31:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
+            "outputFile": "com.capstone.surfingthegangwon.data.home.test.home-mergeDebugAndroidTestResources-33:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
             "map": [
                 {
-<<<<<<< HEAD
-                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\d590e939802a29524276bfc26b0034fd\\transformed\\material-1.12.0\\res\\values-w600dp-land-v13\\values-w600dp-land-v13.xml",
-=======
-                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\3c0eb28304b6725c6d94af1d2bc794d3\\transformed\\material-1.12.0\\res\\values-w600dp-land-v13\\values-w600dp-land-v13.xml",
->>>>>>> network/tourapi
+                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\56a6730ed73a74144e3ad21f749d7227\\transformed\\material-1.12.0\\res\\values-w600dp-land-v13\\values-w600dp-land-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

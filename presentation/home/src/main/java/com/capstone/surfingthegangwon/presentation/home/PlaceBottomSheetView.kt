@@ -11,7 +11,7 @@ import com.google.android.material.card.MaterialCardView
 
 data class PlaceUiModel(
     val title: String,
-    val address: String,
+    val address: String?,
     val phone: String? = null,
     val lat: Double,
     val lng: Double,

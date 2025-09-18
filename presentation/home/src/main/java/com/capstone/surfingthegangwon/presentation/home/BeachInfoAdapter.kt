@@ -13,7 +13,7 @@ class BeachInfoAdapter(
 ): ListAdapter<BeachInfo, BeachInfoAdapter.BeachInfoViewHolder>(
     object : DiffUtil.ItemCallback<BeachInfo>() {
         override fun areItemsTheSame(oldItem: BeachInfo, newItem: BeachInfo): Boolean {
-            return oldItem.beachName == newItem.beachName
+            return oldItem.seashoreId == newItem.seashoreId
         }
 
         override fun areContentsTheSame(oldItem: BeachInfo, newItem: BeachInfo): Boolean {

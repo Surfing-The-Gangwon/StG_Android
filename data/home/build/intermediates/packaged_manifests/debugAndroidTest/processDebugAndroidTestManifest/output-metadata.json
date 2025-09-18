@@ -4,7 +4,7 @@
     "type": "PACKAGED_MANIFESTS",
     "kind": "Directory"
   },
-  "applicationId": "com.capstone.surfingthegangwon.test",
+  "applicationId": "com.capstone.surfingthegangwon.data.home.test",
   "variantName": "debugAndroidTest",
   "elements": [
     {

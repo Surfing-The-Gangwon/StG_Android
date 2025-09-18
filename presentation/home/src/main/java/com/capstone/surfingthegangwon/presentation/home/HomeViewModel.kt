@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.capstone.surfingthegangwon.BeachInfo
 import com.capstone.surfingthegangwon.dto.City
+import com.capstone.surfingthegangwon.dto.SeashoreDetailDto
 import com.capstone.surfingthegangwon.dto.toBeachInfo
 import com.capstone.surfingthegangwon.repository.CityRepository
 import com.capstone.surfingthegangwon.repository.SeashoreRepository
@@ -33,6 +34,12 @@ class HomeViewModel @Inject constructor(
 
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
+
+    private val _currentCityId = MutableLiveData<Int?>()
+    val currentCityId: LiveData<Int?> = _currentCityId
+
+    private val _detailForNav = MutableLiveData<SeashoreDetailDto?>()
+    val detailForNav: LiveData<SeashoreDetailDto?> = _detailForNav
 
     fun loadCities() {
         _loading.value = true
@@ -62,7 +69,9 @@ class HomeViewModel @Inject constructor(
             return
         }
 
+        _currentCityId.value = targetCityId
         _loading.value = true
+
         viewModelScope.launch {
             try {
                 val seashores = seashoreRepository.getSeashores(targetCityId)
@@ -75,6 +84,25 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
+    fun currentCityIdOrNull(): Int? = _currentCityId.value
+
+    fun loadSeashoreDetailForNav(id: Int) {
+        _loading.value = true
+        viewModelScope.launch {
+            try {
+                val d = seashoreRepository.getSeashoreDetail(id)
+                _detailForNav.value = d
+                _loading.value = false
+            } catch (e: Exception) {
+                _loading.value = false
+                _error.value = e.message ?: "해변 상세를 가져오지 못했어요."
+            }
+        }
+    }
+
+    /** 네비 후 한번 소비되도록 null로 리셋 (옵션) */
+    fun consumeDetailForNav() { _detailForNav.value = null }
 
 //    fun setBeachData(beach: String) {
 //        val dummy = List(10) {

@@ -7,6 +7,7 @@ private fun String.dropSuffixIfAny(suffix: String) =
 
 fun SeashoreDto.toBeachInfo(): BeachInfo {
     return BeachInfo(
+        seashoreId = id,
         beachName = name,
         airTemp = temp,
         waterTemp = waterTemp,

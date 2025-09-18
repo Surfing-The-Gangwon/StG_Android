@@ -13,15 +13,21 @@
 
     <fragment
         android:id="@+id/forecastFragment"
-        android:name="com.capstone.surfingthegangwon.presentation.home.ForecastFragment" />
+        android:name="com.capstone.surfingthegangwon.presentation.home.ForecastFragment" >
+        <argument
+            android:name="seashoreId"
+            app:argType="integer" />
+    </fragment>
 
 
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.capstone.surfingthegangwon.presentation.home.MapFragment">
+        <argument android:name="cityId"      app:argType="integer" />
+        <argument android:name="seashoreId"  app:argType="integer" />
         <argument
-            android:name="beachName"
-            app:argType="string" />
+            android:name="detail"
+            app:argType="com.capstone.surfingthegangwon.dto.SeashoreDetailArg" />
 
         <action
             android:id="@+id/action_map_to_forecast"

@@ -1,14 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.capstone.surfingthegangwon.test.home-mergeDebugAndroidTestResources-31:/values-v24/values-v24.xml",
+            "outputFile": "com.capstone.surfingthegangwon.data.home.test.home-mergeDebugAndroidTestResources-33:/values-v24/values-v24.xml",
             "map": [
                 {
-<<<<<<< HEAD
-                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\d590e939802a29524276bfc26b0034fd\\transformed\\material-1.12.0\\res\\values-v24\\values-v24.xml",
-=======
-                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\3c0eb28304b6725c6d94af1d2bc794d3\\transformed\\material-1.12.0\\res\\values-v24\\values-v24.xml",
->>>>>>> network/tourapi
+                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\56a6730ed73a74144e3ad21f749d7227\\transformed\\material-1.12.0\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,9,12,15",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -27,11 +23,7 @@
                     }
                 },
                 {
-<<<<<<< HEAD
-                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\df0c41c5dec92ed9947ee037863384dc\\transformed\\appcompat-1.7.0\\res\\values-v24\\values-v24.xml",
-=======
-                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\b1f66500746ac72a2cd39fa95a2ea710\\transformed\\appcompat-1.7.0\\res\\values-v24\\values-v24.xml",
->>>>>>> network/tourapi
+                    "source": "C:\\Users\\ariml\\.gradle\\caches\\8.11.1\\transforms\\6cc9b5cb983e908f20da1224cc3a628a\\transformed\\appcompat-1.7.0\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

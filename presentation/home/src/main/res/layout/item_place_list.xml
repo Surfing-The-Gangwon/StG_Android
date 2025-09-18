@@ -26,7 +26,8 @@
             android:layout_height="wrap_content"
             android:text="주소"
             android:textSize="12sp"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@android:color/darker_gray"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tv_place_phone"
@@ -34,14 +35,23 @@
             android:layout_height="wrap_content"
             android:text="전화번호"
             android:textSize="12sp"
+            android:textColor="@android:color/darker_gray"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="카테고리"
+            android:textSize="12sp"
             android:textColor="@android:color/darker_gray" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/image_thumbnail"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/beach_image_1" />
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="3dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_school" />
 </LinearLayout>

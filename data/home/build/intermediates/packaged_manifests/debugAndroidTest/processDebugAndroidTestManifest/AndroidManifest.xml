@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.capstone.surfingthegangwon.test" >
+    package="com.capstone.surfingthegangwon.data.home.test" >
 
     <uses-sdk
         android:minSdkVersion="28"
@@ -10,8 +10,8 @@
         android:name="androidx.test.runner.AndroidJUnitRunner"
         android:functionalTest="false"
         android:handleProfiling="false"
-        android:label="Tests for com.capstone.surfingthegangwon.test"
-        android:targetPackage="com.capstone.surfingthegangwon.test" />
+        android:label="Tests for com.capstone.surfingthegangwon.data.home.test"
+        android:targetPackage="com.capstone.surfingthegangwon.data.home.test" />
 
     <queries>
         <package android:name="androidx.test.orchestrator" />
@@ -22,10 +22,10 @@
     <uses-permission android:name="android.permission.REORDER_TASKS" />
 
     <permission
-        android:name="com.capstone.surfingthegangwon.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="com.capstone.surfingthegangwon.data.home.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.capstone.surfingthegangwon.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="com.capstone.surfingthegangwon.data.home.test.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -60,7 +60,7 @@
 
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.capstone.surfingthegangwon.test.androidx-startup"
+            android:authorities="com.capstone.surfingthegangwon.data.home.test.androidx-startup"
             android:exported="false" >
             <meta-data
                 android:name="androidx.emoji2.text.EmojiCompatInitializer"

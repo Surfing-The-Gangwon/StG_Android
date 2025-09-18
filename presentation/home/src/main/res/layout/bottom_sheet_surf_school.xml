@@ -51,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:text="서프 서핑스쿨"
                         android:textStyle="bold"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         android:textColor="#111111" />
 
                     <TextView
@@ -89,9 +89,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:padding="8dp"
                 android:text="전문 강사진이 1:1 맞춤 커리큘럼으로 안전하고 즐거운 서핑을 제공합니다. 최신 서핑 장비 대여 서비스도 운영합니다."
-                android:textSize="13sp"
-                android:lineSpacingExtra="2dp"
+                android:textSize="11sp"
                 android:textColor="#444444" />
 
             <LinearLayout
@@ -164,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:text="프라이빗 서핑 레슨"
                         android:textStyle="bold"
-                        android:textSize="15sp"
+                        android:textSize="14sp"
                         android:textColor="#222222" />
 
                     <TextView
@@ -173,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:text="1:1 맞춤 커리큘럼과 비치 세이프티."
-                        android:textSize="12sp"
+                        android:textSize="8sp"
                         android:textColor="#777777" />
                 </LinearLayout>
 
@@ -234,7 +234,7 @@
                         android:layout_height="wrap_content"
                         android:text="프라이빗 서핑 레슨+"
                         android:textStyle="bold"
-                        android:textSize="15sp"
+                        android:textSize="14sp"
                         android:textColor="#222222" />
 
                     <TextView
@@ -243,7 +243,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:text="실전 라이딩 피드백 포함."
-                        android:textSize="12sp"
+                        android:textSize="8sp"
                         android:textColor="#777777" />
                 </LinearLayout>
 
@@ -321,7 +321,7 @@
                         android:layout_height="wrap_content"
                         android:text="소프트보드 (하루)"
                         android:textStyle="bold"
-                        android:textSize="15sp"
+                        android:textSize="14sp"
                         android:textColor="#222222" />
                 </LinearLayout>
 
@@ -378,7 +378,7 @@
                         android:layout_height="wrap_content"
                         android:text="웻슈트 (1시간)"
                         android:textStyle="bold"
-                        android:textSize="15sp"
+                        android:textSize="14sp"
                         android:textColor="#222222" />
                 </LinearLayout>
 

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/space_16"
+    android:backgroundTint="#ffffff"
+    app:cardCornerRadius="@dimen/radius_16"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="@dimen/space_16"
+    app:strokeColor="@color/card_stroke"
+    app:strokeWidth="1dp"
+    android:padding="6dp"
+    app:shapeAppearanceOverlay="@style/Shape.Rounded2xl">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffffff">
+
+        <!-- 날짜 헤더 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/space_12">
+
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:text="🗓️" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_8"
+                android:text="08월 19일 (화)"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <!-- 컬럼 헤더 -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="5"
+            android:useDefaultMargins="false"
+            android:alignmentMode="alignMargins"
+            android:layout_marginBottom="@dimen/space_8">
+
+            <TextView style="@style/Forecast.ColumnHeader" android:text="날씨"/>
+            <TextView style="@style/Forecast.ColumnHeader" android:text="풍향"/>
+            <TextView style="@style/Forecast.ColumnHeader" android:text="풍속"/>
+            <TextView style="@style/Forecast.ColumnHeader" android:text="파고"/>
+            <TextView style="@style/Forecast.ColumnHeader" android:text="물때"/>
+        </GridLayout>
+
+        <!-- 오전 Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_row_surface"
+            android:padding="@dimen/space_8">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAm"
+                style="@style/Chip.Time"
+                android:layout_weight="0.01"
+                android:layout_width="80dp"
+                app:chipStartPadding="1dp"
+                app:iconEndPadding="1dp"
+                app:chipBackgroundColor="#D6EEFF"
+                android:text="오전"
+                android:textSize="8sp"
+                app:chipIcon="@drawable/ic_sunny" />
+
+            <!-- 오전 Row 안쪽 셀들 -->
+            <TextView
+                android:id="@+id/tvWindDirAm"
+                style="@style/Forecast.Cell"
+                android:layout_weight="1"
+                android:text="NW"/>
+
+            <TextView
+                android:id="@+id/tvWindSpeedAm"
+                style="@style/Forecast.Cell"
+                android:layout_weight="1"
+                android:text="10 m/s"/>
+
+            <TextView
+                android:id="@+id/tvWaveAm"
+                style="@style/Forecast.Cell"
+                android:layout_weight="1"
+                android:text="1.5 m"/>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTideTimeAm"
+                    android:text="03:18"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_wave" />
+
+                    <TextView
+                        android:id="@+id/tvTideLevelAm"
+                        android:layout_marginStart="4dp"
+                        android:text="0.8 m"
+                        android:textSize="11sp"
+                        android:textColor="@color/text_secondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:dividerColor="@color/divider_soft" />
+
+        <!-- 오후 Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_row_surface_alt"
+            android:padding="@dimen/space_8">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipPm"
+                style="@style/Chip.Time"
+                android:layout_weight="0.01"
+                android:layout_width="80dp"
+                app:chipBackgroundColor="#D6EEFF"
+                app:chipStartPadding="1dp"
+                app:chipEndPadding="1dp"
+                android:text="오후"
+                android:textSize="8sp"
+                app:chipIcon="@drawable/ic_rainy" />
+
+            <TextView
+                android:id="@+id/tvWindDirPm"
+                style="@style/Forecast.Cell"
+                android:layout_weight="1"
+                android:text="NW"/>
+
+            <TextView
+                android:id="@+id/tvWindSpeedPm"
+                style="@style/Forecast.Cell"
+                android:layout_weight="1"
+                android:text="8 m/s"/>
+
+            <TextView
+                android:id="@+id/tvWavePm"
+                style="@style/Forecast.Cell"
+                android:layout_weight="1"
+                android:text="1.2 m"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTideTimePm"
+                    android:text="23:18"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_wave2" />
+
+                    <TextView
+                        android:id="@+id/tvTideLevelPm"
+                        android:layout_marginStart="4dp"
+                        android:text="0.9 m"
+                        android:textSize="11sp"
+                        android:textColor="@color/text_secondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

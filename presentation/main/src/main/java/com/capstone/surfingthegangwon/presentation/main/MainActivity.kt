@@ -56,7 +56,8 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val inWrite = destination.isIn(navi.id.together_nav_graph)
             val isTogether = destination.id == com.capstone.surfingthegangwon.core.navigation.R.id.together    // 작성 첫 화면만 예외로 보이기
-            binding.bottomNavigationView.isGone = inWrite && !isTogether
+            val isMapFragment = destination.id == com.capstone.surfingthegangwon.core.navigation.R.id.mapFragment
+            binding.bottomNavigationView.isGone = (inWrite && !isTogether) || isMapFragment
         }
     }
 

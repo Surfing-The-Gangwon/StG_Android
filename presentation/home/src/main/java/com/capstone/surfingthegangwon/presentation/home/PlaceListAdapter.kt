@@ -16,12 +16,18 @@ class PlaceListAdapter: ListAdapter<PlaceMarker, PlaceListAdapter.PlaceViewHolde
             tvPlaceName.text = place.name
             tvPlaceAddress.text = "강원특별자치도 양양시 양양군 70 죽도해변"
             tvPlacePhone.text = "033-253-9999"
+            tvCategory.text = when (place.category) {
+                Category.SURF_SHOP   -> "서핑샵"
+                Category.SURF_SCHOOL -> "서핑스쿨"
+                Category.TOURIST     -> "관광지"
+                else                 -> "기타"
+            }
 
             imageThumbnail.setImageResource(
                 when (place.category) {
-                    Category.SURF_SHOP   -> R.drawable.beach_image_1
-                    Category.SURF_SCHOOL -> R.drawable.beach_image_2
-                    Category.TOURIST     -> R.drawable.beach_image_1
+                    Category.SURF_SHOP   -> R.drawable.ic_shop
+                    Category.SURF_SCHOOL -> R.drawable.ic_school
+                    Category.TOURIST     -> R.drawable.ic_tour
                     else                 -> R.drawable.beach_image_1
                 }
             )
