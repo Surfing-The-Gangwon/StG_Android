@@ -52,15 +52,13 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // switchActivityToMain() // 임시로 자동 로그인 처리
-
         setTvLogoAsGradient()
         setClickKakaoLoginBtn()
     }
 
     private fun setClickKakaoLoginBtn() {
         binding.kakaoLoginBtn.setOnClickListener {
-            switchActivityToMain()
+            loginWithKakao()
         }
     }
 
