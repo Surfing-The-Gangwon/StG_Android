@@ -25,12 +25,17 @@ android {
 //        buildConfigField("String", "KAKAO_REST_API_KEY", "\"${getApiKey("KAKAO_REST_API_KEY")}\"")
 //        buildConfigField("String", "KAKAO_NATIVE_APP_KEY", "\"${getApiKey("KAKAO_NATIVE_APP_KEY")}\"")
 
-        manifestPlaceholders["OAUTH_SCHEME"] = getApiKey("OAUTH_SCHEME")
-        manifestPlaceholders["OAUTH_HOST"] = getApiKey("OAUTH_HOST")
-        manifestPlaceholders["OAUTH_PATH"] = getApiKey("OAUTH_PATH")
+        buildConfigField("String", "KAKAO_REST_API_KEY", "\"${getApiKey("KAKAO_REST_API_KEY")}\"")
+        buildConfigField("String", "KAKAO_API_KEY", "\"${getApiKey("KAKAO_API_KEY")}\"")
+
+        manifestPlaceholders["SERVICE_BASE_URL"] = getApiKey("SERVICE_BASE_URL")
         manifestPlaceholders["KAKAO_NATIVE_APP_KEY"] = getApiKey("KAKAO_NATIVE_APP_KEY")
+        buildConfigField("String", "KAKAO_NATIVE_APP_KEY", "\"${getApiKey("KAKAO_NATIVE_APP_KEY")}\"")
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -50,9 +55,25 @@ android {
 }
 
 dependencies {
+    implementation(project(":presentation:main"))
+    implementation(project(":presentation:home"))
+    implementation(project(":presentation:together"))
+    implementation(project(":domain:home"))
+    implementation(project(":domain:together"))
+    implementation(project(":data:home"))
+    implementation(project(":data:together"))
+    implementation(project(":data:sessionWriting"))
+    implementation(project(":core:navigation"))
+    implementation(project(":core:resource"))
+    implementation(project(":core:ui"))
     implementation(project(":presentation:login"))
+    implementation(project(":presentation:guideline"))
+
     implementation(libs.hilt)
+    implementation(libs.kakao.sdk.all)
     kapt(libs.hilt.compiler)
+    implementation(libs.kakao.sdk.all)
+    implementation(libs.kakao.map)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

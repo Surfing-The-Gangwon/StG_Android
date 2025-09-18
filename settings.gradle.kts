@@ -16,7 +16,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url = java.net.URI("https://devrepo.kakao.com/nexus/content/groups/public/") }
+        maven { url = java.net.URI("https://devrepo.kakao.com/nexus/content/groups/public/")    }
+        maven { url = java.net.URI("https://devrepo.kakao.com/nexus/repository/kakaomap-releases/") }
     }
 }
 
@@ -30,6 +31,8 @@ include(":core:resource")
 include(":core:navigation")
 include(":presentation:home")
 include(":core:ui")
+include(":data:home")
+include(":domain:home")
 include(":presentation:sessionReading")
 include(":presentation:sessionWriting")
 include(":presentation:login")
@@ -38,7 +41,15 @@ include(":core:util")
 include(":core:retrofit")
 include(":data:login")
 include(":domain:login")
+include(":domain:login")
 include(":core:auth")
 include(":presentation:sessionStatus")
-include(":domain:sessionState")
 include(":core:model")
+include(":data:sessionStatus")
+include(":domain:sessionStatus")
+include(":presentation:guideline")
+include(":data:sessionWriting")
+include(":data:city")
+include(":domain:city")
+include(":data:user")
+include(":data:sessionReading")

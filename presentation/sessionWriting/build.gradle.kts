@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.navigation.safe.args)
+    alias(libs.plugins.hilt)
+    kotlin("kapt")
 }
 
 android {
@@ -24,6 +26,9 @@ android {
             )
         }
     }
+    buildFeatures {
+        viewBinding = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -40,7 +45,12 @@ dependencies {
     implementation(project(":core:resource"))
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
+    implementation(project(":data:sessionWriting"))
 
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.fragment.ktx)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

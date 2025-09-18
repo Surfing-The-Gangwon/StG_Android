@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -28,6 +29,20 @@ android {
             "SERVICE_BASE_URL",
             "\"${localProperties.getProperty("SERVICE_BASE_URL")}\""
         )
+        buildConfigField(
+            "String",
+            "TOUR_BASE_URL",
+            "\"${localProperties.getProperty("TOUR_BASE_URL")}\""
+        )
+        buildConfigField(
+            "String",
+            "TOUR_API_KEY",
+            "\"${localProperties.getProperty("TOUR_API_KEY")}\""
+        )
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
@@ -52,12 +67,15 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:auth"))
 
     implementation(libs.retrofit)
     implementation(libs.gson)
     implementation(libs.retrofit.converter)
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
+    implementation(platform(libs.okhttpBom))
+    implementation(libs.bundles.okhttpAll)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

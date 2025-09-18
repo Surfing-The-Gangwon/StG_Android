@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt)
+    kotlin("kapt")
 }
 
 android {
@@ -38,6 +40,16 @@ android {
 dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:ui"))
+    implementation(project(":domain:home"))
+    implementation(project(":data:home"))
+    implementation(libs.lottie)
+    implementation(libs.recyclerview)
+    implementation(libs.glide)
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
+    kapt(libs.glide.compiler)
+    implementation(libs.kakao.sdk.all)
+    implementation(libs.kakao.map)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

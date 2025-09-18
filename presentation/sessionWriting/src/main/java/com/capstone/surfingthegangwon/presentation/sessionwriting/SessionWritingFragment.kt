@@ -9,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.surfingthegangwon.presentation.sessionwriting.databinding.FragmentSessionWritingBinding
 
 class SessionWritingFragment : Fragment() {
     private lateinit var binding: FragmentSessionWritingBinding
+    private val viewModel: SessionWritingViewModel by viewModels()
 
     private lateinit var regionAdapter: RegionAdapter
     private lateinit var beachAdapter: BeachAdapter

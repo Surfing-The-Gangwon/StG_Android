@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_surface">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/bg_surface"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- 헤더 -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:title="해양 예보"
+            app:titleCentered="true"
+            app:subtitleCentered="true"
+            style="@style/Widget.Toolbar.Flat" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:dividerColor="@color/divider_soft" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/contentScroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:padding="@dimen/space_16"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:dividerPadding="@dimen/space_8">
+
+                <!-- DAY 1 -->
+                <include
+                    layout="@layout/item_forecast_day"
+                    android:id="@+id/day1"
+                    android:tag="2025-08-19" />
+
+                <!-- DAY 2 -->
+                <include
+                    layout="@layout/item_forecast_day"
+                    android:id="@+id/day2"
+                    android:tag="2025-08-20" />
+
+                <!-- DAY 3 -->
+                <include
+                    layout="@layout/item_forecast_day"
+                    android:id="@+id/day3"
+                    android:tag="2025-08-21" />
+
+                <!-- DAY 4 -->
+                <include
+                    layout="@layout/item_forecast_day"
+                    android:id="@+id/day4"
+                    android:tag="2025-08-22" />
+
+                <!-- DAY 5 -->
+                <include
+                    layout="@layout/item_forecast_day"
+                    android:id="@+id/day5"
+                    android:tag="2025-08-23" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieLoading"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        app:lottie_rawRes="@raw/loading_surf"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="true"
+        android:visibility="gone"/>
+
+</FrameLayout>

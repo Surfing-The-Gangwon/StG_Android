@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="testRunner" value="CHOOSE_PER_TEST" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
+        <option name="gradleJvm" value="jbr-21" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -20,13 +19,22 @@
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/core/util" />
             <option value="$PROJECT_DIR$/data" />
+            <option value="$PROJECT_DIR$/data/city" />
+            <option value="$PROJECT_DIR$/data/home" />
             <option value="$PROJECT_DIR$/data/login" />
+            <option value="$PROJECT_DIR$/data/sessionReading" />
+            <option value="$PROJECT_DIR$/data/sessionStatus" />
+            <option value="$PROJECT_DIR$/data/sessionWriting" />
             <option value="$PROJECT_DIR$/data/together" />
+            <option value="$PROJECT_DIR$/data/user" />
             <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/domain/city" />
+            <option value="$PROJECT_DIR$/domain/home" />
             <option value="$PROJECT_DIR$/domain/login" />
-            <option value="$PROJECT_DIR$/domain/sessionState" />
+            <option value="$PROJECT_DIR$/domain/sessionStatus" />
             <option value="$PROJECT_DIR$/domain/together" />
             <option value="$PROJECT_DIR$/presentation" />
+            <option value="$PROJECT_DIR$/presentation/guideline" />
             <option value="$PROJECT_DIR$/presentation/home" />
             <option value="$PROJECT_DIR$/presentation/login" />
             <option value="$PROJECT_DIR$/presentation/main" />
