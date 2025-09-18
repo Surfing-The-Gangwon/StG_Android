@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.surfingthegangwon.presentation.sessionstatus.databinding.FragmentSessionStatusBinding
@@ -18,6 +18,7 @@ class SessionStatusFragment : Fragment() {
     private val args: SessionStatusFragmentArgs by navArgs()
 
     private lateinit var sessionAdapter: SessionAdapter
+    private var sessionState = ""
     private val sessionViewModel: SessionStatusViewModel by viewModels()
 
     override fun onCreateView(
@@ -32,7 +33,13 @@ class SessionStatusFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val status = args.status
+        sessionState = status
         initUI(status)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initUI(sessionState)
     }
 
     private fun initUI(status: String) {
@@ -73,7 +80,11 @@ class SessionStatusFragment : Fragment() {
 
     /** 세션 RecyclerView 설정 */
     private fun setupSessionRecyclerView() {
-        sessionAdapter = SessionAdapter()
+        sessionAdapter = SessionAdapter { session ->
+            val action =
+                SessionStatusFragmentDirections.actionSessionStatuseToSessionReading(session)
+            findNavController().navigate(action)
+        }
         binding.sessionRcv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = sessionAdapter

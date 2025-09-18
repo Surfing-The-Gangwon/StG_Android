@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.navigation.safe.args)
+    alias(libs.plugins.hilt)
+    kotlin("kapt")
 }
 
 android {
@@ -40,11 +42,18 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
     implementation(project(":core:resource"))
-    implementation(project(":domain:together"))
-
-    // 더미데이터 의존성 -> api 구현 시 삭제
     implementation(project(":core:model"))
+    implementation(project(":core:util"))
+    implementation(project(":domain:together"))
+    implementation(project(":data:together"))
+    implementation(project(":data:city"))
+    implementation(project(":domain:city"))
 
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)

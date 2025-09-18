@@ -20,6 +20,12 @@ data class WrittenPostResItem(
     val maxCount: Int,
     @SerialName("meetingTime")
     val meetingTime: String,
+    @SerialName("city")
+    val city: String,
+    @SerialName("seashore")
+    val seashore: String,
+    @SerialName("postAction")
+    val postAction: String,
     @SerialName("phone")
     val phone: String,
     @SerialName("state")

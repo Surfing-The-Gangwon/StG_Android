@@ -16,6 +16,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RetrofitModule {
+
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class KakaoApi
@@ -36,15 +37,28 @@ object RetrofitModule {
 
     @Provides
     @Singleton
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+        val logger = HttpLoggingInterceptor { msg -> android.util.Log.d("OkHttp", msg) }
+        logger.level = when {
+            BuildConfig.DEBUG -> HttpLoggingInterceptor.Level.HEADERS // or BASIC
+            else -> HttpLoggingInterceptor.Level.NONE
+        }
+        return logger
+    }
+
+    @Provides
+    @Singleton
     @ServiceApi
-    fun provideServiceOkHttpClient(authHeaderInterceptor: AuthHeaderInterceptor): OkHttpClient {
+    fun provideServiceOkHttpClient(
+        authHeaderInterceptor: AuthHeaderInterceptor,
+        logging: HttpLoggingInterceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder().connectTimeout(30, TimeUnit.SECONDS) // 연결 타임아웃 (기본 10초)
             .readTimeout(30, TimeUnit.SECONDS)    // 응답 타임아웃 (기본 10초)
             .writeTimeout(30, TimeUnit.SECONDS)   // 업로드 타임아웃 (파일 전송에 중요)build()
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
-            .addInterceptor(authHeaderInterceptor) // 전역 추가 (마커가 있을 때만 동작)
+            .retryOnConnectionFailure(true)
+            .addInterceptor(authHeaderInterceptor)
+            .addInterceptor(logging)
             .build()
     }
 

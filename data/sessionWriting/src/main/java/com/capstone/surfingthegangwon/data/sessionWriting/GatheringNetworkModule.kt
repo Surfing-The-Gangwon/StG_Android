@@ -1,5 +1,6 @@
 package com.capstone.surfingthegangwon.data.sessionWriting
 
+import com.capstone.surfingthegangwon.core.retrofit.RetrofitModule
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +14,8 @@ object GatheringNetworkModule {
 
     @Provides
     @Singleton
-    fun provideGatheringService(retrofit: Retrofit): GatheringService =
+    fun provideGatheringService(
+        @RetrofitModule.ServiceApi retrofit: Retrofit
+    ): GatheringService =
         retrofit.create(GatheringService::class.java)
 }

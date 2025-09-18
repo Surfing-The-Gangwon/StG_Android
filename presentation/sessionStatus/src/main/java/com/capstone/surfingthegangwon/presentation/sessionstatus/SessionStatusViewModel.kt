@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.capstone.surfingthegangwon.core.model.SessionItem
 import com.capstone.surfingthegangwon.data.sessionstatus.mapper.toSessionItems
 import com.capstone.surfingthegangwon.data.sessionstatus.repoImpl.PostRepositoryImpl
-import com.capstone.surfingthegangwon.domain.sessionstatus.SessionItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,7 +24,7 @@ class SessionStatusViewModel @Inject constructor(
         repo.getWrittenPosts()
             .onSuccess { posts -> _sessions.value = posts.toSessionItems() }
             .onFailure { e ->
-                Log.e(TAG, "실패", e)
+                Log.e(TAG, "작성 모집글 불러오기 실패", e)
                 _sessions.value = emptyList() // 에러 처리
             }
     }
@@ -33,7 +33,7 @@ class SessionStatusViewModel @Inject constructor(
         repo.getReservedPosts()
             .onSuccess { posts -> _sessions.value = posts.toSessionItems() }
             .onFailure { e ->
-                Log.e(TAG, "실패", e)
+                Log.e(TAG, "예약 모집글 불러오기 실패", e)
                 _sessions.value = emptyList() // 에러 처리
             }
     }
