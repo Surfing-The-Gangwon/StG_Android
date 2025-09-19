@@ -94,11 +94,11 @@
          <a href="https://github.com/arieum"><B>Android</B></a>
      </td>
      <td>
-         <a href="https://github.com/arieum">
-         <img src="https://github.com/arieum.png" style="max-width: 100px">
+         <a href="https://github.com/hyeseon-cpu">
+         <img src="https://github.com/hyeseon-cpu.png" style="max-width: 100px">
          </a>
          <br>
-         <a href="https://github.com/arieum"><B>Design</B></a>
+         <a href="https://github.com/hyeseon-cpu"><B>Design</B></a>
      </td>
  </tr>
 </table>
