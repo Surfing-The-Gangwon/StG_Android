@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.capstone.surfingthegangwon.presentation.sessionwriting.databinding.ItemRcvTvBinding
 
 class BeachAdapter(
-    private val items: List<String>,
+    items: List<String> = emptyList(),
     private val onSelected: ((String) -> Unit)? = null
 ) :
     RecyclerView.Adapter<BeachAdapter.ViewHolder>() {
 
-    // 현재 선택된 항목 위치
-    private var selectedPosition = 0
+    private var data: List<String> = items
+    private var selectedPosition = 0     // 현재 선택된 항목 위치
 
     companion object {
         private const val PAYLOAD_CHECKED = "payload_checked"
@@ -24,7 +24,7 @@ class BeachAdapter(
 
         fun bind(position: Int) {
             val tv = binding.textView
-            tv.text = items[position]
+            tv.text = data[position]
             tv.isSelected = (position == selectedPosition)
             tv.refreshDrawableState()
             setClick(tv)
@@ -63,7 +63,7 @@ class BeachAdapter(
                 if (old != RecyclerView.NO_POSITION) notifyItemChanged(old, PAYLOAD_CHECKED)
                 notifyItemChanged(pos, PAYLOAD_CHECKED)
 
-                onSelected?.invoke(items[pos])
+                onSelected?.invoke(data[pos])
             }
         }
     }
@@ -73,7 +73,7 @@ class BeachAdapter(
         return ViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(position)
@@ -92,6 +92,15 @@ class BeachAdapter(
         }
     }
 
+    fun setItems(newItems: List<String>, keepSelection: Boolean = false, triggerCallback: Boolean = true) {
+        data = newItems
+        selectedPosition = if (keepSelection) clamp(selectedPosition, data.size) else 0
+        notifyDataSetChanged()
+        if (triggerCallback && data.isNotEmpty() && selectedPosition != RecyclerView.NO_POSITION) {
+            onSelected?.invoke(data[selectedPosition])
+        }
+    }
+
     /**
      * 외부에서 현재 선택 포지션을 얻고 싶을 때 사용
      */
@@ -101,7 +110,7 @@ class BeachAdapter(
      * 외부에서 현재 선택 값(문자열)을 얻고 싶을 때 사용
      */
     fun getSelectedValue(): String? =
-        selectedPosition.takeIf { it in items.indices }?.let { items[it] }
+        selectedPosition.takeIf { it in data.indices }?.let { data[it] }
 
     /**
      * 외부에서 선택 포지션을 설정하고 싶을 때 사용
@@ -111,7 +120,7 @@ class BeachAdapter(
      */
     fun setSelectedPosition(newPos: Int, triggerCallback: Boolean = false) {
         // 인덱스 범위 밖이거나 기존 값과 동일하면 무시
-        if (newPos !in items.indices || newPos == selectedPosition) return
+        if (newPos !in data.indices || newPos == selectedPosition) return
 
         val old = selectedPosition
         selectedPosition = newPos
@@ -120,6 +129,6 @@ class BeachAdapter(
         if (old != RecyclerView.NO_POSITION) notifyItemChanged(old, PAYLOAD_CHECKED)
         notifyItemChanged(newPos, PAYLOAD_CHECKED)
 
-        if (triggerCallback) onSelected?.invoke(items[newPos])
+        if (triggerCallback) onSelected?.invoke(data[newPos])
     }
 }

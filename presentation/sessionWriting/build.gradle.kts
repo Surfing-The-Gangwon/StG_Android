@@ -46,6 +46,8 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
     implementation(project(":data:sessionWriting"))
+    implementation(project(":data:city"))
+    implementation(project(":domain:city"))
 
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
